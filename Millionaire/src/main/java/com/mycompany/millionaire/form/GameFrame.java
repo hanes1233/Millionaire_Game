@@ -193,8 +193,7 @@ public class GameFrame {
         });
         
         
-        
-        
+          
         if(!this.difficulty.equals("Hard")) {
             this.hints.setOptionA(this.optionA);
             this.hints.setOptionB(this.optionB);

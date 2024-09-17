@@ -170,7 +170,6 @@ public class Hint {
                         .removeMouseListeners()
                         .get();
                 }
-                
             }
         });
     }
