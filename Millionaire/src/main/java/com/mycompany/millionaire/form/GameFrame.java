@@ -174,15 +174,7 @@ public class GameFrame {
         
         optionC.addActionListener((ActionEvent e) -> {
                optionC.setBackground(new Color(51,255,51));
-               this.correctAnswer = quizService.isAnswerCorrect(options[2], currentAnswer);
-             /*  new Thread(() -> {
-                    optionC.setBackground(new Color(51,255,51));
-                    this.gamePanel = panelConfig.removeElements(gamePanel, optionC);
-                    this.gamePanel.add(optionC);
-                    this.gamePanel.revalidate();
-                    this.gamePanel.repaint();
-                }).start(); */
-               
+               this.correctAnswer = quizService.isAnswerCorrect(options[2], currentAnswer);         
                startQuiz();
         }); 
         
@@ -271,7 +263,6 @@ public class GameFrame {
                 }
                 this.gamePanel.removeAll();
                 this.gamePanel.repaint();
-                //this.optionC.setBackground(new Color(51,255,51));
             }
             this.currentQuestion = this.questions.poll();
             this.questionIndex++;
