@@ -54,6 +54,8 @@ public final class WelcomePage {
      * methods, also initializing service to work with configuration of components
      * @throws IOException - could be thrown because 'createForm' 
      * method works with image
+     * @throws javax.sound.sampled.LineUnavailableException
+     * @throws javax.sound.sampled.UnsupportedAudioFileException
      */
     public WelcomePage() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.panelConfiguration = new PanelConfiguration();
@@ -64,7 +66,7 @@ public final class WelcomePage {
     
     /**
      * Initializing buttons, event listeners, hover handlers 
-     * and append it to panel
+     * and add it on panel
      * @throws IOException because we work with AudioManager class, which
      * works with files and audio player
      */

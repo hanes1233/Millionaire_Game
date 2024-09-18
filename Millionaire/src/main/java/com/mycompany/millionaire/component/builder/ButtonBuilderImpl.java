@@ -95,8 +95,10 @@ public class ButtonBuilderImpl implements ButtonBuilder{
         this.button.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // Change color to orange on hover
                 button.setBackground(new Color(255,153,51));
                 try {
+                    // Set up hover sound
                     AudioManager.handleAudioEvent("hover");
                 } catch (UnsupportedAudioFileException | 
                          IOException | 
@@ -106,6 +108,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
+                // Changle color back
                 button.setBackground(new Color(0, 38, 75));
             }
         });
@@ -118,7 +121,9 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             @Override
             public void mousePressed(MouseEvent e) {
             try {
+                // Stop playing sound on click
                 AudioManager.muteIntro();
+                // Play click sound
                 AudioManager.handleAudioEvent("click");
             }catch (UnsupportedAudioFileException |
                     IOException |

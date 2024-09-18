@@ -102,6 +102,7 @@ public class ComboBoxBuilderImpl implements ComboBoxBuilder{
         this.comboBox.addItemListener((ItemEvent event) -> {
             if ((event.getStateChange() == ItemEvent.SELECTED)) {
                 try {
+                    // Play hover sound
                     AudioManager.handleAudioEvent("hover");
                 } catch (UnsupportedAudioFileException |
                         IOException |

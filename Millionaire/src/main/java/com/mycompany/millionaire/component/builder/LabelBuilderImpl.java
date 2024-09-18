@@ -101,6 +101,7 @@ public class LabelBuilderImpl implements LabelBuilder {
         return this;
     }
     
+    // Change image on hover, using image's name from parameter
     @Override
     public LabelBuilderImpl hoverImage(String path) {
         Icon currentIcon = this.label.getIcon();
@@ -114,6 +115,7 @@ public class LabelBuilderImpl implements LabelBuilder {
                 image(ImageManager.getImageIcon(path));
                 bounds(x, y-2, width, height);
                 try {
+                    // Play sound on hover
                     AudioManager.handleAudioEvent("hover");
                 } catch (UnsupportedAudioFileException | 
                          IOException | 
@@ -123,6 +125,7 @@ public class LabelBuilderImpl implements LabelBuilder {
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
+                // Set back previous image
                 label.setIcon(currentIcon);
                 bounds(x, y, width, height);
             }
@@ -130,6 +133,7 @@ public class LabelBuilderImpl implements LabelBuilder {
         return this;
     }
     
+    // Remove all mouse listeners from JLabel
     @Override
     public LabelBuilderImpl removeMouseListeners() {
         MouseListener[] listeners = this.label.getMouseListeners();

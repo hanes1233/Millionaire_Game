@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.media;
 
+//region imports
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -9,21 +10,30 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import lombok.NoArgsConstructor;
+//endregion
 
 /**
  *
  * @author pavel
+ * Class for handling audio
  */
+@NoArgsConstructor
 public class AudioManager {
     
     private static AudioInputStream introStream;
     private static Clip soundToLoop;
-    private static Clip mouseEvent;
+    private static Clip mouseEvent; 
     
-    
-    public AudioManager() {}
-    
-    
+    /**
+     * Loop sound
+     * @param sound - name of sound to insert into path
+     * @throws MalformedURLException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws NullPointerException
+     * @throws IOException 
+     */
     public static void loopSound(String sound) throws 
             MalformedURLException, 
             LineUnavailableException, 
@@ -38,29 +48,48 @@ public class AudioManager {
             soundToLoop.loop(Clip.LOOP_CONTINUOUSLY); 
     }
     
-    
-    public static void handleAudioEvent(String audioName) throws 
+    /**
+     * Play sound
+     * @param sound - name of sound to insert into path
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException 
+     */
+    public static void handleAudioEvent(String sound) throws 
             UnsupportedAudioFileException, 
-            IOException, 
-            IOException, 
+            IOException,  
             LineUnavailableException {
             introStream = 
-                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/"+ audioName +".wav").getAbsoluteFile());
+                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/"+ sound +".wav").getAbsoluteFile());
             mouseEvent =  AudioSystem.getClip();
             mouseEvent.open(introStream);
             mouseEvent.start(); 
     }
     
-    
+    /**
+     * Stop currently playing sound loop
+     */
     public static void muteIntro() {
         soundToLoop.stop();
     }
     
-    
+    /**
+     * Check if sound loop currently playing
+     * @return true or false
+     */
     public static boolean isIntroActive() {
         return soundToLoop.isActive();
     }
     
+    /**
+     * Play main theme sounds depending on provided index
+     * @param index displays on what question player is now
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws NullPointerException
+     * @throws IOException
+     * @throws MalformedURLException 
+     */
     public static void handleMainTheme(int index) throws 
             LineUnavailableException, 
             UnsupportedAudioFileException, 
@@ -90,6 +119,13 @@ public class AudioManager {
         }
     }
     
+    /**
+     * Provides following audio effects, reacting on user's choose
+     * @param correct - displays is user's choice is true
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException 
+     */
     public static void soundReaction(boolean correct) throws 
             UnsupportedAudioFileException, 
             IOException, 

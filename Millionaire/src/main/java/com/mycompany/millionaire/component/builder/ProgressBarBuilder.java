@@ -8,37 +8,90 @@ import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 
 /**
- *
+ * Builder for JProgressBar component, inherits main methods from Builder Interface
  * @author pavel
  */
 public interface ProgressBarBuilder extends Builder {
     
+    /**
+     * Set text on JProgressBar
+     * @param text - get text from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder text(String text);
     
+    /**
+     * Set background color on JProgressBar
+     * @param color - get color from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder background(Color color);
     
+    /**
+     * Set foreground color on JProgressBar
+     * @param color - get color from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder foreground(Color color);
     
+    /**
+     * Set bounds of JProgressBar
+     * @param x position on panel
+     * @param y position on panel
+     * @param width of JProgressBar
+     * @param height of JProgressBar
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder bounds(int x, int y, int width, int height);
     
+    /**
+     * Set font on text of JProgressBar
+     * @param font - get font from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder font(Font font);
     
+    /**
+     * Set size of JProgressBar
+     * @param d - get Dimension from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder size(Dimension d);
     
+    /**
+     * Set size of JProgressBar
+     * @param width - get width from parameter
+     * @param height - get height from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder size(int width, int height);
     
+    /**
+     * Set borders of JProgressBar
+     * @param border - get border from parameter
+     * @return this object, allowing method chaining
+     */
     @Override
     ProgressBarBuilder border(Border border);
     
+    /**
+     * Set value of JProgressBar
+     * @param value - get value from parameter
+     * @return this object, allowing method chaining
+     */
     ProgressBarBuilder value(int value);
     
+    /**
+     * Get JProgressBar after being set up
+     * @return JProgressBar
+     */
     @Override
     JProgressBar get(); 
     

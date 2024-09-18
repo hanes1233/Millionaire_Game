@@ -36,7 +36,7 @@ public class FormFactory {
         this.form.setLocationRelativeTo(null);
         this.form.setResizable(false);
         this.form.setTitle("Millionaire");
-        this.form.setIconImage(ImageManager.getImage(ImageManager.getImageIcon("icon")));
+        this.form.setIconImage(ImageManager.getImage());
         this.form.setVisible(true); 
         this.form.setDefaultCloseOperation(EXIT_ON_CLOSE);
         return form;
@@ -80,7 +80,7 @@ public class FormFactory {
         form.setResizable(false);
         form.setTitle("Millionaire");
         component.initializeFrameCopy(form);
-        form.setIconImage(ImageManager.getImage(ImageManager.getImageIcon("icon")));
+        form.setIconImage(ImageManager.getImage());
         if(loopIntro) {
             AudioManager.loopSound("intro");
         }

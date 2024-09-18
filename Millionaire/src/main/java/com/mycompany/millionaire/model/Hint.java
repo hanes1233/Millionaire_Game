@@ -14,13 +14,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -282,6 +279,7 @@ public class Hint {
         this.panel.repaint();
     }
      
+     
      private void loadingProgress(int targetA, int targetB, int targetC, int targetD) {
          new Thread(() -> {
             int i = 0;
@@ -291,7 +289,7 @@ public class Hint {
                    i++;
                }
             }catch(InterruptedException e) {
-               System.out.println("Error catched in performAudienceVoting method : " + e);
+               System.out.println("Error catched in loadingProgress method : " + e);
             }
             }).start();
      }
