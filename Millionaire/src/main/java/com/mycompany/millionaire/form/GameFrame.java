@@ -12,7 +12,7 @@ import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.media.ImageManager;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
-import com.mycompany.millionaire.model.Hint;
+import com.mycompany.millionaire.model.Hints.Hint;
 import com.mycompany.millionaire.model.QuizService;
 import java.awt.Color;
 import java.awt.Font;
@@ -86,6 +86,7 @@ public class GameFrame {
         this.language = language;
         this.subject = subject;
         this.difficulty = difficulty;
+        this.hints.setLanguage(this.language);
         try{
             UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
         }catch (ClassNotFoundException |

@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.component;
 
+//region imports
 import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.form.FormFactory;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
@@ -20,6 +21,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
+//endregion
 
 /**
  *

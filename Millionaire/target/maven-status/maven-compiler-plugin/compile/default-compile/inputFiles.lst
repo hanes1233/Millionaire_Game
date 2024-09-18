@@ -1,7 +1,10 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/GameFrame.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ButtonBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/media/ImageManager.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/AudienceVote.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/FiftyToFifty.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/constant/Subject.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/data/FriendAnswer.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ListBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/constant/Difficulty.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/AboutAuthor.java
@@ -13,6 +16,7 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/ComponentService.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/LabelBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/Builder.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/FriendCall.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/ComponentServiceImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ListBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextAreaBuilderImpl.java
@@ -25,7 +29,7 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/FormFactory.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/data/ProgressList.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/SplashScreen.java
-/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hint.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/Hint.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/constant/Language.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/PanelConfiguration.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextAreaBuilder.java

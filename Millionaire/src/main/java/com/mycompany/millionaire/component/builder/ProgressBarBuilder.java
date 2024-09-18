@@ -12,7 +12,7 @@ import javax.swing.border.Border;
  * @author pavel
  */
 public interface ProgressBarBuilder extends Builder {
-    
+   
     /**
      * Set text on JProgressBar
      * @param text - get text from parameter
