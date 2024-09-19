@@ -4,6 +4,7 @@ package com.mycompany.millionaire.model.Hints;
 import com.mycompany.millionaire.component.PanelConfiguration;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ListBuilderImpl;
+import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.data.FriendAnswer;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
@@ -32,9 +33,9 @@ public class FriendCall {
     
     private final String language;
     
-    public FriendCall(JPanel panel, String language) {
-        this.panel = panel;
-        this.language = language;
+    public FriendCall() {
+        this.panel = CurrentQuestion.getPanel();
+        this.language = CurrentQuestion.getLanguage();
         this.service = new ComponentServiceImpl();
         this.panelConfig = new PanelConfiguration();
         this.friendAnswer = new FriendAnswer();
@@ -78,7 +79,6 @@ public class FriendCall {
                  .bounds(30, 90, 250, 85)
                  .model(friends)
                  .get();
-        // this.panel.add(friendList);
          this.panel = panelConfig.addOnPanel(
                  panel, 
                  friendList
@@ -87,7 +87,6 @@ public class FriendCall {
          this.friendList.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent evt) {
-               // JList list = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
                     if(language.equals("English")) {
                         System.out.println(friendAnswer.getRandomEngAnswer());

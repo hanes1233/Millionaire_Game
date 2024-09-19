@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class PanelConfiguration {
     
-    private JPanel panel;
+    private static JPanel panel;
     private final ComponentServiceImpl service;
     private JButton backButton;
     private final FormFactory factory;
@@ -41,16 +41,16 @@ public class PanelConfiguration {
     }
     
     
-    public JPanel getPanel() throws IOException {
+    public static JPanel getPanel() throws IOException {
         Image backgroundImage = ImageIO.read(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/images/wallpaper.jpg"));
-        this.panel = new JPanel(new BorderLayout()) {         
+        panel = new JPanel(new BorderLayout()) {         
                     @Override 
                         public void paintComponent(Graphics g) {
                             g.drawImage(backgroundImage, 0, 0, null);
                         }
         };
-        this.panel.setLayout(null);
-        return this.panel;
+        panel.setLayout(null);
+        return panel;
     }
     
     public JPanel getPanelWithRectangle() throws IOException {

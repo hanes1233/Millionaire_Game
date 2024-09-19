@@ -43,6 +43,7 @@ com/mycompany/millionaire/component/builder/ListBuilder.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilder.class
 com/mycompany/millionaire/component/PanelConfiguration$2.class
 com/mycompany/millionaire/data/Question.class
+com/mycompany/millionaire/data/CurrentQuestion.class
 com/mycompany/millionaire/constant/Subject.class
 com/mycompany/millionaire/model/ComponentService.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$2.class

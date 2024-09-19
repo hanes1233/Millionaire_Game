@@ -4,7 +4,7 @@ package com.mycompany.millionaire.model.Hints;
 import com.mycompany.millionaire.component.PanelConfiguration;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ProgressBarBuilderImpl;
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Font;
@@ -24,7 +24,6 @@ import javax.swing.JProgressBar;
 public class AudienceVote {
     
     private JPanel panel;
-    private final Question currentQuestion;
     private final PanelConfiguration panelConfig;
     private final ComponentServiceImpl service;
     
@@ -43,15 +42,14 @@ public class AudienceVote {
     private final JButton optionC;
     private final JButton optionD;
     
-    public AudienceVote(JPanel panel, Question currentQuestion, JButton... options) {
-        this.panel = panel;
-        this.currentQuestion = currentQuestion;
+    public AudienceVote() {
+        this.panel = CurrentQuestion.getPanel();
         this.panelConfig = new PanelConfiguration();
         this.service = new ComponentServiceImpl();
-        this.optionA = options[0];
-        this.optionB = options[1];
-        this.optionC = options[2];
-        this.optionD = options[3];
+        this.optionA = CurrentQuestion.getOptionA();
+        this.optionB = CurrentQuestion.getOptionB();
+        this.optionC = CurrentQuestion.getOptionC();
+        this.optionD = CurrentQuestion.getOptionD();
         this.defineProgressBars();
     }
     
@@ -171,8 +169,8 @@ public class AudienceVote {
     
     
     public void performAudienceVoting() {
-        String currentDifficulty = currentQuestion.getDifficulty();
-        String answer = currentQuestion.getAnswer();
+        String currentDifficulty = CurrentQuestion.getDifficulty();
+        String answer = CurrentQuestion.getAnswer();
         
         int[] percentageValues = switch (currentDifficulty) {
             case "Easy" -> getPercentageValues(30);

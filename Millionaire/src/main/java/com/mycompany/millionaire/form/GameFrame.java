@@ -6,6 +6,7 @@ import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.component.builder.TextAreaBuilderImpl;
+import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.data.Database;
 import com.mycompany.millionaire.data.ProgressList;
 import com.mycompany.millionaire.data.Question;
@@ -44,7 +45,7 @@ import lombok.Data;
 @Data
 public class GameFrame {
     
-    private JTextArea question;
+    private JTextArea questionText;
     private JButton optionA;
     private JButton optionB;
     private JButton optionC;
@@ -54,6 +55,7 @@ public class GameFrame {
     
     private JFrame gameFrame;
     private JPanel gamePanel;
+    private CurrentQuestion currentQuestion;
     private final FormFactory formFactory;
     private final PanelConfiguration panelConfig;
     private final ComponentServiceImpl service;
@@ -72,7 +74,7 @@ public class GameFrame {
     private boolean winner;
     private boolean gameOver;
     private boolean correctAnswer;
-    private Question currentQuestion;  
+    //private Question question;  
     
     public GameFrame() throws  IOException {
         this.panelConfig = new PanelConfiguration();
@@ -86,7 +88,6 @@ public class GameFrame {
         this.language = language;
         this.subject = subject;
         this.difficulty = difficulty;
-        this.hints.setLanguage(this.language);
         try{
             UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
         }catch (ClassNotFoundException |
@@ -99,7 +100,7 @@ public class GameFrame {
         this.database = new Database(language);
         this.questions = database.getQuestionList();
         this.progressList = new ProgressList();
-        this.gamePanel = panelConfig.getPanel();
+        this.gamePanel = panelConfig.getPanel();      
         this.gameFrame = formFactory.createForm();
         this.gameFrame.setContentPane(gamePanel);
         this.startQuiz();
@@ -117,7 +118,7 @@ public class GameFrame {
             Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        question = new JTextArea();
+        questionText = new JTextArea();
         optionA = new JButton();
         optionB = new JButton();
         optionC = new JButton();
@@ -128,7 +129,7 @@ public class GameFrame {
         String currentAnswer = currentQuestion.getAnswer();
         
         
-        question = new TextAreaBuilderImpl(question)
+        questionText = new TextAreaBuilderImpl(questionText)
                 .formatText()
                 .text(currentQuestion.getQuestion())
                 .font(new Font("Serif", Font.ITALIC, 16))
@@ -196,11 +197,10 @@ public class GameFrame {
         
           
         if(!this.difficulty.equals("Hard")) {
-            this.hints.setOptionA(this.optionA);
-            this.hints.setOptionB(this.optionB);
-            this.hints.setOptionC(this.optionC);
-            this.hints.setOptionD(this.optionD);
-            this.hints.setCurrentQuestion(currentQuestion);
+            CurrentQuestion.setOptionA(this.optionA);
+            CurrentQuestion.setOptionB(this.optionB);
+            CurrentQuestion.setOptionC(this.optionC);
+            CurrentQuestion.setOptionD(this.optionD);
             
             if(this.difficulty.equals("Easy")) {
                 hints.addHints(gamePanel);
@@ -234,25 +234,22 @@ public class GameFrame {
                 .selectedIndex(this.progressIndex)
                 .get();
         
-        this.gamePanel = panelConfig.addOnPanel(
-            gamePanel, 
+        this.gamePanel = panelConfig.addOnPanel(gamePanel, 
             exit,
-            question, 
+            questionText, 
             optionA, 
             optionB, 
             optionC, 
             optionD,
             gameProgress
             );
-        
-        this.hints.setPanel(gamePanel);
     }
     
     private void startQuiz() {
         if(!questions.isEmpty()) {
             if(this.gamePanel.getComponents().length > 0) {
                 try {
-                    quizService.thinkingEffect(currentQuestion.getDifficulty());
+                    quizService.thinkingEffect(CurrentQuestion.getDifficulty());
                     AudioManager.soundReaction(this.correctAnswer);
                     Thread.sleep(3500);
                 } catch (InterruptedException | 
@@ -264,10 +261,13 @@ public class GameFrame {
                 this.gamePanel.removeAll();
                 this.gamePanel.repaint();
             }
-            this.currentQuestion = this.questions.poll();
+            Question question = this.questions.poll();
+            
+            this.currentQuestion = new CurrentQuestion(this.gamePanel, question, this.language);
+            
             this.questionIndex++;
             this.progressIndex--;
-            initComponents(currentQuestion);
+            initComponents(question);
         }else {
             this.winner = true;
         }

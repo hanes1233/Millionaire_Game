@@ -3,7 +3,6 @@ package com.mycompany.millionaire.model.Hints;
 
 import com.mycompany.millionaire.component.PanelConfiguration;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.media.ImageManager;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
@@ -14,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lombok.Getter;
@@ -31,16 +29,6 @@ public class Hint {
     private JLabel fiftyToFiftyHint;
     private JLabel friendCallHint;
     private JLabel audienceHelpHint;
-    
-    private String language;
-    
-    private JButton optionA;
-    private JButton optionB;
-    private JButton optionC;
-    private JButton optionD; 
-    
-    private JPanel panel;
-    private Question currentQuestion;
     
     private FiftyToFifty fiftyToFifty;
     private AudienceVote audienceVote;
@@ -79,8 +67,8 @@ public class Hint {
                     fiftyToFiftyAvailible = false;
                     try {
                         AudioManager.handleAudioEvent("50-50");
-                        fiftyToFifty = new FiftyToFifty(currentQuestion, panel);
-                        fiftyToFifty.removeWrongOptions(optionA,optionB,optionC,optionD);
+                        fiftyToFifty = new FiftyToFifty();
+                        fiftyToFifty.removeWrongOptions();
                     } catch (UnsupportedAudioFileException | 
                              IOException | 
                              LineUnavailableException ex) {
@@ -111,7 +99,7 @@ public class Hint {
                     try {
                         AudioManager.muteIntro();
                         AudioManager.handleAudioEvent("friendcall");
-                        friendCall = new FriendCall(panel, language);
+                        friendCall = new FriendCall();
                         friendCall.defineFriendList();
                     } catch (UnsupportedAudioFileException | 
                              IOException | 
@@ -139,7 +127,7 @@ public class Hint {
                 if(audienceHelpAvailible) {
                     audienceHelpAvailible = false;
                     try {
-                        audienceVote = new AudienceVote(panel,currentQuestion,optionA,optionB,optionC,optionD);
+                        audienceVote = new AudienceVote();
                         AudioManager.muteIntro();
                         AudioManager.handleAudioEvent("audience");
                         audienceVote.performAudienceVoting();

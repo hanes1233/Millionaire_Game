@@ -32,6 +32,7 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/Hint.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/constant/Language.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/PanelConfiguration.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/data/CurrentQuestion.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextAreaBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/Score.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ComboBoxBuilder.java
