@@ -12,6 +12,7 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ComboBoxBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/data/Question.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ProgressBarBuilder.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/PanelTemplate.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/WelcomePage.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/ComponentService.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/LabelBuilder.java
@@ -31,7 +32,6 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/SplashScreen.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/Hint.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/constant/Language.java
-/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/PanelConfiguration.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/data/CurrentQuestion.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextAreaBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/Score.java

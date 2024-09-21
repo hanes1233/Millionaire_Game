@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.form;
 
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import java.awt.Color;
@@ -33,7 +33,6 @@ public final class WelcomePage {
     private JFrame frame;
     private JPanel panel;
     private final ComponentServiceImpl service;
-    private final PanelConfiguration panelConfiguration;
     
     
     private JButton startGame;
@@ -58,8 +57,7 @@ public final class WelcomePage {
      * @throws javax.sound.sampled.UnsupportedAudioFileException
      */
     public WelcomePage() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-        this.panelConfiguration = new PanelConfiguration();
-        this.panel = panelConfiguration.getPanel();
+        this.panel = PanelTemplate.getPanel();
         service = new ComponentServiceImpl();
         initComponents();
     }
@@ -173,7 +171,7 @@ public final class WelcomePage {
             }
         });
         
-        this.panel = panelConfiguration.addOnPanel(
+        this.panel = service.addOnPanel(
                 panel, 
                 startGame, 
                 scores, 

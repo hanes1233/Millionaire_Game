@@ -17,7 +17,6 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -27,7 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author pavel
  */
-public class PanelConfiguration {
+public class PanelTemplate {
     
     private static JPanel panel;
     private final ComponentServiceImpl service;
@@ -35,7 +34,7 @@ public class PanelConfiguration {
     private final FormFactory factory;
     
     
-    public PanelConfiguration() {
+    public PanelTemplate() {
         this.service = new ComponentServiceImpl();
         this.factory = new FormFactory();
     }
@@ -53,9 +52,9 @@ public class PanelConfiguration {
         return panel;
     }
     
-    public JPanel getPanelWithRectangle() throws IOException {
+    public static JPanel getPanelWithRectangle() throws IOException {
         Image backgroundImage = ImageIO.read(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/images/wallpaper.jpg"));
-        this.panel = new JPanel(new BorderLayout()) {         
+        panel = new JPanel(new BorderLayout()) {         
                     @Override 
                         public void paintComponent(Graphics g) {
                             g.drawImage(backgroundImage, 0, 0, null);
@@ -64,20 +63,12 @@ public class PanelConfiguration {
                             g.drawRect(320,250,320,205);
                         }
         };
-        this.panel.setLayout(null);
-        return this.panel;
-    }
-    
-    
-    public JPanel addOnPanel(JPanel panel, JComponent... component) {
-        for (JComponent item : component) {
-            panel.add(item);
-        }
+        panel.setLayout(null);
         return panel;
     }
     
-    
-    public PanelConfiguration addBackButton(JFrame form) {
+    //REFACTOR...
+    public void addBackButton(JFrame form) {
         this.backButton = new JButton();
         this.backButton = new ButtonBuilderImpl(this.backButton)
                 .text("<")
@@ -105,14 +96,5 @@ public class PanelConfiguration {
             }
         });
         this.panel.add(this.backButton);
-        return this;
-    }
-    
-    public JPanel removeElements(JPanel panel, JComponent ... components) {
-        for(var item : components) {
-            panel.remove(item);
-        }
-        return panel;
-    }
-    
+    } 
 }

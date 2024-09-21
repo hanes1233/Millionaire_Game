@@ -11,11 +11,12 @@ com/mycompany/millionaire/form/SplashScreen$1.class
 com/mycompany/millionaire/form/NewGame.class
 com/mycompany/millionaire/model/Hints/Hint$2.class
 com/mycompany/millionaire/media/AudioManager.class
-com/mycompany/millionaire/component/PanelConfiguration.class
 com/mycompany/millionaire/model/QuizService.class
+com/mycompany/millionaire/component/PanelTemplate$2.class
 com/mycompany/millionaire/component/builder/TextAreaBuilderImpl.class
 com/mycompany/millionaire/form/AboutAuthor$2.class
 com/mycompany/millionaire/data/ProgressList.class
+com/mycompany/millionaire/component/PanelTemplate$1.class
 com/mycompany/millionaire/form/SplashScreen$2.class
 com/mycompany/millionaire/data/Database.class
 com/mycompany/millionaire/model/Hints/Hint$1.class
@@ -32,6 +33,7 @@ com/mycompany/millionaire/model/Hints/Hint.class
 com/mycompany/millionaire/component/builder/LabelBuilder.class
 com/mycompany/millionaire/form/AboutAuthor.class
 com/mycompany/millionaire/form/WelcomePage.class
+com/mycompany/millionaire/component/PanelTemplate.class
 com/mycompany/millionaire/component/builder/LabelBuilderImpl.class
 com/mycompany/millionaire/form/WelcomePage$1.class
 com/mycompany/millionaire/component/builder/Builder.class
@@ -41,14 +43,12 @@ com/mycompany/millionaire/form/SplashScreen$3$1.class
 com/mycompany/millionaire/form/FormFactory.class
 com/mycompany/millionaire/component/builder/ListBuilder.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilder.class
-com/mycompany/millionaire/component/PanelConfiguration$2.class
 com/mycompany/millionaire/data/Question.class
 com/mycompany/millionaire/data/CurrentQuestion.class
 com/mycompany/millionaire/constant/Subject.class
 com/mycompany/millionaire/model/ComponentService.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$2.class
 com/mycompany/millionaire/model/Hints/AudienceVote.class
-com/mycompany/millionaire/component/PanelConfiguration$1.class
 com/mycompany/millionaire/model/Hints/FriendCall$1.class
 com/mycompany/millionaire/media/ImageManager.class
 com/mycompany/millionaire/component/builder/TextAreaBuilder.class

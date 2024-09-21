@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.model.Hints;
 
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.media.ImageManager;
@@ -39,7 +39,7 @@ public class Hint {
     private boolean audienceHelpAvailible;
     
     private final ComponentServiceImpl service;
-    private final PanelConfiguration panelConfig;
+    private final PanelTemplate panelConfig;
    
     
     public Hint() throws  IOException {
@@ -48,7 +48,7 @@ public class Hint {
         audienceHelpHint = new JLabel();
         
         this.service = new ComponentServiceImpl();
-        this.panelConfig = new PanelConfiguration();
+        this.panelConfig = new PanelTemplate();
         
         this.fiftyToFiftyAvailible = true;
         this.friendCallAvailible = true;
@@ -100,7 +100,7 @@ public class Hint {
                         AudioManager.muteIntro();
                         AudioManager.handleAudioEvent("friendcall");
                         friendCall = new FriendCall();
-                        friendCall.defineFriendList();
+                        friendCall.performFriendCall();
                     } catch (UnsupportedAudioFileException | 
                              IOException | 
                              LineUnavailableException ex) {
@@ -147,7 +147,7 @@ public class Hint {
     }
     
     public void addHints(JPanel panel) {
-        panel = panelConfig.addOnPanel(panel, friendCallHint, fiftyToFiftyHint, audienceHelpHint);
+        panel = service.addOnPanel(panel, friendCallHint, fiftyToFiftyHint, audienceHelpHint);
         panel.repaint();
     }
     

@@ -122,6 +122,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             public void mousePressed(MouseEvent e) {
             try {
                 // Stop playing sound on click
+                AudioManager.stopAllSounds();
                 AudioManager.muteIntro();
                 // Play click sound
                 AudioManager.handleAudioEvent("click");

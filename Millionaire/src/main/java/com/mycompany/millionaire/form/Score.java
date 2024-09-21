@@ -2,7 +2,7 @@
 package com.mycompany.millionaire.form;
 
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
@@ -25,7 +25,7 @@ public class Score extends JFrame {
     private final ComponentServiceImpl service;
     private JList bestPlayers;
     private final FormFactory factory;
-    private final PanelConfiguration panelConfig;
+    private final PanelTemplate panelConfig;
     
     
     /**
@@ -35,9 +35,9 @@ public class Score extends JFrame {
      * @throws IOException because factory method 'getPanel' also works with image(icon) 
      */
     public Score() throws IOException {
-        this.panelConfig = new PanelConfiguration();
+        this.panelConfig = new PanelTemplate();
         this.factory = new FormFactory();
-        this.scorePanel = panelConfig.getPanel();
+        this.scorePanel = PanelTemplate.getPanel();
         this.service = new ComponentServiceImpl();
     }
     
@@ -73,8 +73,8 @@ public class Score extends JFrame {
                 .bounds(100, 60, service.getWidth(bestPlayers), service.getHeight(bestPlayers))
                 .get();
         
-        this.scorePanel = panelConfig
-                .addBackButton(scoreForm)
+        this.panelConfig.addBackButton(scoreForm);
+        this.scorePanel = service
                 .addOnPanel(
                 scorePanel,
                 bestPlayers,

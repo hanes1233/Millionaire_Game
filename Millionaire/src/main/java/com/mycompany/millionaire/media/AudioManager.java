@@ -5,6 +5,7 @@ package com.mycompany.millionaire.media;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.LinkedList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -24,6 +25,7 @@ public class AudioManager {
     private static AudioInputStream introStream;
     private static Clip soundToLoop;
     private static Clip mouseEvent; 
+    private static final LinkedList<Clip> soundEvents = new LinkedList<>();
     
     /**
      * Loop sound
@@ -41,7 +43,8 @@ public class AudioManager {
             NullPointerException,
             IOException {
             introStream = 
-                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/" + sound + ".wav").getAbsoluteFile()); 
+                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/" + sound + ".wav")
+                            .getAbsoluteFile()); 
             soundToLoop = AudioSystem.getClip();
             soundToLoop.open(introStream);
             soundToLoop.start();
@@ -60,10 +63,30 @@ public class AudioManager {
             IOException,  
             LineUnavailableException {
             introStream = 
-                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/"+ sound +".wav").getAbsoluteFile());
+                    AudioSystem.getAudioInputStream(new File("/home/pavel/NetBeansProjects/Millionaire/src/main/resources/audio/"+ sound +".wav")
+                            .getAbsoluteFile());
             mouseEvent =  AudioSystem.getClip();
             mouseEvent.open(introStream);
             mouseEvent.start(); 
+            soundEvents.add(mouseEvent);  
+    }
+    
+    /**
+     * Stop playing all sound streams
+     */
+    public static void stopAllSounds() {
+        for(int i = 0; i < soundEvents.size(); i++) {
+            if(soundEvents.get(i).isActive()) {
+                soundEvents.get(i).stop();
+            }
+        }
+    }
+    
+    /**
+     * Stop currently playing mouseEvent sound
+     */
+    public static void muteMouseEvent() {
+        mouseEvent.stop();
     }
     
     /**
@@ -79,6 +102,17 @@ public class AudioManager {
      */
     public static boolean isIntroActive() {
         return soundToLoop.isActive();
+    }
+    
+    /**
+     * Check if sound event currently playing
+     * @return true or false
+     */
+    public static boolean isMouseEventActive() {
+        if(mouseEvent != null) {
+            return mouseEvent.isActive();
+        }
+        return false;
     }
     
     /**

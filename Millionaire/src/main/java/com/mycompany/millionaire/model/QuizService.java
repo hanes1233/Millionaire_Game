@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.model;
 
+import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.media.AudioManager;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
@@ -16,11 +17,12 @@ public class QuizService {
         return userChoice.equals(answer);
     }
     
-    public void thinkingEffect(String difficulty) throws 
+    public void thinkingEffect() throws 
             InterruptedException, 
             UnsupportedAudioFileException, 
             IOException, 
             LineUnavailableException {
+        String difficulty = CurrentQuestion.getDifficulty();
         switch (difficulty) {
             case "Easy" -> Thread.sleep(1000);
             case "Medium" -> Thread.sleep(3000);

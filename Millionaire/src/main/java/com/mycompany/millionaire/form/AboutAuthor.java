@@ -2,7 +2,7 @@
 package com.mycompany.millionaire.form;
 
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.media.ImageManager;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
@@ -29,7 +29,7 @@ public class AboutAuthor extends JFrame {
     private JPanel authorPanel;
     private final FormFactory factory;
     private final ComponentServiceImpl service;
-    private final PanelConfiguration panelConfiguration;
+    private final PanelTemplate panelConfiguration;
     
     private JLabel flaticon;
     private JLabel stackoverflow;
@@ -39,9 +39,9 @@ public class AboutAuthor extends JFrame {
     
     
     public AboutAuthor() throws IOException {
-        this.panelConfiguration = new PanelConfiguration();
+        this.panelConfiguration = new PanelTemplate();
         this.factory = new FormFactory();
-        this.authorPanel = panelConfiguration.getPanelWithRectangle();
+        this.authorPanel = PanelTemplate.getPanelWithRectangle();
         this.service = new ComponentServiceImpl();
     }
     
@@ -251,9 +251,9 @@ public class AboutAuthor extends JFrame {
                 .bounds(15,260,300,205)
                 .readOnly()
                 .get();
-        
-        this.authorPanel = panelConfiguration
-                .addBackButton(authorForm)
+        this.panelConfiguration.addBackButton(authorForm);
+        this.authorPanel = service
+                //.addBackButton(authorForm)
                 .addOnPanel(
                     authorPanel,
                     flaticon,

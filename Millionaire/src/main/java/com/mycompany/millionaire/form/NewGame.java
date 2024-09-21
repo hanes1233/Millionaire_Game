@@ -3,7 +3,7 @@ package com.mycompany.millionaire.form;
 
 import com.mycompany.millionaire.component.builder.ComboBoxBuilderImpl;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.constant.Difficulty;
 import com.mycompany.millionaire.constant.Language;
@@ -32,7 +32,7 @@ public class NewGame {
     private JPanel configPanel;
     private final FormFactory factory;
     private final ComponentServiceImpl service;
-    private final PanelConfiguration panelConfig;
+    private final PanelTemplate panelConfig;
     
     private JButton start;
     private JComboBox<String> languagesList;
@@ -40,9 +40,9 @@ public class NewGame {
     private JComboBox<String> difficultiesList;
     
     public NewGame() throws IOException {
-        this.panelConfig = new PanelConfiguration();
+        this.panelConfig = new PanelTemplate();
         this.factory = new FormFactory();
-        this.configPanel = panelConfig.getPanel();
+        this.configPanel = PanelTemplate.getPanel();
         this.service = new ComponentServiceImpl();
     }
     
@@ -137,8 +137,9 @@ public class NewGame {
         });
         
       
-        this.configPanel = panelConfig
-                .addBackButton(configForm)
+        this.panelConfig.addBackButton(configForm);
+        this.configPanel = service
+                //.addBackButton(configForm)
                 .addOnPanel(
                         configPanel, 
                         welcomeLabel,

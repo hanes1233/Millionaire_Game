@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.model.Hints;
 
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ProgressBarBuilderImpl;
 import com.mycompany.millionaire.data.CurrentQuestion;
@@ -24,7 +24,6 @@ import javax.swing.JProgressBar;
 public class AudienceVote {
     
     private JPanel panel;
-    private final PanelConfiguration panelConfig;
     private final ComponentServiceImpl service;
     
     private JProgressBar progressBarA;
@@ -44,7 +43,6 @@ public class AudienceVote {
     
     public AudienceVote() {
         this.panel = CurrentQuestion.getPanel();
-        this.panelConfig = new PanelConfiguration();
         this.service = new ComponentServiceImpl();
         this.optionA = CurrentQuestion.getOptionA();
         this.optionB = CurrentQuestion.getOptionB();
@@ -148,7 +146,7 @@ public class AudienceVote {
                  .foreground(new Color(255,204,255))
                  .get();
          
-         this.panel = panelConfig.addOnPanel(
+         this.panel = service.addOnPanel(
                  panel, 
                  labelA,
                  labelB,

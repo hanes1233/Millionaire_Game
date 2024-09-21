@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.form;
 
-import com.mycompany.millionaire.component.PanelConfiguration;
+import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ListBuilderImpl;
@@ -57,7 +57,6 @@ public class GameFrame {
     private JPanel gamePanel;
     private CurrentQuestion currentQuestion;
     private final FormFactory formFactory;
-    private final PanelConfiguration panelConfig;
     private final ComponentServiceImpl service;
     private final QuizService quizService;
     private ProgressList progressList;
@@ -74,10 +73,8 @@ public class GameFrame {
     private boolean winner;
     private boolean gameOver;
     private boolean correctAnswer;
-    //private Question question;  
     
     public GameFrame() throws  IOException {
-        this.panelConfig = new PanelConfiguration();
         this.formFactory = new FormFactory();
         this.service = new ComponentServiceImpl();
         this.quizService = new QuizService();
@@ -100,7 +97,7 @@ public class GameFrame {
         this.database = new Database(language);
         this.questions = database.getQuestionList();
         this.progressList = new ProgressList();
-        this.gamePanel = panelConfig.getPanel();      
+        this.gamePanel = PanelTemplate.getPanel();
         this.gameFrame = formFactory.createForm();
         this.gameFrame.setContentPane(gamePanel);
         this.startQuiz();
@@ -219,6 +216,7 @@ public class GameFrame {
         exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                AudioManager.stopAllSounds();
                 AudioManager.muteIntro();
                 gameFrame.dispose();
             }
@@ -234,7 +232,7 @@ public class GameFrame {
                 .selectedIndex(this.progressIndex)
                 .get();
         
-        this.gamePanel = panelConfig.addOnPanel(gamePanel, 
+        this.gamePanel = service.addOnPanel(gamePanel, 
             exit,
             questionText, 
             optionA, 
@@ -249,7 +247,7 @@ public class GameFrame {
         if(!questions.isEmpty()) {
             if(this.gamePanel.getComponents().length > 0) {
                 try {
-                    quizService.thinkingEffect(CurrentQuestion.getDifficulty());
+                    quizService.thinkingEffect();
                     AudioManager.soundReaction(this.correctAnswer);
                     Thread.sleep(3500);
                 } catch (InterruptedException | 
@@ -263,7 +261,7 @@ public class GameFrame {
             }
             Question question = this.questions.poll();
             
-            this.currentQuestion = new CurrentQuestion(this.gamePanel, question, this.language);
+            this.currentQuestion = new CurrentQuestion(this.gamePanel, question, this.language, this.subject);
             
             this.questionIndex++;
             this.progressIndex--;
