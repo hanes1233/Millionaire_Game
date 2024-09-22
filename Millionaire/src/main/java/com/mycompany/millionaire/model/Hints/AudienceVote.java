@@ -1,7 +1,6 @@
 
 package com.mycompany.millionaire.model.Hints;
 
-import com.mycompany.millionaire.component.PanelTemplate;
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ProgressBarBuilderImpl;
 import com.mycompany.millionaire.data.CurrentQuestion;
@@ -171,10 +170,10 @@ public class AudienceVote {
         String answer = CurrentQuestion.getAnswer();
         
         int[] percentageValues = switch (currentDifficulty) {
-            case "Easy" -> getPercentageValues(30);
-            case "Medium" -> getPercentageValues(50);
-            case "Hard" -> getPercentageValues(80);
-            default -> getPercentageValues(95);
+            case "Easy" -> getSortedArray(30);
+            case "Medium" -> getSortedArray(50);
+            case "Hard" -> getSortedArray(80);
+            default -> getSortedArray(95);
         };
         
         Queue<Integer> otherPercentages = new PriorityQueue<>();
@@ -194,7 +193,7 @@ public class AudienceVote {
         }   
     }
     
-    private int[] getPercentageValues(int range) {
+    private int[] getSortedArray(int range) {
        int hundredPercents = 100;
        int[] percentageValues = new int[4];
        for(int i = 0; i < percentageValues.length; i++) {

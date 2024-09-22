@@ -18,4 +18,9 @@ public interface ComponentService {
     
     public JPanel addOnPanel(JPanel panel, JComponent... component);
     
+    public void removeListeners(JComponent component);
+    
+    public void removeMotionListeners(JComponent component);
+    
+    
 }

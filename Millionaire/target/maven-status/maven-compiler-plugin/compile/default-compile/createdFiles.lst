@@ -27,6 +27,7 @@ com/mycompany/millionaire/form/GameFrame$1.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$3.class
 com/mycompany/millionaire/form/SplashScreen$3.class
 com/mycompany/millionaire/form/AboutAuthor$1.class
+com/mycompany/millionaire/form/GameFrame$2.class
 com/mycompany/millionaire/component/builder/ComboBoxBuilder.class
 com/mycompany/millionaire/form/AboutAuthor$4.class
 com/mycompany/millionaire/model/Hints/Hint.class
@@ -43,11 +44,13 @@ com/mycompany/millionaire/form/SplashScreen$3$1.class
 com/mycompany/millionaire/form/FormFactory.class
 com/mycompany/millionaire/component/builder/ListBuilder.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilder.class
+com/mycompany/millionaire/form/GameOver.class
 com/mycompany/millionaire/data/Question.class
 com/mycompany/millionaire/data/CurrentQuestion.class
 com/mycompany/millionaire/constant/Subject.class
 com/mycompany/millionaire/model/ComponentService.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$2.class
+com/mycompany/millionaire/component/builder/TextFieldBuilderImpl.class
 com/mycompany/millionaire/model/Hints/AudienceVote.class
 com/mycompany/millionaire/model/Hints/FriendCall$1.class
 com/mycompany/millionaire/media/ImageManager.class
@@ -57,4 +60,5 @@ com/mycompany/millionaire/data/FriendAnswer.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$1.class
 com/mycompany/millionaire/form/SplashScreen.class
 com/mycompany/millionaire/constant/Difficulty.class
+com/mycompany/millionaire/component/builder/TextFieldBuilder.class
 com/mycompany/millionaire/constant/Language.class

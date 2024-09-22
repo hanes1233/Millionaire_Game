@@ -1,5 +1,6 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/GameFrame.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ButtonBuilderImpl.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextFieldBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/media/ImageManager.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/AudienceVote.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/FiftyToFifty.java
@@ -18,7 +19,9 @@
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/LabelBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/Builder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/Hints/FriendCall.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextFieldBuilder.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/model/ComponentServiceImpl.java
+/home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/form/GameOver.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ListBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/TextAreaBuilderImpl.java
 /home/pavel/NetBeansProjects/Millionaire/src/main/java/com/mycompany/millionaire/component/builder/ButtonBuilder.java

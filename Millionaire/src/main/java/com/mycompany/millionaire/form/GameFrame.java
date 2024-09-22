@@ -22,6 +22,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +68,7 @@ public class GameFrame {
     private String language;
     private String subject;
     private String difficulty;
+    private String currentAnswer;
     private String[] options;
     private int progressIndex = 15;
     private int questionIndex = 0;
@@ -105,7 +107,6 @@ public class GameFrame {
     }
     
     private void initComponents(Question currentQuestion) {
-        
         try {
             AudioManager.handleMainTheme(this.questionIndex);
         } catch (LineUnavailableException |
@@ -123,7 +124,7 @@ public class GameFrame {
         
         
         this.options = currentQuestion.getOptions();
-        String currentAnswer = currentQuestion.getAnswer();
+        this.currentAnswer = currentQuestion.getAnswer();
         
         
         questionText = new TextAreaBuilderImpl(questionText)
@@ -145,9 +146,8 @@ public class GameFrame {
                 .get();
         
         optionA.addActionListener((ActionEvent e) -> {
-                    optionA.setBackground(new Color(51,255,51));
-                    this.correctAnswer = quizService.isAnswerCorrect(options[0], currentAnswer);
-                    startQuiz();   
+                this.correctAnswer = quizService.isAnswerCorrect(options[0], currentAnswer);
+                startQuiz();   
         });
         
         optionB = new ButtonBuilderImpl(optionB)
@@ -158,10 +158,8 @@ public class GameFrame {
                 .get();
         
         optionB.addActionListener((ActionEvent e) -> {
-                    optionB.setBackground(new Color(51,255,51));
-                    this.correctAnswer = quizService.isAnswerCorrect(options[1], currentAnswer);
-                    startQuiz();
-               
+                this.correctAnswer = quizService.isAnswerCorrect(options[1], currentAnswer);
+                startQuiz(); 
         });
         
         optionC = new ButtonBuilderImpl(optionC)
@@ -172,9 +170,8 @@ public class GameFrame {
                 .get();
         
         optionC.addActionListener((ActionEvent e) -> {
-               optionC.setBackground(new Color(51,255,51));
-               this.correctAnswer = quizService.isAnswerCorrect(options[2], currentAnswer);         
-               startQuiz();
+                this.correctAnswer = quizService.isAnswerCorrect(options[2], currentAnswer);         
+                startQuiz();
         }); 
         
         optionD = new ButtonBuilderImpl(optionD)
@@ -185,10 +182,8 @@ public class GameFrame {
                 .get();
         
         optionD.addActionListener((ActionEvent e) -> {
-                    optionD.setBackground(new Color(51,255,51));
-                    this.correctAnswer = quizService.isAnswerCorrect(options[3], currentAnswer);
-                    startQuiz();
-               
+                this.correctAnswer = quizService.isAnswerCorrect(options[3], currentAnswer);
+                startQuiz();
         });
         
         
@@ -249,23 +244,53 @@ public class GameFrame {
                 try {
                     quizService.thinkingEffect();
                     AudioManager.soundReaction(this.correctAnswer);
-                    Thread.sleep(3500);
                 } catch (InterruptedException | 
                 UnsupportedAudioFileException | 
                 IOException | 
                 LineUnavailableException ex) {
                     Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                this.gamePanel.removeAll();
-                this.gamePanel.repaint();
             }
             Question question = this.questions.poll();
             
-            this.currentQuestion = new CurrentQuestion(this.gamePanel, question, this.language, this.subject);
-            
             this.questionIndex++;
             this.progressIndex--;
-            initComponents(question);
+            
+            if(this.gamePanel.getComponents().length > 0) {
+                quizService.changeColorToGreen();
+                gamePanel.addMouseMotionListener(new MouseAdapter() {
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                       gamePanel.removeAll();
+                       gamePanel.repaint();
+                       currentQuestion = new CurrentQuestion(gamePanel, question, language, subject);
+                       service.removeMotionListeners(gamePanel);
+                       if(correctAnswer) {
+                           initComponents(question);
+                       }else {
+                           GameOver gameOver = new GameOver();
+                           try {
+                               gameFrame.dispose();
+                               try {
+                                   gameOver.run();
+                               } catch (MalformedURLException |
+                                        LineUnavailableException |
+                                        UnsupportedAudioFileException ex) {
+                                   Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                               }
+                           } catch (IOException ex) {
+                               Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                       }
+                       
+                    }
+                });
+            }else {
+                this.gamePanel.removeAll();
+                this.gamePanel.repaint();
+                currentQuestion = new CurrentQuestion(gamePanel, question, language, subject);
+                initComponents(question);
+            }
         }else {
             this.winner = true;
         }

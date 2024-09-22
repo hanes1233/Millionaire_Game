@@ -40,12 +40,9 @@ public class Database {
         String uri = "mongodb://localhost:27017";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("millionaire");
-        MongoCollection<Document> collection;
-        if(language.equals("English")) {
-            collection = database.getCollection("engquestions");
-        }else {
-            collection = database.getCollection("czquestions");
-        }
+        MongoCollection<Document> collection = (language.equals("English")) ? 
+                database.getCollection("engquestions") : 
+                database.getCollection("czquestions");
         FindIterable<Document> iterableCollection = collection.find();
         for(Document doc: iterableCollection) {
             String optionsToString = doc.get("options").toString();
