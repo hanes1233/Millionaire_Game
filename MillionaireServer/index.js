@@ -1,9 +1,11 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 const Joi = require('joi');
 const app = express();
 const port = 5000;
 const mongoose = require('mongoose');
 app.use(express.json());
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/millionaire', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDB!'))
@@ -19,15 +21,49 @@ const questionSchema = new mongoose.Schema({
     language: String
 });
 
+questionSchema.query.byQuestion = function (questionText) {
+    return this.where({ question: new RegExp(questionText, 'i') });
+}
+
+questionSchema.query.byAnswer = function (answerText) {
+    return this.where({ answer: new RegExp(answerText, 'i') })
+}
+
+questionSchema.query.bySubject = function (subjectText) {
+    return this.where({ subject: new RegExp(subjectText, 'i') })
+}
+
+questionSchema.query.byLevel = function (levelText) {
+    return this.where({ level: new RegExp(levelText, 'i') })
+}
+
+questionSchema.query.byOption = function (option) {
+    return this.where({ options: new RegExp(option, 'i') })
+}
+
 const EngQuestion = mongoose.model('EngQuestion', questionSchema);
 const CzQuestion = mongoose.model('CzQuestion', questionSchema);
 
-app.get('/api/eng/questions', (req, res) => {
-    EngQuestion.find().then(questions => { res.json(questions) });
+app.get('/api/eng/questions', async (req, res) => {
+    EngQuestion.find()
+        .byQuestion(req.query.question)
+        .byAnswer(req.query.answer)
+        .byOption(req.query.options)
+        .bySubject(req.query.subject)
+        .byLevel(req.query.level)
+        .limit(req.query.limit)
+        .then(ques => { res.json(ques) });
 });
 
-app.get('/api/cz/questions', (req,res) => {
-    CzQuestion.find().then(questions => { res.json(questions) });
+app.get('/api/cz/questions', async (req, res) => {
+    CzQuestion.find()
+        .byQuestion(req.query.question)
+        .byAnswer(req.query.answer)
+        .byOption(req.query.options)
+        .bySubject(req.query.subject)
+        .byLevel(req.query.level)
+        .limit(req.query.limit)
+        .then(ques => { res.json(ques) });
 });
 
 app.get('/api/questions/:id', async (req, res) => {
@@ -36,7 +72,7 @@ app.get('/api/questions/:id', async (req, res) => {
         let question = await EngQuestion.findById(id);
         if (!question) {
             question = await CzQuestion.findById(id);
-            if(!question) {
+            if (!question) {
                 res.status(404).send('Question was not found at GET by id method.');
                 return;
             }

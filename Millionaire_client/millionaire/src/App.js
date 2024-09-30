@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
     <div className='container'>
-    <nav className="navbar navbar-expand-lg mb-5">
+    <nav className="navbar navbar-expand-lg mb-1">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item border bg-success mx-3">
               <Link to={"/questions"} className="nav-link text-light clr">

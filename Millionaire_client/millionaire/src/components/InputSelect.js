@@ -5,6 +5,7 @@ export function InputSelect(props) {
     const subjectArr = [];
     const value = props.value;
 
+    // Convert object's values to array
     Object.values(props.values).map((el) => {
         subjectArr.push(el);
         return subjectArr;
@@ -14,6 +15,7 @@ export function InputSelect(props) {
         <div className="px-5 my-3">
             <label>{props.label}:</label>
             <select
+                name={props.name}
                 disabled={props.disabled}
                 value={value}
                 className="browser-default form-select"

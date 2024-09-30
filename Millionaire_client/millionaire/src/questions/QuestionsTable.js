@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { apiGet, apiDelete } from "../utils/api";
 import { Table } from "../components/Table";
+import { Filter } from "./Filter";
 
 export function QuestionsTable() {
     const [engQuestions, setEngQuestions] = useState([]);
     const [czQuestions, setCzQuestion] = useState([]);
+    const [filterCzState, setCzFilter] = useState({
+        question: undefined,
+        answer: undefined,
+        option: undefined,
+        level: undefined,
+        subject: undefined,
+        limit: undefined
+    });
+
+    const [filterEngState, setEngFilter] = useState({
+        question: undefined,
+        answer: undefined,
+        options: undefined,
+        level: undefined,
+        subject: undefined,
+        limit: undefined
+    });
 
     useEffect(() => {
         apiGet("/api/eng/questions").then((data) => setEngQuestions(data));
@@ -28,11 +46,52 @@ export function QuestionsTable() {
         }
     };
 
+    const handleEngChange = async (e) => {
+        if (e.target.value === "false" || e.target.value === "true" || e.target.value === '') {
+            setEngFilter(prevState => {
+                return { ...prevState, [e.target.name]: undefined }
+            });
+        } else {
+            setEngFilter(prevState => {
+                return { ...prevState, [e.target.name]: e.target.value }
+            });
+        }
+        handleEngSubmit(e);
+    };
+
+    const handleCzChange = async (e) => {
+        if (e.target.value === "false" || e.target.value === "true" || e.target.value === '') {
+            setCzFilter(prevState => {
+                return { ...prevState, [e.target.name]: undefined }
+            });
+        } else {
+            setCzFilter(prevState => {
+                return { ...prevState, [e.target.name]: e.target.value }
+            });
+        }
+        handleCzSubmit(e);
+    };
+
+    const handleEngSubmit = async (e) => {
+        e.preventDefault();
+        const data = await apiGet("/api/eng/questions", filterEngState);
+        setEngQuestions(data);
+    };
+
+
+    const handleCzSubmit = async (e) => {
+        e.preventDefault();
+        const data = await apiGet("/api/cz/questions", filterCzState);
+        setCzQuestion(data);
+    };
+
+
+
 
     if (!engQuestions || !czQuestions) {
         return (
             <div>
-                <h3>Loading items...</h3>
+                <h3>Loading questions...</h3>
             </div>
         )
     }
@@ -41,16 +100,32 @@ export function QuestionsTable() {
     return (
         <div className="row">
             <div className="col-6">
-                <h3 className="text-primary">English questions</h3>
+                <Filter
+                    handleChange={handleEngChange}
+                    handleSubmit={handleEngSubmit}
+                    filter={filterEngState}
+                    confirm="Filter"
+                />
                 <Table
+                    headingSkin={'text-primary'}
+                    tableName={'English questions'}
+                    itemsPerPage={10}
                     language={'eng'}
                     questions={engQuestions}
                     deleteQuestion={deleteQuestion}
                 />
             </div>
             <div className="col-6">
-                <h3 className="text-secondary">Czech questions</h3>
+                <Filter
+                    handleChange={handleCzChange}
+                    handleSubmit={handleCzSubmit}
+                    filter={filterCzState}
+                    confirm="Filter"
+                />
                 <Table
+                    headingSkin={'text-secondary'}
+                    tableName={'Czech questions'}
+                    itemsPerPage={10}
                     language={'cz'}
                     questions={czQuestions}
                     deleteQuestion={deleteQuestion}

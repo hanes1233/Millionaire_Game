@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { PaginationControl } from 'react-bootstrap-pagination-control';
 import '../style.css';
 
 export function Table(props) {
@@ -9,28 +10,48 @@ export function Table(props) {
     const questions = props.questions;
     const language = props.language;
     const deleteQuestion = props.deleteQuestion;
+    const itemsPerPage = props.itemsPerPage;
     const [show, setShow] = useState(false);
+    const [startOffSet, setStartOffset] = useState(0);
+    const [endOffset, setEndOffSet] = useState(10);
+    const [page, setPage] = useState(1)
 
-    //Handling modal dialog
+    const slicedQuestions = questions.slice(startOffSet, endOffset);
+
+    // Handling modal dialog
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true);
     };
 
-    // Set background color for 'level' column depending on difficulty for better visual effect
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+        setPage(event);
+        // Reset to default page or set up next one
+        if (event === 1) {
+            setStartOffset(0);
+            setEndOffSet(10);
+        } else {
+            let start = event * 10 - 10;
+            setStartOffset(start);
+            setEndOffSet(start + 10);
+        }
+    }
+
+    // Set background color for 'level' column depending on difficulty
     function setLevelBackground(question) {
         if (question === 'Easy') {
             return <td className="bg-primary text-white">{question}</td>
         } else if (question === 'Medium') {
             return <td className="bg-warning text-white">{question}</td>
-        } else if(question === 'Hard') {
+        } else if (question === 'Hard') {
             return <td className="bg-danger text-white">{question}</td>
         } else {
-            return <td className="text-white" style={{backgroundColor: "rgb(141, 0, 99)"}}>{question}</td>
+            return <td className="text-white" style={{ backgroundColor: "rgb(141, 0, 99)" }}>{question}</td>
         }
     }
 
-    // Set background color for 'subject' column depending on subject for better visual effect
+    // Set background color for 'subject' column depending on subject
     function setSubjectBackground(subject) {
         if (subject === 'Geography') {
             return <td className="bg-success text-white">{subject}</td>
@@ -43,6 +64,7 @@ export function Table(props) {
 
     return (
         <div>
+            <h3 className={props.headingSkin}>{props.tableName}</h3>
             <table className="table table-bordered table-striped">
                 <thead className="thead-dark">
                     <tr>
@@ -54,7 +76,7 @@ export function Table(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {questions.map((question, index) => (
+                    {slicedQuestions.map((question, index) => (
                         <tr key={index + 1}>
                             <td>{index + 1}</td>
                             {setLevelBackground(question.level)}
@@ -109,8 +131,19 @@ export function Table(props) {
                             </td>
                         </tr>
                     ))}
+
                 </tbody>
             </table>
+            <PaginationControl
+                page={page}
+                between={1}
+                total={questions.length}
+                limit={itemsPerPage}
+                changePage={handlePageClick}
+                ellipsis={1}
+                next={true}
+                last={true}
+            />
         </div>
     )
 }
