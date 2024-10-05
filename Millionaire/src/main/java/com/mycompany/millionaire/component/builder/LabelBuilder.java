@@ -49,12 +49,10 @@ public interface LabelBuilder extends Builder {
      * Set bounds of JLabel
      * @param x position on panel
      * @param y position on panel
-     * @param width of JLabel
-     * @param height of JLabel
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder bounds(int x, int y, int width, int height);
+    LabelBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JLabel

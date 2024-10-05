@@ -7,7 +7,6 @@ import com.mycompany.millionaire.form.FormFactory;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -69,14 +68,13 @@ public class PanelTemplate {
     
     //REFACTOR...
     public void addBackButton(JFrame form) {
-        this.backButton = new JButton();
-        this.backButton = new ButtonBuilderImpl(this.backButton)
+        this.backButton = new ButtonBuilderImpl()
                 .text("<")
                 .font(new Font("Serif", Font.BOLD, 16))
-                .size(new Dimension(20,20))
                 .foreground(Color.WHITE)
                 .background(new Color(0, 38, 75))
-                .bounds(15,15, service.getWidth(this.backButton), service.getHeight(this.backButton))
+                .size(50,25)
+                .bounds(15,15)
                 .selectedItemHover()
                 .get();
         

@@ -6,6 +6,7 @@ import com.mycompany.millionaire.component.builder.ProgressBarBuilderImpl;
 import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -53,66 +54,60 @@ public class AudienceVote {
     
     private void defineProgressBars() {
          
-         JLabel labelA = new JLabel();
-         JLabel labelB = new JLabel();
-         JLabel labelC = new JLabel();
-         JLabel labelD = new JLabel();
-         
-         labelA = new LabelBuilderImpl(labelA)
+         JLabel labelA = new LabelBuilderImpl()
                  .text("A")
                  .foreground(Color.WHITE)
-                 .bounds(309,155,service.getWidth(labelA),service.getHeight(labelA))
+                 .bounds(309, 155)
                  .get();
          
-         labelB = new LabelBuilderImpl(labelB)
+         JLabel labelB = new LabelBuilderImpl()
                  .text("B")
                  .foreground(Color.WHITE)
-                 .bounds(349,155,service.getWidth(labelB),service.getHeight(labelB))
+                 .bounds(349, 155)
                  .get();
          
-         labelC = new LabelBuilderImpl(labelC)
+         JLabel labelC = new LabelBuilderImpl()
                  .text("C")
                  .foreground(Color.WHITE)
-                 .bounds(389,155,service.getWidth(labelC),service.getHeight(labelC))
+                 .bounds(389, 155)
                  .get();
          
-         labelD = new LabelBuilderImpl(labelD)
+         JLabel labelD = new LabelBuilderImpl()
                  .text("D")
                  .foreground(Color.WHITE)
-                 .bounds(429,155,service.getWidth(labelD),service.getHeight(labelD))
+                 .bounds(429, 155)
                  .get();
          
-         percentageA = new JLabel();
-         percentageB = new JLabel();
-         percentageC = new JLabel();
-         percentageD = new JLabel();
-         
-         percentageA = new LabelBuilderImpl(percentageA)
+         percentageA = new LabelBuilderImpl()
                  .text("0 %")
+                 .size(new Dimension(30,15))
                  .font(new Font("Serif", Font.BOLD, 11))
                  .foreground(Color.WHITE)
-                 .bounds(305,55,service.getWidth(percentageA)*2,service.getHeight(percentageA))
+                 .bounds(305, 55)
                  .get();
          
-         percentageB = new LabelBuilderImpl(percentageB)
+         percentageB = new LabelBuilderImpl()
                  .text("0 %")
+                 .size(new Dimension(30,15))
                  .font(new Font("Serif", Font.BOLD, 11))
                  .foreground(Color.WHITE)
-                 .bounds(345,55,service.getWidth(percentageB)*2,service.getHeight(percentageB))
+                 .bounds(345, 55)
                  .get();
          
-         percentageC = new LabelBuilderImpl(percentageC)
+         percentageC = new LabelBuilderImpl()
                  .text("0 %")
+                 .size(new Dimension(30,15))
                  .font(new Font("Serif", Font.BOLD, 11))
                  .foreground(Color.WHITE)
-                 .bounds(385,55,service.getWidth(percentageC)*2,service.getHeight(percentageC))
+                 .bounds(385, 55)
                  .get();
          
-         percentageD = new LabelBuilderImpl(percentageD)
+         percentageD = new LabelBuilderImpl()
                  .text("0 %")
+                 .size(new Dimension(30,15))
                  .font(new Font("Serif", Font.BOLD, 11))
                  .foreground(Color.WHITE)
-                 .bounds(425,55,service.getWidth(percentageD)*2,service.getHeight(percentageD))
+                 .bounds(425, 55)
                  .get();
          
          
@@ -122,25 +117,29 @@ public class AudienceVote {
          progressBarD = new JProgressBar(JProgressBar.VERTICAL,0,100);
          
          progressBarA = new ProgressBarBuilderImpl(this.progressBarA)
-                 .bounds(300,70,30,80)
+                 .size(new Dimension(30, 80))
+                 .bounds(300, 70)
                  .background(Color.BLACK)
                  .foreground(new Color(255,204,255))
                  .get();
          
          progressBarB = new ProgressBarBuilderImpl(this.progressBarB)
-                 .bounds(340,70,30,80)
+                 .size(new Dimension(30, 80))
+                 .bounds(340, 70)
                  .background(Color.BLACK)
                  .foreground(new Color(255,204,255))
                  .get();
          
          progressBarC = new ProgressBarBuilderImpl(this.progressBarC)
-                 .bounds(380,70,30,80)
+                 .size(new Dimension(30, 80))
+                 .bounds(380, 70)
                  .background(Color.BLACK)
                  .foreground(new Color(255,204,255))
                  .get();
          
          progressBarD = new ProgressBarBuilderImpl(this.progressBarD)
-                 .bounds(420,70,30,80)
+                 .size(new Dimension(30, 80))
+                 .bounds(420, 70)
                  .background(Color.BLACK)
                  .foreground(new Color(255,204,255))
                  .get();

@@ -5,6 +5,7 @@ com/mycompany/millionaire/component/builder/ButtonBuilderImpl.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilderImpl.class
 com/mycompany/millionaire/form/GameFrame.class
 com/mycompany/millionaire/component/builder/ComboBoxBuilderImpl.class
+com/mycompany/millionaire/form/GameOver$1.class
 com/mycompany/millionaire/form/AboutAuthor$3.class
 com/mycompany/millionaire/component/builder/ListBuilderImpl.class
 com/mycompany/millionaire/form/SplashScreen$1.class

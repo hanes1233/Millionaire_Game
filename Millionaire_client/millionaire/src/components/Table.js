@@ -64,7 +64,7 @@ export function Table(props) {
 
     return (
         <div>
-            <h3 className={props.headingSkin}>{props.tableName}</h3>
+            <h3 className={props.headingSkin}>{props.tableName} : <strong>{props.quantity}</strong></h3>
             <table className="table table-bordered table-striped">
                 <thead className="thead-dark">
                     <tr>

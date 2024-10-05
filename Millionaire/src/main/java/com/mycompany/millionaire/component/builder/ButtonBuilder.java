@@ -49,12 +49,10 @@ public interface ButtonBuilder extends Builder {
      * Set bounds of JButton
      * @param x position on panel
      * @param y position on panel
-     * @param width of JButton
-     * @param height of JButton
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder bounds(int x, int y, int width, int height);
+    ButtonBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JButton

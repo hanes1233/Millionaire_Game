@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.component.builder;
 
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,9 +15,11 @@ import javax.swing.border.Border;
 public class TextAreaBuilderImpl implements TextAreaBuilder {
     
     private final JTextArea textArea;
+    private final ComponentServiceImpl service;
     
-    public TextAreaBuilderImpl(JTextArea textArea) {
-        this.textArea = textArea;
+    public TextAreaBuilderImpl() {
+        this.textArea = new JTextArea();
+        this.service = new ComponentServiceImpl();
     }
 
     @Override
@@ -38,8 +41,8 @@ public class TextAreaBuilderImpl implements TextAreaBuilder {
     }
 
     @Override
-    public TextAreaBuilderImpl bounds(int x, int y, int width, int height) {
-         this.textArea.setBounds(x,y,width,height);
+    public TextAreaBuilderImpl bounds(int x, int y) {
+         this.textArea.setBounds(x, y, service.getWidth(textArea), service.getHeight(textArea));
          return this;
     }
 
@@ -51,7 +54,7 @@ public class TextAreaBuilderImpl implements TextAreaBuilder {
 
     @Override
     public TextAreaBuilderImpl size(Dimension d) {
-         this.textArea.setSize(d);
+         this.textArea.setPreferredSize(d);
          return this;
     }
 

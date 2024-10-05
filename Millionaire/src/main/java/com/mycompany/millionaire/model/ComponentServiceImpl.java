@@ -57,5 +57,4 @@ public class ComponentServiceImpl implements ComponentService {
             component.removeMouseMotionListener(listener);
         }
     }
-    
 }

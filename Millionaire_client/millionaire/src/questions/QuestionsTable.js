@@ -26,8 +26,18 @@ export function QuestionsTable() {
 
     useEffect(() => {
         apiGet("/api/eng/questions").then((data) => setEngQuestions(data));
+        quantityCount(engQuestions);
         apiGet("/api/cz/questions").then((data) => setCzQuestion(data));
+        quantityCount(czQuestions);
     }, []);
+
+    function quantityCount(questions) {
+        let quantity = 0;
+        Object.keys(questions).forEach(() => {
+            quantity++;
+        });
+        return quantity;
+    }
 
     const deleteQuestion = async (id, lang) => {
         try {
@@ -109,6 +119,7 @@ export function QuestionsTable() {
                 <Table
                     headingSkin={'text-primary'}
                     tableName={'English questions'}
+                    quantity={quantityCount(engQuestions)}
                     itemsPerPage={10}
                     language={'eng'}
                     questions={engQuestions}
@@ -125,6 +136,7 @@ export function QuestionsTable() {
                 <Table
                     headingSkin={'text-secondary'}
                     tableName={'Czech questions'}
+                    quantity={quantityCount(czQuestions)}
                     itemsPerPage={10}
                     language={'cz'}
                     questions={czQuestions}

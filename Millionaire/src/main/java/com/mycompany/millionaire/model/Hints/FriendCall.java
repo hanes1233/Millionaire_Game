@@ -51,11 +51,11 @@ public class FriendCall {
     
      private void defineFriendList() {
          this.timer = new JLabel();
-         timer = new LabelBuilderImpl(timer)
+         timer = new LabelBuilderImpl()
                  .text("30")
                  .font(new Font("Serif", Font.BOLD, 22))
                  .foreground(Color.ORANGE)
-                 .bounds(300, 45, service.getWidth(timer), service.getHeight(timer))
+                 .bounds(300, 45)
                  .get();
          
          this.panel.add(timer);
@@ -83,7 +83,8 @@ public class FriendCall {
          this.friendList = new ListBuilderImpl(friendList)
                  .background(new Color(51,0,102))
                  .foreground(Color.WHITE)
-                 .bounds(30, 90, 250, 85)
+                 .size(250, 85)
+                 .bounds(30, 90)
                  .model(friends)
                  .get();
          this.panel = service.addOnPanel(
@@ -121,13 +122,14 @@ public class FriendCall {
                     }
 
                     calling = new JTextArea();
-                    calling = new TextAreaBuilderImpl(calling)
+                    calling = new TextAreaBuilderImpl()
                         .formatText()
                         .text("Calling...")
                         .font(new Font("Serif", Font.ITALIC, 20))
                         .background(new Color(0, 38, 75))
                         .foreground(Color.WHITE)
-                        .bounds(30, 90, 250, 45)
+                        .size(250, 45)
+                        .bounds(30, 90)
                         .readOnly()
                         .get();
                     
@@ -146,10 +148,11 @@ public class FriendCall {
                                     panel.remove(calling);
                                     panel.repaint();
                                 }else {
-                                    calling = new TextAreaBuilderImpl(calling)
+                                    calling = new TextAreaBuilderImpl()
                                         .text(randomAnswer)
                                         .font(new Font("Serif", Font.ITALIC, 16))
-                                        .bounds(30, 90, 250, 75)
+                                        .size(250, 75)
+                                        .bounds(30, 90)
                                         .foreground(Color.ORANGE)
                                         .get();
                                 panel.repaint();

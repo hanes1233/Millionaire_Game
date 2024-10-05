@@ -2,6 +2,7 @@
 package com.mycompany.millionaire.component.builder;
 
 import com.mycompany.millionaire.media.AudioManager;
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,14 +22,17 @@ import javax.swing.border.Border;
 public class ComboBoxBuilderImpl implements ComboBoxBuilder{
     
     private final JComboBox comboBox;
+    private final ComponentServiceImpl service;
     
     
     public ComboBoxBuilderImpl() {
         this.comboBox = new JComboBox();
+        this.service = new ComponentServiceImpl();
     }
     
     public ComboBoxBuilderImpl(JComboBox comboBox) {
         this.comboBox = comboBox;
+        this.service = new ComponentServiceImpl();
     }
 
     @Override
@@ -49,8 +53,8 @@ public class ComboBoxBuilderImpl implements ComboBoxBuilder{
     }
 
     @Override
-    public ComboBoxBuilderImpl bounds(int x, int y, int width, int height) {
-        this.comboBox.setBounds(x,y,width,height);
+    public ComboBoxBuilderImpl bounds(int x, int y) {
+        this.comboBox.setBounds(x,y,service.getWidth(comboBox),service.getHeight(comboBox));
         return this;
     }
 

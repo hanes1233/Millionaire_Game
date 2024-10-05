@@ -41,12 +41,10 @@ public interface ComboBoxBuilder <E> extends Builder{
      * Set bounds of JComboBox
      * @param x position on panel
      * @param y position on panel
-     * @param width of JComboBox
-     * @param height of JComboBox
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder bounds(int x, int y, int width, int height);
+    ComboBoxBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JComboBox

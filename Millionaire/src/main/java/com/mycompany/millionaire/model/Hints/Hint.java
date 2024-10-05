@@ -54,9 +54,9 @@ public class Hint {
         this.friendCallAvailible = true;
         this.audienceHelpAvailible = true;
         
-        fiftyToFiftyHint = new LabelBuilderImpl(fiftyToFiftyHint)
+        fiftyToFiftyHint = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("fiftyhint"))
-                .bounds(30, 30, service.getWidth(fiftyToFiftyHint), service.getHeight(fiftyToFiftyHint))
+                .bounds(30, 30)
                 .hoverImage("fiftyhoverhint")
                 .get();
         
@@ -75,8 +75,9 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     fiftyToFiftyHint = new LabelBuilderImpl(fiftyToFiftyHint)
-                        .setY(fiftyToFiftyHint.getY() + 9)
+                        .setY(fiftyToFiftyHint.getY() + 2)
                         .image(ImageManager.getImageIcon("fiftyexpired"))
+                        .bounds(30, 30)
                         .removeMouseListeners()
                         .get();
                 }
@@ -85,9 +86,9 @@ public class Hint {
         
         
         
-        friendCallHint = new LabelBuilderImpl(friendCallHint)
+        friendCallHint = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("callhint"))
-                .bounds(120, 30, service.getWidth(friendCallHint), service.getHeight(friendCallHint))
+                .bounds(120, 30)
                 .hoverImage("callhoverhint")
                 .get();
         
@@ -107,7 +108,7 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     friendCallHint = new LabelBuilderImpl(friendCallHint)
-                        .setY(friendCallHint.getY() + 9)
+                        .setY(friendCallHint.getY() + 15)
                         .image(ImageManager.getImageIcon("callexpired"))
                         .removeMouseListeners()
                         .get();
@@ -115,9 +116,9 @@ public class Hint {
             }
         });
         
-        audienceHelpHint = new LabelBuilderImpl(audienceHelpHint)
+        audienceHelpHint = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("audiencehint"))
-                .bounds(210, 30, service.getWidth(audienceHelpHint), service.getHeight(audienceHelpHint))
+                .bounds(210, 30)
                 .hoverImage("audiencehoverhint")
                 .get();
         
@@ -137,7 +138,7 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     audienceHelpHint = new LabelBuilderImpl(audienceHelpHint)
-                        .setY(audienceHelpHint.getY() + 9)
+                        .setY(audienceHelpHint.getY())
                         .image(ImageManager.getImageIcon("audienceexpired"))
                         .removeMouseListeners()
                         .get();

@@ -16,6 +16,7 @@ import com.mycompany.millionaire.model.ComponentServiceImpl;
 import com.mycompany.millionaire.model.Hints.Hint;
 import com.mycompany.millionaire.model.QuizService;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,6 +75,7 @@ public class GameFrame {
     private String[] options;
     private int progressIndex = 15;
     private int questionIndex = 0;
+    private int score = 0;
     private boolean winner;
     private boolean gameOver;
     private boolean correctAnswer;
@@ -96,7 +100,7 @@ public class GameFrame {
                 UnsupportedLookAndFeelException e) {
                 throw new RuntimeException("Error catch at GameFrame run() method: " + e);
             }
-        this.database = new Database(language);
+        this.database = new Database(language, subject, difficulty);
         this.questions = database.getQuestionList();
         this.progressList = new ProgressList();
         this.gamePanel = PanelTemplate.getPanel();
@@ -116,33 +120,31 @@ public class GameFrame {
             Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        questionText = new JTextArea();
-        optionA = new JButton();
-        optionB = new JButton();
-        optionC = new JButton();
-        optionD = new JButton();
-        
-        
         this.options = currentQuestion.getOptions();
+        
+        // Shuffle options
+        Collections.shuffle(Arrays.asList(this.options));
         this.currentAnswer = currentQuestion.getAnswer();
         
         
-        questionText = new TextAreaBuilderImpl(questionText)
+        questionText = new TextAreaBuilderImpl()
                 .formatText()
                 .text(currentQuestion.getQuestion())
                 .font(new Font("Serif", Font.ITALIC, 16))
                 .background(new Color(0, 38, 75))
                 .foreground(Color.WHITE)
-                .bounds(30, 180, 450, 90)
+                .size(new Dimension(450, 90))
+                .bounds(30, 180)
                 .readOnly()
                 .get();
         
         
-        optionA = new ButtonBuilderImpl(optionA)
+        optionA = new ButtonBuilderImpl()
                 .gameStyleConfig()
                 .text("<html><font color=rgb(213,156,0)>A:</font>" + options[0] + "</html>")
                 .textHorizontalAlign(SwingConstants.LEFT)
-                .bounds(30, 300, 220, 35)
+                .size(220, 35)
+                .bounds(30, 300)
                 .get();
         
         optionA.addActionListener((ActionEvent e) -> {
@@ -150,11 +152,11 @@ public class GameFrame {
                 startQuiz();   
         });
         
-        optionB = new ButtonBuilderImpl(optionB)
+        optionB = new ButtonBuilderImpl()
                 .gameStyleConfig()
                 .text("<html><font color=rgb(213,156,0)>B:</font>" + options[1] + "</html>")
                 .textHorizontalAlign(SwingConstants.LEFT)
-                .bounds(260, 300, 220, 35)
+                .bounds(260, 300)
                 .get();
         
         optionB.addActionListener((ActionEvent e) -> {
@@ -162,11 +164,11 @@ public class GameFrame {
                 startQuiz(); 
         });
         
-        optionC = new ButtonBuilderImpl(optionC)
+        optionC = new ButtonBuilderImpl()
                 .gameStyleConfig()
                 .text("<html><font color=rgb(213,156,0)>C:</font>" + options[2] + "</html>")
                 .textHorizontalAlign(SwingConstants.LEFT)
-                .bounds(30, 350, 220, 35)
+                .bounds(30, 350)
                 .get();
         
         optionC.addActionListener((ActionEvent e) -> {
@@ -174,11 +176,11 @@ public class GameFrame {
                 startQuiz();
         }); 
         
-        optionD = new ButtonBuilderImpl(optionD)
+        optionD = new ButtonBuilderImpl()
                 .gameStyleConfig()
                 .text("<html><font color=rgb(213,156,0)>D:</font>" + options[3] + "</html>")
                 .textHorizontalAlign(SwingConstants.LEFT)
-                .bounds(260, 350, 220, 35)
+                .bounds(260, 350)
                 .get();
         
         optionD.addActionListener((ActionEvent e) -> {
@@ -186,14 +188,12 @@ public class GameFrame {
                 startQuiz();
         });
         
-        
+        CurrentQuestion.setOptionA(this.optionA);
+        CurrentQuestion.setOptionB(this.optionB);
+        CurrentQuestion.setOptionC(this.optionC);
+        CurrentQuestion.setOptionD(this.optionD);
           
         if(!this.difficulty.equals("Hard")) {
-            CurrentQuestion.setOptionA(this.optionA);
-            CurrentQuestion.setOptionB(this.optionB);
-            CurrentQuestion.setOptionC(this.optionC);
-            CurrentQuestion.setOptionD(this.optionD);
-            
             if(this.difficulty.equals("Easy")) {
                 hints.addHints(gamePanel);
             }else if(this.difficulty.equals("Medium")) {
@@ -203,9 +203,9 @@ public class GameFrame {
         
         
         exit = new JLabel();
-        exit = new LabelBuilderImpl(exit)
+        exit = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("exit"))
-                .bounds(580, 20, service.getWidth(exit), service.getHeight(exit))
+                .bounds(580, 20)
                 .get();
         
         exit.addMouseListener(new MouseAdapter() {
@@ -221,7 +221,8 @@ public class GameFrame {
         gameProgress = new JList();
         gameProgress = new ListBuilderImpl(gameProgress)
                 .model(progressList.getModel(this.language))
-                .bounds(500, 80, 200, 280)
+                .size(200, 280)
+                .bounds(500, 80)
                 .background(new Color(12, 4, 77))
                 .foreground(new Color(242, 177, 0))
                 .selectedIndex(this.progressIndex)
@@ -266,9 +267,12 @@ public class GameFrame {
                        currentQuestion = new CurrentQuestion(gamePanel, question, language, subject);
                        service.removeMotionListeners(gamePanel);
                        if(correctAnswer) {
+                           score = quizService.getCurrentScore(gameProgress, questionIndex);
                            initComponents(question);
                        }else {
-                           GameOver gameOver = new GameOver();
+                           questionIndex--;
+                           progressIndex++;
+                           GameOver gameOver = new GameOver(quizService.getTotalScore(gameProgress, progressIndex, questionIndex));
                            try {
                                gameFrame.dispose();
                                try {
@@ -293,6 +297,19 @@ public class GameFrame {
             }
         }else {
             this.winner = true;
+            GameOver gameOver = new GameOver(quizService.getTotalScore(gameProgress, progressIndex, questionIndex));
+            try {
+                gameFrame.dispose();
+                try {
+                    gameOver.run();
+                } catch (MalformedURLException |
+                         LineUnavailableException |
+                         UnsupportedAudioFileException ex) {
+                         Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+            } catch (IOException ex) {
+                Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

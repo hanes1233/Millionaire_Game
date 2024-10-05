@@ -70,11 +70,10 @@ public final class WelcomePage {
      */
     private void initComponents() throws IOException {
         
-        startGame = new JButton();
-        startGame = new ButtonBuilderImpl(startGame)
+        startGame = new ButtonBuilderImpl()
                 .defaultConfig()
                 .text("New Game")
-                .bounds(30, 150, 150, 35)
+                .bounds(30, 150)
                 .get();
         
         startGame.addActionListener((ActionEvent e) -> {
@@ -87,11 +86,10 @@ public final class WelcomePage {
         });
         
         
-        scores = new JButton();
-        scores = new ButtonBuilderImpl(scores)
+        scores = new ButtonBuilderImpl()
                 .defaultConfig()
                 .text("Scores")
-                .bounds(30, 200, 135, 35)
+                .bounds(30, 200)
                 .get();
         
         scores.addActionListener((ActionEvent e) -> {
@@ -104,11 +102,10 @@ public final class WelcomePage {
         });
         
         
-        exit = new JButton();
-        exit = new ButtonBuilderImpl(exit)
+        exit = new ButtonBuilderImpl()
                 .defaultConfig()
                 .text("Exit")
-                .bounds(30,300,105,35)
+                .bounds(30, 300)
                 .get();
         
         exit.addActionListener((ActionEvent e) -> {
@@ -117,11 +114,10 @@ public final class WelcomePage {
         });
         
         
-        aboutAuthor = new JButton("About");
-        aboutAuthor = new ButtonBuilderImpl(aboutAuthor)
+        aboutAuthor = new ButtonBuilderImpl()
                 .defaultConfig()
                 .text("About")
-                .bounds(30, 250, 120, 35)
+                .bounds(30, 250)
                 .get();
         
         aboutAuthor.addActionListener((ActionEvent e) -> {
@@ -133,24 +129,20 @@ public final class WelcomePage {
             }
         });
         
-        JLabel mute = new JLabel();
-        JLabel introLabel = new JLabel();
-        JLabel mainLogo = new JLabel();
-        
-        introLabel = new LabelBuilderImpl(introLabel)
+        JLabel introLabel = new LabelBuilderImpl()
                 .text("Welcome to Millionaire Game")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 22))
-                .bounds(100, 25, service.getWidth(introLabel), service.getHeight(introLabel))
+                .bounds(100, 25)
                 .get();
         
-        mainLogo = new LabelBuilderImpl(mainLogo)
+        JLabel mainLogo = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("label"))
-                .bounds(250, 100, service.getWidth(mainLogo), service.getHeight(mainLogo))
+                .bounds(250, 100)
                 .get();
         
-        mute = new LabelBuilderImpl(mute)
-                .bounds(580, 25, 32, 32)
+        JLabel mute = new LabelBuilderImpl()
+                .bounds(580, 25)
                 .image(ImageManager.getImageIcon("mute"))
                 .get();
         
@@ -185,6 +177,8 @@ public final class WelcomePage {
     public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
+            JLabel label = new JLabel();
+            System.out.println("pref size" + label.getPreferredSize());
             try {
                 BasicConfigurator.configure();
                 FormFactory form = new FormFactory();

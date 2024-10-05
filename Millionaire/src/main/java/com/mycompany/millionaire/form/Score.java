@@ -57,11 +57,11 @@ public class Score extends JFrame {
     private void initComponents() {
         JLabel listDescription = new JLabel("Statistics of best players");
         
-        listDescription = new LabelBuilderImpl(listDescription)
+        listDescription = new LabelBuilderImpl()
                 .text("Statistics of best players")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 22))
-                .bounds(170, 25, service.getWidth(listDescription), service.getHeight(listDescription))
+                .bounds(170, 25)
                 .get();
         
         
@@ -70,7 +70,7 @@ public class Score extends JFrame {
                 .prefferedSize(new Dimension(450,380))
                 .background(new Color(173, 194, 215))
                 .foreground(Color.WHITE)
-                .bounds(100, 60, service.getWidth(bestPlayers), service.getHeight(bestPlayers))
+                .bounds(100, 60)
                 .get();
         
         this.panelConfig.addBackButton(scoreForm);

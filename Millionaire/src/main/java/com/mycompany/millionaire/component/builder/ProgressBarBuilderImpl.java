@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.component.builder;
 
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,9 +15,11 @@ import javax.swing.border.Border;
 public class ProgressBarBuilderImpl implements ProgressBarBuilder {
     
     private final JProgressBar progressBar;
+    private final ComponentServiceImpl service;
     
     public ProgressBarBuilderImpl(JProgressBar progressBar) {
         this.progressBar = progressBar;
+        this.service = new ComponentServiceImpl();
     }
 
     @Override
@@ -38,8 +41,8 @@ public class ProgressBarBuilderImpl implements ProgressBarBuilder {
     }
 
     @Override
-    public ProgressBarBuilderImpl bounds(int x, int y, int width, int height) {
-        this.progressBar.setBounds(x,y,width,height);
+    public ProgressBarBuilderImpl bounds(int x, int y) {
+        this.progressBar.setBounds(x, y, service.getWidth(progressBar), service.getHeight(progressBar));
         return this;
     }
 
@@ -51,7 +54,7 @@ public class ProgressBarBuilderImpl implements ProgressBarBuilder {
 
     @Override
     public ProgressBarBuilderImpl size(Dimension d) {
-        this.progressBar.setSize(d);
+        this.progressBar.setPreferredSize(d);
         return this;
     }
 

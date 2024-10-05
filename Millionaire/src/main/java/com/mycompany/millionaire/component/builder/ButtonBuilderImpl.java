@@ -2,6 +2,7 @@
 package com.mycompany.millionaire.component.builder;
 
 import com.mycompany.millionaire.media.AudioManager;
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -21,14 +22,11 @@ import java.awt.event.MouseEvent;
 public class ButtonBuilderImpl implements ButtonBuilder{
     
     private final JButton button;
-    
-    
-    public ButtonBuilderImpl(JButton button) {
-        this.button = button;
-    }
+    private final ComponentServiceImpl service;
     
     public ButtonBuilderImpl() {
         this.button = new JButton();
+        this.service = new ComponentServiceImpl();
     }
     
     @Override
@@ -56,8 +54,8 @@ public class ButtonBuilderImpl implements ButtonBuilder{
     }
     
     @Override
-    public ButtonBuilderImpl bounds(int x, int y, int width, int height) {
-        this.button.setBounds(x,y,width,height);
+    public ButtonBuilderImpl bounds(int x, int y) {
+        this.button.setBounds(x,y,service.getWidth(button), service.getHeight(button));
         return this;
     }
     
@@ -74,7 +72,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
 
     @Override
     public ButtonBuilderImpl size(Dimension d) {
-        this.button.setSize(d);
+        this.button.setPreferredSize(d);
         return this;
     }
 
@@ -148,6 +146,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             .font(new Font("Serif", Font.BOLD, 12))
             .background(new Color(8, 0, 77))
             .foreground(Color.WHITE)
+            .size(new Dimension(220, 35))
             .clickSound();
         this.button.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -168,6 +167,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             .background(new Color(0, 38, 75))
             .foreground(Color.WHITE)
             .selectedItemHover()
+            .size(new Dimension(150, 35))
             .clickSound();
         return this;
     }

@@ -1,6 +1,7 @@
 
 package com.mycompany.millionaire.component.builder;
 
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,18 +16,21 @@ import javax.swing.border.Border;
 public class ListBuilderImpl implements ListBuilder{
     
     private final JList list;
+    private final ComponentServiceImpl service;
     
     public ListBuilderImpl() {
         this.list = new JList();
+        this.service = new ComponentServiceImpl();
     }
     
     public ListBuilderImpl(JList list) {
         this.list = list;
+        this.service = new ComponentServiceImpl();
     }
 
     @Override
-    public ListBuilder bounds(int x, int y, int width, int height) {
-        this.list.setBounds(x, y, width, height);
+    public ListBuilder bounds(int x, int y) {
+        this.list.setBounds(x, y, service.getWidth(list), service.getHeight(list));
         return this;
     }
 

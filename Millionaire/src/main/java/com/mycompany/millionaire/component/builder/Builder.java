@@ -41,11 +41,9 @@ public interface Builder<T> {
      * Set bounds of JComponent
      * @param x position on panel
      * @param y position on panel
-     * @param width of JComponent
-     * @param height of JComponent
      * @return this object, allowing method chaining
      */
-    T bounds(int x, int y, int width, int height);
+    T bounds(int x, int y);
     
     /**
      * Set font on text

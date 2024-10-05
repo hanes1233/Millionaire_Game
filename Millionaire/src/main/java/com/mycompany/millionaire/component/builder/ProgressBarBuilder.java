@@ -41,12 +41,10 @@ public interface ProgressBarBuilder extends Builder {
      * Set bounds of JProgressBar
      * @param x position on panel
      * @param y position on panel
-     * @param width of JProgressBar
-     * @param height of JProgressBar
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder bounds(int x, int y, int width, int height);
+    ProgressBarBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JProgressBar

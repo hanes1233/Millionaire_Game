@@ -58,47 +58,37 @@ public class AboutAuthor extends JFrame {
         this.flaticon = new JLabel();
         this.stackoverflow = new JLabel();
         
-        JLabel authorLabel = new JLabel();
-        JLabel authorName = new JLabel();
-        JLabel contactLabel = new JLabel();
-        JLabel technologiesUsed = new JLabel();
-        JLabel java = new JLabel();
-        JLabel mongodb = new JLabel();
-        JLabel thanksTo = new JLabel();
-        
-        JTextArea gameDescription = new JTextArea();
-        
-        authorLabel = new LabelBuilderImpl(authorLabel)
+        JLabel authorLabel = new LabelBuilderImpl()
                 .text("AUTHOR:")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 26))
-                .bounds(75, 45, service.getWidth(authorLabel), service.getHeight(authorLabel))
+                .bounds(75, 45)
                 .get();
         
-        authorName = new LabelBuilderImpl(authorName)
+        JLabel authorName = new LabelBuilderImpl()
                 .text("Pavel Herasymov")
                 .foreground(Color.yellow)
                 .font(new Font("Serif", Font.BOLD, 24))
-                .bounds(250,45, service.getWidth(authorName), service.getHeight(authorName))
+                .bounds(250, 45)
                 .get();
         
-        contactLabel = new LabelBuilderImpl(contactLabel)
+        JLabel contactLabel = new LabelBuilderImpl()
                 .text("CONTACTS")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 26))
-                .bounds(220, 110, service.getWidth(contactLabel), service.getHeight(contactLabel))
+                .bounds(220, 110)
                 .get();
         
-        github = new LabelBuilderImpl(github)
+        github = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("github"))
                 .background(Color.WHITE)
-                .bounds(100, 170, service.getWidth(github), service.getHeight(github))
+                .bounds(100, 170)
                 .get();
         
         github.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                github = new LabelBuilderImpl(github)
+                github = new LabelBuilderImpl()
                         .image(new ImageIcon(ImageManager.scaleImage("github")))
                         .size(80,80)
                         .get();
@@ -114,16 +104,16 @@ public class AboutAuthor extends JFrame {
         });
         
         
-        linkedin = new LabelBuilderImpl(linkedin)
+        linkedin = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("linkedin"))
                 .background(Color.WHITE)
-                .bounds(300, 170, service.getWidth(linkedin), service.getHeight(linkedin))
+                .bounds(300, 170)
                 .get(); 
         
         linkedin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                linkedin = new LabelBuilderImpl(linkedin)
+                linkedin = new LabelBuilderImpl()
                         .image(new ImageIcon(ImageManager.scaleImage("linkedin")))
                         .size(80,80)
                         .get();
@@ -138,16 +128,16 @@ public class AboutAuthor extends JFrame {
             }
         });
         
-        mail = new LabelBuilderImpl(mail)
+        mail = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("mail"))
                 .background(Color.WHITE)
-                .bounds(500, 170, service.getWidth(mail), service.getHeight(mail))
+                .bounds(500, 170)
                 .get(); 
         
         mail.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mail = new LabelBuilderImpl(mail)
+                mail = new LabelBuilderImpl()
                         .image(new ImageIcon(ImageManager.scaleImage("mail")))
                         .size(80,80)
                         .get();
@@ -162,39 +152,39 @@ public class AboutAuthor extends JFrame {
             }
         });
         
-        technologiesUsed = new LabelBuilderImpl(technologiesUsed)
+        JLabel technologiesUsed = new LabelBuilderImpl()
                 .text("TECHNOLOGIES USED: ")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 18))
-                .bounds(340,260, service.getWidth(technologiesUsed), service.getHeight(technologiesUsed))
+                .bounds(340, 260)
                 .get();
         
-        java = new LabelBuilderImpl(java)
+        JLabel java = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("java"))
                 .text("Java")
                 .foreground(Color.WHITE)
-                .bounds(340,300,service.getWidth(java),service.getHeight(java))
+                .bounds(340, 300)
                 .get();
         
-        mongodb = new LabelBuilderImpl(mongodb)
+        JLabel mongodb = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("mongodb"))
                 .text("MongoDB")
                 .foreground(Color.WHITE)
-                .bounds(440,300,service.getWidth(mongodb),service.getHeight(mongodb))
+                .bounds(440, 300)
                 .get();
         
-        thanksTo = new LabelBuilderImpl(thanksTo)
+        JLabel thanksTo = new LabelBuilderImpl()
                 .text("THANKS TO:")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 18))
-                .bounds(340,360, service.getWidth(thanksTo),service.getHeight(thanksTo))
+                .bounds(340, 360)
                 .get();
         
-        flaticon = new LabelBuilderImpl(flaticon)
+        flaticon = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("flaticon"))
                 .text("Flaticon")
                 .foreground(Color.WHITE)
-                .bounds(340, 400, service.getWidth(flaticon), service.getHeight(flaticon))
+                .bounds(340, 400)
                 .get();
         
         flaticon.addMouseListener(new MouseAdapter() {
@@ -213,11 +203,11 @@ public class AboutAuthor extends JFrame {
         });
        
         
-        stackoverflow = new LabelBuilderImpl(stackoverflow)
+        stackoverflow = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("stackoverflow"))
                 .text("StackOverFlow")
                 .foreground(Color.WHITE)
-                .bounds(460, 400, service.getWidth(stackoverflow), service.getHeight(stackoverflow))
+                .bounds(460, 400)
                 .get();
         
         stackoverflow.addMouseListener(new MouseAdapter() {
@@ -235,7 +225,7 @@ public class AboutAuthor extends JFrame {
             }
         });
         
-        gameDescription = new TextAreaBuilderImpl(gameDescription)
+        JTextArea gameDescription = new TextAreaBuilderImpl()
                 .text("Millionaire Game ® \n \nA quiz competition with"
                 + " player attempting to win \na top prize of $1,000,000"
                 + " by answering a series \nof multiple-choice questions. \n"
@@ -248,12 +238,12 @@ public class AboutAuthor extends JFrame {
                 .foreground(Color.WHITE)
                 .background(Color.BLACK)
                 .border(null)
-                .bounds(15,260,300,205)
+                .size(300, 205)
+                .bounds(15, 260)
                 .readOnly()
                 .get();
         this.panelConfiguration.addBackButton(authorForm);
         this.authorPanel = service
-                //.addBackButton(authorForm)
                 .addOnPanel(
                     authorPanel,
                     flaticon,

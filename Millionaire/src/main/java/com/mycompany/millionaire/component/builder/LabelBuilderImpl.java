@@ -3,6 +3,7 @@ package com.mycompany.millionaire.component.builder;
 
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.media.ImageManager;
+import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,13 +23,16 @@ import javax.swing.border.Border;
 public class LabelBuilderImpl implements LabelBuilder {
     
     private final JLabel label;
-    
-    public LabelBuilderImpl(JLabel label) {
-        this.label = label;
-    }
+    private final ComponentServiceImpl service;
     
     public LabelBuilderImpl() {
         this.label = new JLabel();
+        this.service = new ComponentServiceImpl();
+    }
+    
+     public LabelBuilderImpl(JLabel label) {
+        this.label = label;
+        this.service = new ComponentServiceImpl();
     }
     
     @Override
@@ -56,8 +60,8 @@ public class LabelBuilderImpl implements LabelBuilder {
     }
     
     @Override
-    public LabelBuilderImpl bounds(int x, int y, int width, int height) {
-        this.label.setBounds(x,y,width,height);
+    public LabelBuilderImpl bounds(int x, int y) {
+        this.label.setBounds(x,y,service.getWidth(label),service.getHeight(label));
         return this;
     }
     
@@ -85,7 +89,7 @@ public class LabelBuilderImpl implements LabelBuilder {
 
     @Override
     public LabelBuilderImpl size(Dimension d) {
-        this.label.setSize(d);
+        this.label.setPreferredSize(d);
         return this;
     }
 
@@ -109,11 +113,12 @@ public class LabelBuilderImpl implements LabelBuilder {
         int y = label.getY();
         int width = label.getWidth();
         int height = label.getHeight();
+        size(new Dimension(width, height));
         this.label.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 image(ImageManager.getImageIcon(path));
-                bounds(x, y-2, width, height);
+                bounds(x, y-2);
                 try {
                     // Play sound on hover
                     AudioManager.handleAudioEvent("hover");
@@ -127,7 +132,7 @@ public class LabelBuilderImpl implements LabelBuilder {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 // Set back previous image
                 label.setIcon(currentIcon);
-                bounds(x, y, width, height);
+                bounds(x, y);
             }
         });
         return this;

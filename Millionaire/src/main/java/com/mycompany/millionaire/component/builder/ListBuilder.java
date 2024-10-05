@@ -18,12 +18,10 @@ public interface ListBuilder extends Builder {
      * Set bounds of JList
      * @param x position on panel
      * @param y position on panel
-     * @param width of JList
-     * @param height of JList
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder bounds(int x, int y, int width, int height);
+    ListBuilder bounds(int x, int y);
     
     /**
      * Set background color on JList

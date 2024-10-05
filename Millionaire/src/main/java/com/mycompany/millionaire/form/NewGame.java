@@ -53,47 +53,42 @@ public class NewGame {
     }
     
     private void initComponents() {
-        JLabel welcomeLabel = new JLabel();
-        JLabel language = new JLabel();
-        JLabel subject = new JLabel();
-        JLabel difficulty = new JLabel();
         languagesList = new JComboBox(Language.values());
         subjectsList = new JComboBox(Subject.values());
         difficultiesList = new JComboBox(Difficulty.values());
-        start = new JButton();
         
-        welcomeLabel = new LabelBuilderImpl(welcomeLabel)
+        JLabel welcomeLabel = new LabelBuilderImpl()
                 .text("Choose your destiny!")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 26))
-                .bounds(165, 50, service.getWidth(welcomeLabel), service.getHeight(welcomeLabel))
+                .bounds(165, 50)
                 .get();
         
-        language = new LabelBuilderImpl(language)
+        JLabel language = new LabelBuilderImpl()
                 .text("Language")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 18))
-                .bounds(180, 150, service.getWidth(language), service.getHeight(language))
+                .bounds(180, 150)
                 .get();
         
-        subject = new LabelBuilderImpl(subject)
+        JLabel subject = new LabelBuilderImpl()
                 .text("Subject")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif",Font.BOLD, 18))
-                .bounds(180, 200, service.getWidth(subject), service.getHeight(subject))
+                .bounds(180, 200)
                 .get();
         
-        difficulty = new LabelBuilderImpl(difficulty)
+        JLabel difficulty = new LabelBuilderImpl()
                 .text("Difficulty")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif",Font.BOLD, 18))
-                .bounds(180, 250, service.getWidth(difficulty), service.getHeight(difficulty))
+                .bounds(180, 250)
                 .get();
         
         languagesList = new ComboBoxBuilderImpl(languagesList)
                 .foreground(Color.WHITE)
                 .size(new Dimension(100,30))
-                .bounds(300,150,service.getWidth(languagesList),service.getHeight(languagesList))
+                .bounds(300, 150)
                 .selectedItemHover()
                 .get();
         
@@ -101,22 +96,23 @@ public class NewGame {
         subjectsList = new ComboBoxBuilderImpl(subjectsList)
                 .foreground(Color.WHITE)
                 .size(new Dimension(120,30))
-                .bounds(300,200,service.getWidth(subjectsList),service.getHeight(subjectsList))
+                .bounds(300, 200)
                 .selectedItemHover()
                 .get();
         
         difficultiesList = new ComboBoxBuilderImpl(difficultiesList)
                 .foreground(Color.WHITE)
                 .size(new Dimension(100,30))
-                .bounds(300,250,service.getWidth(difficultiesList),service.getHeight(difficultiesList))
+                .bounds(300, 250)
                 .selectedItemHover()
                 .get();
         
-        start = new ButtonBuilderImpl(start)
+        start = new ButtonBuilderImpl()
                 .text("Start")
                 .foreground(Color.WHITE)
                 .background(new Color(0, 38, 75))
-                .bounds(240, 320, 150, 35)
+                .size(new Dimension(150, 35))
+                .bounds(240, 320)
                 .selectedItemHover()
                 .get();
         

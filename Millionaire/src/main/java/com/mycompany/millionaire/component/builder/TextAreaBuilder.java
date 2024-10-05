@@ -41,12 +41,10 @@ public interface TextAreaBuilder extends Builder{
      * Set bounds of JTextArea
      * @param x position on panel
      * @param y position on panel
-     * @param width of JTextArea
-     * @param height of JTextArea
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder bounds(int x, int y, int width, int height);
+    TextAreaBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JTextArea
