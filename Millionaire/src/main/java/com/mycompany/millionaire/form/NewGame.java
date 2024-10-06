@@ -135,7 +135,6 @@ public class NewGame {
       
         this.panelConfig.addBackButton(configForm);
         this.configPanel = service
-                //.addBackButton(configForm)
                 .addOnPanel(
                         configPanel, 
                         welcomeLabel,

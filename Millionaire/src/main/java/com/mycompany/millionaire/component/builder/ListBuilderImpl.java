@@ -59,12 +59,6 @@ public class ListBuilderImpl implements ListBuilder{
     }
 
     @Override
-    public ListBuilder prefferedSize(Dimension d) {
-        this.list.setPreferredSize(d);
-        return this;
-    }
-
-    @Override
     public ListBuilder font(Font font) {
         this.list.setFont(font);
         return this;
@@ -72,7 +66,7 @@ public class ListBuilderImpl implements ListBuilder{
 
     @Override
     public ListBuilder size(Dimension d) {
-         this.list.setSize(d);
+         this.list.setPreferredSize(d);
          return this;
     }
 

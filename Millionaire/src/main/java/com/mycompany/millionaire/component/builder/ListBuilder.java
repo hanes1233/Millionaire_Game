@@ -106,6 +106,5 @@ public interface ListBuilder extends Builder {
      * @param d - get size from Dimension from parameter
      * @return this object, allowing method chaining
      */
-    ListBuilder prefferedSize(Dimension d);
     
 }

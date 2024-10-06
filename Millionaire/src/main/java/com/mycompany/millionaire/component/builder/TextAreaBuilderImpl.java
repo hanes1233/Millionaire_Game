@@ -22,6 +22,11 @@ public class TextAreaBuilderImpl implements TextAreaBuilder {
         this.service = new ComponentServiceImpl();
     }
 
+    public TextAreaBuilderImpl(JTextArea textArea) {
+        this.textArea = textArea;
+        this.service = new ComponentServiceImpl();
+    }
+    
     @Override
     public TextAreaBuilderImpl text(String text) {
         this.textArea.setText(text);

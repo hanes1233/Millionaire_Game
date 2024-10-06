@@ -118,7 +118,7 @@ public class LabelBuilderImpl implements LabelBuilder {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 image(ImageManager.getImageIcon(path));
-                bounds(x, y-2);
+                bounds(x, y - 2);
                 try {
                     // Play sound on hover
                     AudioManager.handleAudioEvent("hover");

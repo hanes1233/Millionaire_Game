@@ -9,6 +9,7 @@ import com.mycompany.millionaire.data.FriendAnswer;
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -55,6 +56,7 @@ public class FriendCall {
                  .text("30")
                  .font(new Font("Serif", Font.BOLD, 22))
                  .foreground(Color.ORANGE)
+                 .size(new Dimension(100, 30))
                  .bounds(300, 45)
                  .get();
          
@@ -80,10 +82,10 @@ public class FriendCall {
                  (this.language.equals("English")) ? this.friendAnswer.getEngFriends() : this.friendAnswer.getCzFriends();
          
          this.friendList = new JList();
-         this.friendList = new ListBuilderImpl(friendList)
+         this.friendList = new ListBuilderImpl()
                  .background(new Color(51,0,102))
                  .foreground(Color.WHITE)
-                 .size(250, 85)
+                 .size(new Dimension(250, 85))
                  .bounds(30, 90)
                  .model(friends)
                  .get();
@@ -128,7 +130,7 @@ public class FriendCall {
                         .font(new Font("Serif", Font.ITALIC, 20))
                         .background(new Color(0, 38, 75))
                         .foreground(Color.WHITE)
-                        .size(250, 45)
+                        .size(new Dimension(250, 45))
                         .bounds(30, 90)
                         .readOnly()
                         .get();
@@ -148,10 +150,10 @@ public class FriendCall {
                                     panel.remove(calling);
                                     panel.repaint();
                                 }else {
-                                    calling = new TextAreaBuilderImpl()
+                                    calling = new TextAreaBuilderImpl(calling)
                                         .text(randomAnswer)
                                         .font(new Font("Serif", Font.ITALIC, 16))
-                                        .size(250, 75)
+                                        .size(new Dimension(250, 75))
                                         .bounds(30, 90)
                                         .foreground(Color.ORANGE)
                                         .get();

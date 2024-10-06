@@ -76,7 +76,6 @@ public class GameFrame {
     private int progressIndex = 15;
     private int questionIndex = 0;
     private int score = 0;
-    private boolean winner;
     private boolean gameOver;
     private boolean correctAnswer;
     
@@ -107,7 +106,6 @@ public class GameFrame {
         this.gameFrame = formFactory.createForm();
         this.gameFrame.setContentPane(gamePanel);
         this.startQuiz();
-        
     }
     
     private void initComponents(Question currentQuestion) {
@@ -202,7 +200,6 @@ public class GameFrame {
         } 
         
         
-        exit = new JLabel();
         exit = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("exit"))
                 .bounds(580, 20)
@@ -221,7 +218,7 @@ public class GameFrame {
         gameProgress = new JList();
         gameProgress = new ListBuilderImpl(gameProgress)
                 .model(progressList.getModel(this.language))
-                .size(200, 280)
+                .size(new Dimension(200, 280))
                 .bounds(500, 80)
                 .background(new Color(12, 4, 77))
                 .foreground(new Color(242, 177, 0))
@@ -296,7 +293,6 @@ public class GameFrame {
                 initComponents(question);
             }
         }else {
-            this.winner = true;
             GameOver gameOver = new GameOver(quizService.getTotalScore(gameProgress, progressIndex, questionIndex));
             try {
                 gameFrame.dispose();

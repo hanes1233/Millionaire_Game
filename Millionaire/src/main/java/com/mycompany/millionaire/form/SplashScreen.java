@@ -13,6 +13,8 @@ public class SplashScreen extends javax.swing.JDialog {
 
     /**
      * Creates new form SplashScreen
+     * @param parent
+     * @param modal
      */
     public SplashScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -96,19 +98,16 @@ public class SplashScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int i = 0;
-                try {
-                    while(i < 100) {
-                        loadingProgress(i);
-                        i = i+1;
-                    }
-                    dispose();
-                }catch(Exception e) {
-                    e.printStackTrace();
+        new Thread(() -> {
+            int i = 0;
+            try {
+                while(i < 100) {
+                    loadingProgress(i);
+                    i = i+1;
                 }
+                dispose();
+            }catch(Exception e) {
+                System.out.println("Error in SplashScreen forming window");
             }
         }).start();
     }//GEN-LAST:event_formWindowOpened

@@ -55,9 +55,8 @@ public class Score extends JFrame {
      * Initialize our buttons,labels and event listeners and append it to panel
      */
     private void initComponents() {
-        JLabel listDescription = new JLabel("Statistics of best players");
         
-        listDescription = new LabelBuilderImpl()
+        JLabel listDescription = new LabelBuilderImpl()
                 .text("Statistics of best players")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 22))
@@ -65,9 +64,8 @@ public class Score extends JFrame {
                 .get();
         
         
-        bestPlayers = new JList();
-        bestPlayers = new ListBuilderImpl(bestPlayers)
-                .prefferedSize(new Dimension(450,380))
+        bestPlayers = new ListBuilderImpl()
+                .size(new Dimension(450,380))
                 .background(new Color(173, 194, 215))
                 .foreground(Color.WHITE)
                 .bounds(100, 60)

@@ -52,11 +52,6 @@ public class AboutAuthor extends JFrame {
     }
     
     private void initComponents() {
-        this.github = new JLabel();
-        this.linkedin = new JLabel();
-        this.mail = new JLabel();
-        this.flaticon = new JLabel();
-        this.stackoverflow = new JLabel();
         
         JLabel authorLabel = new LabelBuilderImpl()
                 .text("AUTHOR:")
@@ -88,9 +83,9 @@ public class AboutAuthor extends JFrame {
         github.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                github = new LabelBuilderImpl()
+                github = new LabelBuilderImpl(github)
                         .image(new ImageIcon(ImageManager.scaleImage("github")))
-                        .size(80,80)
+                        .bounds(100,165)
                         .get();
             }
             @Override
@@ -113,9 +108,9 @@ public class AboutAuthor extends JFrame {
         linkedin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                linkedin = new LabelBuilderImpl()
+                linkedin = new LabelBuilderImpl(linkedin)
                         .image(new ImageIcon(ImageManager.scaleImage("linkedin")))
-                        .size(80,80)
+                        .bounds(300,165)
                         .get();
             }
             @Override
@@ -137,9 +132,9 @@ public class AboutAuthor extends JFrame {
         mail.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mail = new LabelBuilderImpl()
+                mail = new LabelBuilderImpl(mail)
                         .image(new ImageIcon(ImageManager.scaleImage("mail")))
-                        .size(80,80)
+                        .bounds(500,165)
                         .get();
             }
             @Override

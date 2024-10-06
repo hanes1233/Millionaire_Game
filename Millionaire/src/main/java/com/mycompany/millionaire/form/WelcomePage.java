@@ -142,8 +142,8 @@ public final class WelcomePage {
                 .get();
         
         JLabel mute = new LabelBuilderImpl()
-                .bounds(580, 25)
                 .image(ImageManager.getImageIcon("mute"))
+                .bounds(580, 25)
                 .get();
         
         mute.addMouseListener(new MouseAdapter() {

@@ -43,10 +43,6 @@ public class Hint {
    
     
     public Hint() throws  IOException {
-        fiftyToFiftyHint = new JLabel();
-        friendCallHint = new JLabel();
-        audienceHelpHint = new JLabel();
-        
         this.service = new ComponentServiceImpl();
         this.panelConfig = new PanelTemplate();
         
@@ -75,16 +71,13 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     fiftyToFiftyHint = new LabelBuilderImpl(fiftyToFiftyHint)
-                        .setY(fiftyToFiftyHint.getY() + 2)
                         .image(ImageManager.getImageIcon("fiftyexpired"))
-                        .bounds(30, 30)
+                        .bounds(30, 35)
                         .removeMouseListeners()
                         .get();
                 }
             }
-        });
-        
-        
+        });        
         
         friendCallHint = new LabelBuilderImpl()
                 .image(ImageManager.getImageIcon("callhint"))
@@ -108,7 +101,7 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     friendCallHint = new LabelBuilderImpl(friendCallHint)
-                        .setY(friendCallHint.getY() + 15)
+                        .setY(friendCallHint.getY() + 8)
                         .image(ImageManager.getImageIcon("callexpired"))
                         .removeMouseListeners()
                         .get();
@@ -138,7 +131,7 @@ public class Hint {
                         Logger.getLogger(Hint.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     audienceHelpHint = new LabelBuilderImpl(audienceHelpHint)
-                        .setY(audienceHelpHint.getY())
+                        .setY(audienceHelpHint.getY() + 8)
                         .image(ImageManager.getImageIcon("audienceexpired"))
                         .removeMouseListeners()
                         .get();
