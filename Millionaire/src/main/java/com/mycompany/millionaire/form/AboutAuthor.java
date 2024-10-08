@@ -24,12 +24,13 @@ import javax.swing.JTextArea;
  * @author pavel
  */
 public class AboutAuthor extends JFrame {
+
+    private final FormFactory FACTORY;
+    private final ComponentServiceImpl SERVICE;
+    private final PanelTemplate PANEL_CONFIG;
     
     private JFrame authorForm;
     private JPanel authorPanel;
-    private final FormFactory factory;
-    private final ComponentServiceImpl service;
-    private final PanelTemplate panelConfiguration;
     
     private JLabel flaticon;
     private JLabel stackoverflow;
@@ -39,14 +40,14 @@ public class AboutAuthor extends JFrame {
     
     
     public AboutAuthor() throws IOException {
-        this.panelConfiguration = new PanelTemplate();
-        this.factory = new FormFactory();
+        this.PANEL_CONFIG = new PanelTemplate();
+        this.FACTORY = new FormFactory();
         this.authorPanel = PanelTemplate.getPanelWithRectangle();
-        this.service = new ComponentServiceImpl();
+        this.SERVICE = new ComponentServiceImpl();
     }
     
     public void run() {
-        this.authorForm = this.factory.createForm();
+        this.authorForm = this.FACTORY.createForm();
         this.authorForm.setContentPane(this.authorPanel);
         initComponents();
     }
@@ -237,8 +238,8 @@ public class AboutAuthor extends JFrame {
                 .bounds(15, 260)
                 .readOnly()
                 .get();
-        this.panelConfiguration.addBackButton(authorForm);
-        this.authorPanel = service
+        this.PANEL_CONFIG.addBackButton(authorForm);
+        this.authorPanel = SERVICE
                 .addOnPanel(
                     authorPanel,
                     flaticon,

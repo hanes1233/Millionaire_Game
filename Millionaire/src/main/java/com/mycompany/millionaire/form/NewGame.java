@@ -30,9 +30,9 @@ public class NewGame {
     
     private JFrame configForm;
     private JPanel configPanel;
-    private final FormFactory factory;
-    private final ComponentServiceImpl service;
-    private final PanelTemplate panelConfig;
+    private final FormFactory FACTORY;
+    private final ComponentServiceImpl SERVICE;
+    private final PanelTemplate PANEL_CONFIG;
     
     private JButton start;
     private JComboBox<String> languagesList;
@@ -40,14 +40,14 @@ public class NewGame {
     private JComboBox<String> difficultiesList;
     
     public NewGame() throws IOException {
-        this.panelConfig = new PanelTemplate();
-        this.factory = new FormFactory();
+        this.PANEL_CONFIG = new PanelTemplate();
+        this.FACTORY = new FormFactory();
         this.configPanel = PanelTemplate.getPanel();
-        this.service = new ComponentServiceImpl();
+        this.SERVICE = new ComponentServiceImpl();
     }
     
     public void run() {
-        configForm = factory.createForm();
+        configForm = FACTORY.createForm();
         this.configForm.setContentPane(this.configPanel);
         initComponents();
     }
@@ -133,8 +133,8 @@ public class NewGame {
         });
         
       
-        this.panelConfig.addBackButton(configForm);
-        this.configPanel = service
+        this.PANEL_CONFIG.addBackButton(configForm);
+        this.configPanel = SERVICE
                 .addOnPanel(
                         configPanel, 
                         welcomeLabel,

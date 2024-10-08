@@ -21,80 +21,80 @@ import java.awt.event.MouseEvent;
  */
 public class ButtonBuilderImpl implements ButtonBuilder{
     
-    private final JButton button;
-    private final ComponentServiceImpl service;
+    private final JButton BUTTON;
+    private final ComponentServiceImpl SERVICE;
     
     public ButtonBuilderImpl() {
-        this.button = new JButton();
-        this.service = new ComponentServiceImpl();
+        this.BUTTON = new JButton();
+        this.SERVICE = new ComponentServiceImpl();
     }
     
     @Override
     public ButtonBuilderImpl image(ImageIcon image) {
-        this.button.setIcon(image);
+        this.BUTTON.setIcon(image);
         return this;
     }
     
     @Override
     public ButtonBuilderImpl text(String text) {
-        this.button.setText(text);
+        this.BUTTON.setText(text);
         return this;
     }
     
     @Override
     public ButtonBuilderImpl background(Color color) {
-        this.button.setBackground(color);
+        this.BUTTON.setBackground(color);
         return this;
     }
     
     @Override
     public ButtonBuilderImpl foreground(Color color) {
-        this.button.setForeground(color);
+        this.BUTTON.setForeground(color);
         return this;
     }
     
     @Override
     public ButtonBuilderImpl bounds(int x, int y) {
-        this.button.setBounds(x,y,service.getWidth(button), service.getHeight(button));
+        this.BUTTON.setBounds(x,y,SERVICE.getWidth(BUTTON), SERVICE.getHeight(BUTTON));
         return this;
     }
     
     @Override
     public ButtonBuilderImpl font(Font font) {
-        this.button.setFont(font);
+        this.BUTTON.setFont(font);
         return this;
     }
     
     @Override
     public JButton get() {
-        return this.button;
+        return this.BUTTON;
     }
 
     @Override
     public ButtonBuilderImpl size(Dimension d) {
-        this.button.setPreferredSize(d);
+        this.BUTTON.setPreferredSize(d);
         return this;
     }
 
     @Override
     public ButtonBuilderImpl size(int width, int height) {
-        this.button.setSize(width,height);
+        this.BUTTON.setSize(width,height);
         return this;
     }
 
     @Override
     public ButtonBuilderImpl border(Border border) {
-        this.button.setBorder(border);
+        this.BUTTON.setBorder(border);
         return this;
     }
     
     @Override
     public ButtonBuilderImpl selectedItemHover() {
-        this.button.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.BUTTON.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Change color to orange on hover
-                button.setBackground(new Color(255,153,51));
+                BUTTON.setBackground(new Color(255,153,51));
                 try {
                     // Set up hover sound
                     AudioManager.handleAudioEvent("hover");
@@ -107,7 +107,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 // Changle color back
-                button.setBackground(new Color(0, 38, 75));
+                BUTTON.setBackground(new Color(0, 38, 75));
             }
         });
         return this;
@@ -115,7 +115,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
     
     @Override
     public ButtonBuilderImpl clickSound() {
-        this.button.addMouseListener(new MouseAdapter() {
+        this.BUTTON.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
             try {
@@ -136,7 +136,7 @@ public class ButtonBuilderImpl implements ButtonBuilder{
     
     @Override
     public ButtonBuilderImpl textHorizontalAlign(int position) {
-        this.button.setHorizontalAlignment(position);
+        this.BUTTON.setHorizontalAlignment(position);
         return this;
     }
     
@@ -148,14 +148,14 @@ public class ButtonBuilderImpl implements ButtonBuilder{
             .foreground(Color.WHITE)
             .size(new Dimension(220, 35))
             .clickSound();
-        this.button.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.BUTTON.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(255,153,51));
+                BUTTON.setBackground(new Color(255,153,51));
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(8, 0, 77));
+                BUTTON.setBackground(new Color(8, 0, 77));
             }
         });
         return this;

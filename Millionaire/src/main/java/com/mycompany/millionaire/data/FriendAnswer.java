@@ -12,25 +12,25 @@ import lombok.Getter;
 @Getter
 public class FriendAnswer {
     
-    private final DefaultListModel<String> engFriends;
-    private final DefaultListModel<String> czFriends;
+    private final DefaultListModel<String> ENG_FRIENDS;
+    private final DefaultListModel<String> CZ_FRIENDS;
     
     public FriendAnswer() {
-        this.engFriends = new DefaultListModel<>();
-        this.czFriends = new DefaultListModel<>();
+        this.ENG_FRIENDS = new DefaultListModel<>();
+        this.CZ_FRIENDS = new DefaultListModel<>();
         this.pushFriendsToList();
     }
     
     private void pushFriendsToList() {
-         this.engFriends.addElement("Elon Musk");
-         this.engFriends.addElement("Joe Biden");
-         this.engFriends.addElement("Mike Tyson");
-         this.engFriends.addElement("Rihanna");
+         this.ENG_FRIENDS.addElement("Elon Musk");
+         this.ENG_FRIENDS.addElement("Joe Biden");
+         this.ENG_FRIENDS.addElement("Mike Tyson");
+         this.ENG_FRIENDS.addElement("Rihanna");
          
-         this.czFriends.addElement("Andrej Babiš");
-         this.czFriends.addElement("David Pastrnák");
-         this.czFriends.addElement("Zeman");
-         this.czFriends.addElement("Pavel Nedved");
+         this.CZ_FRIENDS.addElement("Andrej Babiš");
+         this.CZ_FRIENDS.addElement("David Pastrnák");
+         this.CZ_FRIENDS.addElement("Zeman");
+         this.CZ_FRIENDS.addElement("Pavel Nedved");
     }
     
     public String getRandomEngAnswer() {

@@ -4,7 +4,6 @@ package com.mycompany.millionaire.component;
 //region imports
 import com.mycompany.millionaire.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.form.FormFactory;
-import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -28,14 +27,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class PanelTemplate {
     
     private static JPanel panel;
-    private final ComponentServiceImpl service;
     private JButton backButton;
-    private final FormFactory factory;
+    private final FormFactory FACTORY;
     
     
     public PanelTemplate() {
-        this.service = new ComponentServiceImpl();
-        this.factory = new FormFactory();
+        this.FACTORY = new FormFactory();
     }
     
     
@@ -80,7 +77,7 @@ public class PanelTemplate {
         
         backButton.addActionListener((ActionListener) -> {
             try {
-                factory.createForm(true);
+                FACTORY.createForm(true);
                 form.dispose();
             } catch (IOException |
                     NullPointerException |
@@ -93,6 +90,6 @@ public class PanelTemplate {
                 throw new RuntimeException("Error catch trying to play intro(MainComponent.class): " + e);
             }
         });
-        this.panel.add(this.backButton);
+        panel.add(this.backButton);
     } 
 }

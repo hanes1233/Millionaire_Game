@@ -2,6 +2,7 @@
 package com.mycompany.millionaire.model;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +22,10 @@ public interface ComponentService {
     public void removeListeners(JComponent component);
     
     public void removeMotionListeners(JComponent component);
+    
+    public void runMainPage(JFrame frame);
+    
+    public void dispose(JFrame frame);
     
     
 }

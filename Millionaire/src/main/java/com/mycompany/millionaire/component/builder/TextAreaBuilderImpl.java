@@ -14,82 +14,82 @@ import javax.swing.border.Border;
  */
 public class TextAreaBuilderImpl implements TextAreaBuilder {
     
-    private final JTextArea textArea;
-    private final ComponentServiceImpl service;
+    private final JTextArea TEXT_AREA;
+    private final ComponentServiceImpl SERVICE;
     
     public TextAreaBuilderImpl() {
-        this.textArea = new JTextArea();
-        this.service = new ComponentServiceImpl();
+        this.TEXT_AREA = new JTextArea();
+        this.SERVICE = new ComponentServiceImpl();
     }
 
     public TextAreaBuilderImpl(JTextArea textArea) {
-        this.textArea = textArea;
-        this.service = new ComponentServiceImpl();
+        this.TEXT_AREA = textArea;
+        this.SERVICE = new ComponentServiceImpl();
     }
     
     @Override
     public TextAreaBuilderImpl text(String text) {
-        this.textArea.setText(text);
+        this.TEXT_AREA.setText(text);
         return this;
     }
 
     @Override
     public TextAreaBuilderImpl background(Color color) {
-       this.textArea.setBackground(color);
+       this.TEXT_AREA.setBackground(color);
        return this;
     }
 
     @Override
     public TextAreaBuilderImpl foreground(Color color) {
-        this.textArea.setForeground(color);
+        this.TEXT_AREA.setForeground(color);
         return this;
     }
 
     @Override
     public TextAreaBuilderImpl bounds(int x, int y) {
-         this.textArea.setBounds(x, y, service.getWidth(textArea), service.getHeight(textArea));
+         this.TEXT_AREA.setBounds(x, y, SERVICE.getWidth(TEXT_AREA), SERVICE.getHeight(TEXT_AREA));
          return this;
     }
 
     @Override
     public TextAreaBuilderImpl font(Font font) {
-        this.textArea.setFont(font);
+        this.TEXT_AREA.setFont(font);
         return this;
     }
 
     @Override
     public TextAreaBuilderImpl size(Dimension d) {
-         this.textArea.setPreferredSize(d);
+         this.TEXT_AREA.setPreferredSize(d);
          return this;
     }
 
     @Override
     public TextAreaBuilderImpl size(int width, int height) {
-         this.textArea.setSize(width,height);
+         this.TEXT_AREA.setSize(width,height);
          return this;
     }
     
     @Override
     public JTextArea get() {
-        return this.textArea;
+        return this.TEXT_AREA;
     }
 
     @Override
     public TextAreaBuilderImpl border(Border border) {
-        this.textArea.setBorder(border);
+        this.TEXT_AREA.setBorder(border);
         return this;
     }
     
     @Override
     public TextAreaBuilderImpl formatText() {
-        this.textArea.setWrapStyleWord(true);
-        this.textArea.setLineWrap(true);
+        this.TEXT_AREA.setWrapStyleWord(true);
+        this.TEXT_AREA.setLineWrap(true);
         return this;
     }
     
     @Override
     public TextAreaBuilderImpl readOnly() {
-        this.textArea.setEditable(false);
+        this.TEXT_AREA.setEditable(false);
         return this;
     }
     

@@ -13,14 +13,14 @@ public enum Subject {
     
     GENERAL("General");
     
-    private final String name;
+    private final String NAME;
     
     private Subject(String name) {
-        this.name = name;
+        this.NAME = name;
     }
     
     @Override
     public String toString() {
-        return this.name;
+        return this.NAME;
     }
 }

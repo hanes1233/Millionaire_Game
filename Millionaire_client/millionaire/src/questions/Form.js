@@ -188,7 +188,7 @@ export function Form() {
                         />
                     </div>
                 </div>
-                <input type="submit" className="btn btn-primary m-5" value="Uložit" />
+                <input type="submit" className="btn btn-primary m-5" value="Save" />
             </form>
         </div>
     )

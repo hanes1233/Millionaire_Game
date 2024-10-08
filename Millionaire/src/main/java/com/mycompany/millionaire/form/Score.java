@@ -3,7 +3,7 @@ package com.mycompany.millionaire.form;
 
 import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.PanelTemplate;
-import com.mycompany.millionaire.component.builder.ListBuilderImpl;
+import com.mycompany.millionaire.component.builder.TableBuilderImpl;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,8 +11,8 @@ import java.awt.Font;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  *
@@ -22,10 +22,10 @@ public class Score extends JFrame {
     
     private JFrame scoreForm;
     private JPanel scorePanel;
-    private final ComponentServiceImpl service;
-    private JList bestPlayers;
-    private final FormFactory factory;
-    private final PanelTemplate panelConfig;
+    private final ComponentServiceImpl SERVICE;
+    private JTable table;
+    private final FormFactory FACTORY;
+    private final PanelTemplate PANEL_CONFIG;
     
     
     /**
@@ -35,10 +35,10 @@ public class Score extends JFrame {
      * @throws IOException because factory method 'getPanel' also works with image(icon) 
      */
     public Score() throws IOException {
-        this.panelConfig = new PanelTemplate();
-        this.factory = new FormFactory();
+        this.PANEL_CONFIG = new PanelTemplate();
+        this.FACTORY = new FormFactory();
         this.scorePanel = PanelTemplate.getPanel();
-        this.service = new ComponentServiceImpl();
+        this.SERVICE = new ComponentServiceImpl();
     }
     
     /**
@@ -46,7 +46,7 @@ public class Score extends JFrame {
      * components to this panel
      */
     public void run() {
-        scoreForm = factory.createForm();
+        scoreForm = FACTORY.createForm();
         scoreForm.setContentPane(this.scorePanel);
         initComponents();
     }
@@ -60,22 +60,53 @@ public class Score extends JFrame {
                 .text("Statistics of best players")
                 .foreground(Color.WHITE)
                 .font(new Font("Serif", Font.BOLD, 22))
-                .bounds(170, 25)
+                .bounds(150, 25)
                 .get();
         
+        String[] columnNames = { "Name", "Score", "Wins" };
+        String[][] data = {
+            { "Kundan Kumar Jha", "4031", "CSE" },
+            { "Anand Jha", "6014", "IT" }
+        };
         
-        bestPlayers = new ListBuilderImpl()
-                .size(new Dimension(450,380))
+        JLabel name = new LabelBuilderImpl()
+                .text("Name")
+                .foreground(Color.ORANGE)
+                .font(new Font("Serif", Font.BOLD, 14))
+                .bounds(130, 60)
+                .get();
+        
+        JLabel score = new LabelBuilderImpl()
+                .text("Score")
+                .foreground(Color.ORANGE)
+                .font(new Font("Serif", Font.BOLD, 14))
+                .bounds(250, 60)
+                .get();
+        
+        JLabel wins = new LabelBuilderImpl()
+                .text("Wins")
+                .foreground(Color.ORANGE)
+                .font(new Font("Serif", Font.BOLD, 14))
+                .bounds(370, 60)
+                .get();
+        
+        table = new JTable(data, columnNames);
+        table = new TableBuilderImpl(table)
                 .background(new Color(173, 194, 215))
-                .foreground(Color.WHITE)
-                .bounds(100, 60)
+                .foreground(Color.BLACK)
+                .size(new Dimension(350, 380))
+                .bounds(130,80)
                 .get();
         
-        this.panelConfig.addBackButton(scoreForm);
-        this.scorePanel = service
+        
+        this.PANEL_CONFIG.addBackButton(scoreForm);
+        this.scorePanel = SERVICE
                 .addOnPanel(
                 scorePanel,
-                bestPlayers,
+                name,
+                score,
+                wins,
+                table,
                 listDescription);
     }
     

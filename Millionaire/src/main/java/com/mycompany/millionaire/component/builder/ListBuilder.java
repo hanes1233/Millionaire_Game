@@ -65,7 +65,7 @@ public interface ListBuilder extends Builder {
     ListBuilder size(int width, int height);
     
     /**
-     * Set borders of JButton
+     * Set borders of JList
      * @param border - get border from parameter
      * @return this object, allowing method chaining
      */
@@ -100,11 +100,4 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     ListBuilder selectedIndex(int index);
-    
-    /**
-     * Set preferred size of JList
-     * @param d - get size from Dimension from parameter
-     * @return this object, allowing method chaining
-     */
-    
 }

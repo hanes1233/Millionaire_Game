@@ -13,14 +13,14 @@ public enum Difficulty {
     
     HARD("Hard");
     
-    private final String name;
+    private final String NAME;
     
     private Difficulty(String name) {
-        this.name = name;
+        this.NAME = name;
     }
     
     @Override
     public String toString() {
-        return this.name;
+        return this.NAME;
     }
 }

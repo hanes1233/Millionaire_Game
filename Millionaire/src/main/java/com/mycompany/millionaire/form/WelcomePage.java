@@ -32,7 +32,7 @@ public final class WelcomePage {
     
     private JFrame frame;
     private JPanel panel;
-    private final ComponentServiceImpl service;
+    private final ComponentServiceImpl SERVICE;
     
     
     private JButton startGame;
@@ -58,7 +58,7 @@ public final class WelcomePage {
      */
     public WelcomePage() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.panel = PanelTemplate.getPanel();
-        service = new ComponentServiceImpl();
+        SERVICE = new ComponentServiceImpl();
         initComponents();
     }
     
@@ -109,8 +109,7 @@ public final class WelcomePage {
                 .get();
         
         exit.addActionListener((ActionEvent e) -> {
-            AudioManager.muteIntro();
-            frame.dispose();
+            SERVICE.dispose(frame);
         });
         
         
@@ -163,7 +162,7 @@ public final class WelcomePage {
             }
         });
         
-        this.panel = service.addOnPanel(
+        this.panel = SERVICE.addOnPanel(
                 panel, 
                 startGame, 
                 scores, 
@@ -177,8 +176,6 @@ public final class WelcomePage {
     public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            JLabel label = new JLabel();
-            System.out.println("pref size" + label.getPreferredSize());
             try {
                 BasicConfigurator.configure();
                 FormFactory form = new FormFactory();

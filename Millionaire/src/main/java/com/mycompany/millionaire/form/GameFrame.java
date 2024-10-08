@@ -7,12 +7,12 @@ import com.mycompany.millionaire.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.data.CurrentQuestion;
-import com.mycompany.millionaire.data.Database;
 import com.mycompany.millionaire.data.ProgressList;
 import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.media.AudioManager;
 import com.mycompany.millionaire.media.ImageManager;
 import com.mycompany.millionaire.model.ComponentServiceImpl;
+import com.mycompany.millionaire.model.DatabaseService;
 import com.mycompany.millionaire.model.Hints.Hint;
 import com.mycompany.millionaire.model.QuizService;
 import java.awt.Color;
@@ -60,12 +60,12 @@ public class GameFrame {
     private JFrame gameFrame;
     private JPanel gamePanel;
     private CurrentQuestion currentQuestion;
-    private final FormFactory formFactory;
-    private final ComponentServiceImpl service;
-    private final QuizService quizService;
+    private final FormFactory FACTORY;
+    private final ComponentServiceImpl SERVICE;
+    private final QuizService QUIZ_SERVICE;
     private ProgressList progressList;
     private Queue<Question> questions;
-    private Database database;
+    private DatabaseService databaseService;
     private Hint hints;
     
     private String language;
@@ -80,9 +80,9 @@ public class GameFrame {
     private boolean correctAnswer;
     
     public GameFrame() throws  IOException {
-        this.formFactory = new FormFactory();
-        this.service = new ComponentServiceImpl();
-        this.quizService = new QuizService();
+        this.FACTORY = new FormFactory();
+        this.SERVICE = new ComponentServiceImpl();
+        this.QUIZ_SERVICE = new QuizService();
         this.hints = new Hint();
     }
     
@@ -99,11 +99,11 @@ public class GameFrame {
                 UnsupportedLookAndFeelException e) {
                 throw new RuntimeException("Error catch at GameFrame run() method: " + e);
             }
-        this.database = new Database(language, subject, difficulty);
-        this.questions = database.getQuestionList();
+        this.databaseService = new DatabaseService();
+        this.questions = databaseService.getQuestionList(language, subject, difficulty);
         this.progressList = new ProgressList();
         this.gamePanel = PanelTemplate.getPanel();
-        this.gameFrame = formFactory.createForm();
+        this.gameFrame = FACTORY.createForm();
         this.gameFrame.setContentPane(gamePanel);
         this.startQuiz();
     }
@@ -146,7 +146,7 @@ public class GameFrame {
                 .get();
         
         optionA.addActionListener((ActionEvent e) -> {
-                this.correctAnswer = quizService.isAnswerCorrect(options[0], currentAnswer);
+                this.correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[0], currentAnswer);
                 startQuiz();   
         });
         
@@ -158,7 +158,7 @@ public class GameFrame {
                 .get();
         
         optionB.addActionListener((ActionEvent e) -> {
-                this.correctAnswer = quizService.isAnswerCorrect(options[1], currentAnswer);
+                this.correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[1], currentAnswer);
                 startQuiz(); 
         });
         
@@ -170,7 +170,7 @@ public class GameFrame {
                 .get();
         
         optionC.addActionListener((ActionEvent e) -> {
-                this.correctAnswer = quizService.isAnswerCorrect(options[2], currentAnswer);         
+                this.correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[2], currentAnswer);         
                 startQuiz();
         }); 
         
@@ -182,7 +182,7 @@ public class GameFrame {
                 .get();
         
         optionD.addActionListener((ActionEvent e) -> {
-                this.correctAnswer = quizService.isAnswerCorrect(options[3], currentAnswer);
+                this.correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[3], currentAnswer);
                 startQuiz();
         });
         
@@ -208,9 +208,7 @@ public class GameFrame {
         exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                AudioManager.stopAllSounds();
-                AudioManager.muteIntro();
-                gameFrame.dispose();
+                SERVICE.dispose(gameFrame);
             }
         });
         
@@ -225,7 +223,7 @@ public class GameFrame {
                 .selectedIndex(this.progressIndex)
                 .get();
         
-        this.gamePanel = service.addOnPanel(gamePanel, 
+        this.gamePanel = SERVICE.addOnPanel(gamePanel, 
             exit,
             questionText, 
             optionA, 
@@ -240,7 +238,7 @@ public class GameFrame {
         if(!questions.isEmpty()) {
             if(this.gamePanel.getComponents().length > 0) {
                 try {
-                    quizService.thinkingEffect();
+                    QUIZ_SERVICE.thinkingEffect();
                     AudioManager.soundReaction(this.correctAnswer);
                 } catch (InterruptedException | 
                 UnsupportedAudioFileException | 
@@ -255,21 +253,21 @@ public class GameFrame {
             this.progressIndex--;
             
             if(this.gamePanel.getComponents().length > 0) {
-                quizService.changeColorToGreen();
+                QUIZ_SERVICE.changeColorToGreen();
                 gamePanel.addMouseMotionListener(new MouseAdapter() {
                     @Override
                     public void mouseMoved(MouseEvent e) {
                        gamePanel.removeAll();
                        gamePanel.repaint();
                        currentQuestion = new CurrentQuestion(gamePanel, question, language, subject);
-                       service.removeMotionListeners(gamePanel);
+                       SERVICE.removeMotionListeners(gamePanel);
                        if(correctAnswer) {
-                           score = quizService.getCurrentScore(gameProgress, questionIndex);
+                           score += QUIZ_SERVICE.getCurrentScore(questionIndex);
                            initComponents(question);
                        }else {
                            questionIndex--;
                            progressIndex++;
-                           GameOver gameOver = new GameOver(quizService.getTotalScore(gameProgress, progressIndex, questionIndex));
+                           GameOver gameOver = new GameOver(score);
                            try {
                                gameFrame.dispose();
                                try {
@@ -293,7 +291,7 @@ public class GameFrame {
                 initComponents(question);
             }
         }else {
-            GameOver gameOver = new GameOver(quizService.getTotalScore(gameProgress, progressIndex, questionIndex));
+            GameOver gameOver = new GameOver(score);
             try {
                 gameFrame.dispose();
                 try {

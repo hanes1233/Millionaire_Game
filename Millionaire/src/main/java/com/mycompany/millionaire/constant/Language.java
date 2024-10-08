@@ -11,14 +11,14 @@ public enum Language {
     
     CZECH("Český");
     
-    private final String name;
+    private final String NAME;
     
     private Language(String name) {
-        this.name = name;
+        this.NAME = name;
     }
     
     @Override
     public String toString() {
-       return this.name;
+       return this.NAME;
     }
 }

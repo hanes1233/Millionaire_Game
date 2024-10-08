@@ -79,7 +79,7 @@ public class FriendCall {
          }).start();
          
          DefaultListModel<String> friends = 
-                 (this.language.equals("English")) ? this.friendAnswer.getEngFriends() : this.friendAnswer.getCzFriends();
+                 (this.language.equals("English")) ? this.friendAnswer.getENG_FRIENDS() : this.friendAnswer.getCZ_FRIENDS();
          
          this.friendList = new JList();
          this.friendList = new ListBuilderImpl()

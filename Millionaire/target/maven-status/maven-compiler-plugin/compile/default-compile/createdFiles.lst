@@ -5,7 +5,6 @@ com/mycompany/millionaire/component/builder/ButtonBuilderImpl.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilderImpl.class
 com/mycompany/millionaire/form/GameFrame.class
 com/mycompany/millionaire/component/builder/ComboBoxBuilderImpl.class
-com/mycompany/millionaire/form/GameOver$1.class
 com/mycompany/millionaire/form/AboutAuthor$3.class
 com/mycompany/millionaire/component/builder/ListBuilderImpl.class
 com/mycompany/millionaire/form/SplashScreen$1.class
@@ -23,10 +22,11 @@ com/mycompany/millionaire/data/Database.class
 com/mycompany/millionaire/model/Hints/Hint$1.class
 com/mycompany/millionaire/model/Redirect.class
 com/mycompany/millionaire/form/Score.class
+com/mycompany/millionaire/form/SplashScreen$2$1.class
 com/mycompany/millionaire/model/Hints/FriendCall.class
 com/mycompany/millionaire/form/GameFrame$1.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$3.class
-com/mycompany/millionaire/form/SplashScreen$3.class
+com/mycompany/millionaire/data/User.class
 com/mycompany/millionaire/form/AboutAuthor$1.class
 com/mycompany/millionaire/form/GameFrame$2.class
 com/mycompany/millionaire/component/builder/ComboBoxBuilder.class
@@ -41,7 +41,6 @@ com/mycompany/millionaire/form/WelcomePage$1.class
 com/mycompany/millionaire/component/builder/Builder.class
 com/mycompany/millionaire/model/Hints/Hint$3.class
 com/mycompany/millionaire/component/builder/ButtonBuilder.class
-com/mycompany/millionaire/form/SplashScreen$3$1.class
 com/mycompany/millionaire/form/FormFactory.class
 com/mycompany/millionaire/component/builder/ListBuilder.class
 com/mycompany/millionaire/component/builder/ProgressBarBuilder.class
@@ -53,6 +52,7 @@ com/mycompany/millionaire/model/ComponentService.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$2.class
 com/mycompany/millionaire/component/builder/TextFieldBuilderImpl.class
 com/mycompany/millionaire/model/Hints/AudienceVote.class
+com/mycompany/millionaire/component/builder/TableBuilder.class
 com/mycompany/millionaire/model/Hints/FriendCall$1.class
 com/mycompany/millionaire/media/ImageManager.class
 com/mycompany/millionaire/component/builder/TextAreaBuilder.class
@@ -60,6 +60,8 @@ com/mycompany/millionaire/form/AboutAuthor$5.class
 com/mycompany/millionaire/data/FriendAnswer.class
 com/mycompany/millionaire/component/builder/ButtonBuilderImpl$1.class
 com/mycompany/millionaire/form/SplashScreen.class
+com/mycompany/millionaire/model/DatabaseService.class
+com/mycompany/millionaire/component/builder/TableBuilderImpl.class
 com/mycompany/millionaire/constant/Difficulty.class
 com/mycompany/millionaire/component/builder/TextFieldBuilder.class
 com/mycompany/millionaire/constant/Language.class

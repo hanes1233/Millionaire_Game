@@ -25,7 +25,7 @@ public class AudioManager {
     private static AudioInputStream introStream;
     private static Clip soundToLoop;
     private static Clip mouseEvent; 
-    private static final LinkedList<Clip> soundEvents = new LinkedList<>();
+    private static final LinkedList<Clip> SOUND_EVENTS = new LinkedList<>();
     
     /**
      * Loop sound
@@ -68,16 +68,16 @@ public class AudioManager {
             mouseEvent =  AudioSystem.getClip();
             mouseEvent.open(introStream);
             mouseEvent.start(); 
-            soundEvents.add(mouseEvent);  
+            SOUND_EVENTS.add(mouseEvent);  
     }
     
     /**
      * Stop playing all sound streams
      */
     public static void stopAllSounds() {
-        for(int i = 0; i < soundEvents.size(); i++) {
-            if(soundEvents.get(i).isActive()) {
-                soundEvents.get(i).stop();
+        for(int i = 0; i < SOUND_EVENTS.size(); i++) {
+            if(SOUND_EVENTS.get(i).isActive()) {
+                SOUND_EVENTS.get(i).stop();
             }
         }
     }
