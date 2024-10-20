@@ -5,60 +5,70 @@ import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
 /**
- *
+ * CLass provides game with right-based progress panel,
+ * which indicates current question and price for every question
  * @author pavel
  */
 public class ProgressList {
     
-    private final DefaultListModel<String> MODEL;
+    private final DefaultListModel<String> PROGRESS_BAR;
     
+    // Constructor
     public ProgressList() {
-        this.MODEL = new DefaultListModel<>();
+        this.PROGRESS_BAR = new DefaultListModel<>();
     }
     
+    /**
+     * Get progress list for game
+     * @param language - depending on language fill PROGRESS_BAR list for english 
+     * or czech game version
+     * @return d
+     */
     public ListModel getModel(String language) {
         switch(language) {
-            case "English" -> this.fullfillEngList();
-            case "Český" -> this.fullfillCzList();
+            case "English" -> this.fulfillEngList();
+            case "Český" -> this.fulfillCzList();
             default -> throw new Error("Unexptected error catched getting List model");
         }
-        return this.MODEL;
+        return this.PROGRESS_BAR;
     }
     
-    private void fullfillEngList() {
-        this.MODEL.addElement("15     $1,000,000");
-        this.MODEL.addElement("14        $500,000");
-        this.MODEL.addElement("13        $250,000");
-        this.MODEL.addElement("12        $100,000");
-        this.MODEL.addElement("11          $50,000");
-        this.MODEL.addElement("10          $25,000");
-        this.MODEL.addElement("9            $15,000");
-        this.MODEL.addElement("8            $12,500");
-        this.MODEL.addElement("7            $10,000");
-        this.MODEL.addElement("6              $7,500");
-        this.MODEL.addElement("5              $5,000");
-        this.MODEL.addElement("4              $3,000");
-        this.MODEL.addElement("3              $2,000");
-        this.MODEL.addElement("2              $1,000");
-        this.MODEL.addElement("1                 $500"); 
+    // Fulfill PROGRESS_BAR with dollar amounts
+    private void fulfillEngList() {
+        this.PROGRESS_BAR.addElement("15     $1,000,000");
+        this.PROGRESS_BAR.addElement("14        $500,000");
+        this.PROGRESS_BAR.addElement("13        $250,000");
+        this.PROGRESS_BAR.addElement("12        $100,000");
+        this.PROGRESS_BAR.addElement("11          $50,000");
+        this.PROGRESS_BAR.addElement("10          $25,000");
+        this.PROGRESS_BAR.addElement("9            $15,000");
+        this.PROGRESS_BAR.addElement("8            $12,500");
+        this.PROGRESS_BAR.addElement("7            $10,000");
+        this.PROGRESS_BAR.addElement("6              $7,500");
+        this.PROGRESS_BAR.addElement("5              $5,000");
+        this.PROGRESS_BAR.addElement("4              $3,000");
+        this.PROGRESS_BAR.addElement("3              $2,000");
+        this.PROGRESS_BAR.addElement("2              $1,000");
+        this.PROGRESS_BAR.addElement("1                 $500"); 
     }
     
-    private void fullfillCzList() {
-        this.MODEL.addElement("•   10,000.000Kč");
-        this.MODEL.addElement("•     5,000.000Kč");
-        this.MODEL.addElement("•     2,500.000Kč");
-        this.MODEL.addElement("•     1,250.000Kč");
-        this.MODEL.addElement("•        640.000Kč");
-        this.MODEL.addElement("•        320.000Kč");
-        this.MODEL.addElement("•        160.000Kč");
-        this.MODEL.addElement("•          80.000Kč");
-        this.MODEL.addElement("•          40.000Kč");
-        this.MODEL.addElement("•          20.000Kč");
-        this.MODEL.addElement("•          10.000Kč");
-        this.MODEL.addElement("•            5.000Kč");
-        this.MODEL.addElement("•            3.000Kč");
-        this.MODEL.addElement("•            2.000Kč");
-        this.MODEL.addElement("•            1.000Kč"); 
+    // Fulfill PROGRESS_BAR with czech koruna amounts
+    private void fulfillCzList() {
+        this.PROGRESS_BAR.addElement("•   10,000.000Kč");
+        this.PROGRESS_BAR.addElement("•     5,000.000Kč");
+        this.PROGRESS_BAR.addElement("•     2,500.000Kč");
+        this.PROGRESS_BAR.addElement("•     1,250.000Kč");
+        this.PROGRESS_BAR.addElement("•        640.000Kč");
+        this.PROGRESS_BAR.addElement("•        320.000Kč");
+        this.PROGRESS_BAR.addElement("•        160.000Kč");
+        this.PROGRESS_BAR.addElement("•          80.000Kč");
+        this.PROGRESS_BAR.addElement("•          40.000Kč");
+        this.PROGRESS_BAR.addElement("•          20.000Kč");
+        this.PROGRESS_BAR.addElement("•          10.000Kč");
+        this.PROGRESS_BAR.addElement("•            5.000Kč");
+        this.PROGRESS_BAR.addElement("•            3.000Kč");
+        this.PROGRESS_BAR.addElement("•            2.000Kč");
+        this.PROGRESS_BAR.addElement("•            1.000Kč"); 
     }
     
 }

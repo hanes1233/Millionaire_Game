@@ -6,21 +6,26 @@ import javax.swing.DefaultListModel;
 import lombok.Getter;
 
 /**
- *
+ * FriendAnswer class holds lists with friends and their hints
  * @author pavel
  */
 @Getter
 public class FriendAnswer {
     
+    // Lists with friends for Eng and Cz game versions
     private final DefaultListModel<String> ENG_FRIENDS;
     private final DefaultListModel<String> CZ_FRIENDS;
     
+    // Constructor
     public FriendAnswer() {
         this.ENG_FRIENDS = new DefaultListModel<>();
         this.CZ_FRIENDS = new DefaultListModel<>();
         this.pushFriendsToList();
     }
     
+    /**
+     * Method creates friends and pushes them to corresponding lists
+     */
     private void pushFriendsToList() {
          this.ENG_FRIENDS.addElement("Elon Musk");
          this.ENG_FRIENDS.addElement("Joe Biden");
@@ -33,6 +38,10 @@ public class FriendAnswer {
          this.CZ_FRIENDS.addElement("Pavel Nedved");
     }
     
+    /**
+     * Get random answer for english version game
+     * @return string with random answer
+     */
     public String getRandomEngAnswer() {
         String[] answers = new String[15];
         answers[0] = "Hello, who is this? How did you get my number?? Whatever, the answer is ";
@@ -55,6 +64,10 @@ public class FriendAnswer {
         return answers[new Random().nextInt(answers.length-1)];
     }
     
+    /**
+     * Get random answer for czech version game
+     * @return string with random answer
+     */
     public String getRandomCzAnswer() {
         String[] answers = new String[15];
         answers[0] = "Dobrý den, odpověd' je ";

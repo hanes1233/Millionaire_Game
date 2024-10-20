@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.model;
 
-import com.mycompany.millionaire.form.AboutAuthor;
+import com.mycompany.millionaire.controller.AboutAuthor;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
