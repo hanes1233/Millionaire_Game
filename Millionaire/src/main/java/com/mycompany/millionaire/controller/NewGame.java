@@ -23,25 +23,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * New Game controller
  * @author pavel
  */
 public class NewGame {
     
+    // Declare service and JPanel instances
     private final ComponentServiceImpl SERVICE;
     private final JPanel PANEL;
     
+    // Declare components
     private JButton backButton;
     private JButton start;
     private JComboBox<String> languagesList;
     private JComboBox<String> subjectsList;
     private JComboBox<String> difficultiesList;
     
+    // Constructor
     public NewGame() throws IOException {
         this.PANEL = GameView.getPanel();
         this.SERVICE = new ComponentServiceImpl();
     }
     
+    // Init components and add on panel
     public void drawNewGameComponents() {
         this.PANEL.removeAll();
         
@@ -111,12 +115,20 @@ public class NewGame {
         
         
         start.addActionListener((ActionEvent e) -> {
+            
+                // Get selected enum values
                 String selectedLanguage = languagesList.getSelectedItem().toString();
                 String selectedSubject = subjectsList.getSelectedItem().toString();
                 String selectedDifficulty = difficultiesList.getSelectedItem().toString();
+                
+                // Clear panel of components if exist
                 this.PANEL.removeAll();
+                
+                // Create new game configuration
                 GameConfiguration config = new GameConfiguration(selectedDifficulty, selectedLanguage, selectedSubject);
             try {
+                
+                // Run new game with configuration
                 new Game(config);
             } catch (IOException ex) {
                 Logger.getLogger(NewGame.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,6 +161,7 @@ public class NewGame {
                 start
         );
         
+        // Repaint and revalidate panel
         this.SERVICE.reloadPanel();
     }
 }

@@ -3,7 +3,7 @@ package com.mycompany.millionaire.controller.hint;
 
 import com.mycompany.millionaire.model.hint.FiftyToFiftyService;
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.data.CurrentQuestion;
+import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.model.hint.AudienceVoteService;
 import com.mycompany.millionaire.model.hint.FriendCallService;
 import com.mycompany.millionaire.model.media.AudioManager;
@@ -44,7 +44,7 @@ public class Hint {
     private boolean audienceHelpAvailible;
     
     // Current question instance
-    private CurrentQuestion currentQuestion;
+    private Question currentQuestion;
     
     // Constructor
     public Hint() throws  IOException {

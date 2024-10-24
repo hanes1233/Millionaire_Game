@@ -3,7 +3,7 @@ package com.mycompany.millionaire.controller.hint;
 
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
-import com.mycompany.millionaire.data.CurrentQuestion;
+import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.data.FriendAnswer;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.view.GameView;
@@ -22,7 +22,7 @@ import javax.swing.JTextArea;
 public class FriendCall {
     
     // Declare service instances
-    protected final CurrentQuestion CURRENT_QUESTION;
+    protected final Question CURRENT_QUESTION;
     protected final ComponentServiceImpl service;
     
     // Declare friend's answer instance 
@@ -40,7 +40,7 @@ public class FriendCall {
      * Constructor
      * @param currentQuestion to set up current language
      */
-    public FriendCall(CurrentQuestion currentQuestion) {
+    public FriendCall(Question currentQuestion) {
         this.CURRENT_QUESTION = currentQuestion;
         this.language = currentQuestion.getLanguage();
         this.service = new ComponentServiceImpl();

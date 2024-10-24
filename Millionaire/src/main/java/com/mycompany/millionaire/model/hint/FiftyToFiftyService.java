@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.model.hint;
 
-import com.mycompany.millionaire.data.CurrentQuestion;
+import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.view.GameView;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FiftyToFiftyService {
     
-    private CurrentQuestion currentQuestion;
+    private Question currentQuestion;
     
-    public FiftyToFiftyService(CurrentQuestion currentQuestion) {
+    public FiftyToFiftyService(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
     }
    

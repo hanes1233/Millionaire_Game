@@ -22,7 +22,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- *
+ * Main page controller
  * @author pavel
  */
  public class MainPage {
@@ -30,11 +30,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
     private final ComponentServiceImpl SERVICE;
     private final JPanel PANEL;
     
+    // Declare components
     private JButton startGame;
     private JButton scores;
     private JButton exit;
     private JButton aboutAuthor;
 
+    // Constructor
     public MainPage() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.PANEL = GameView.getPanel();
         this.SERVICE = new ComponentServiceImpl();
@@ -43,12 +45,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
     /**
      * Initializing buttons, event listeners, hover handlers 
      * and add it on panel
-     * @throws IOException because we work with AudioManager class, which
-     * works with files and audio player
+     * @throws IOException
      */
     public void initComponents() throws IOException {
+        
+        // Set look
         this.SERVICE.setDefaultLook();
-        PANEL.removeAll();
+        
+        // Clear panel of components if exist
+        this.PANEL.removeAll();
         
         startGame = new ButtonBuilderImpl()
                 .defaultConfig()
@@ -72,8 +77,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
                 .get();
         
         scores.addActionListener((ActionEvent e) -> {
-           new Score().drawScoreComponents();
-           
+           new Score().drawScoreComponents();   
         });
         
         
@@ -131,7 +135,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
                 } catch (IOException |
                     LineUnavailableException |
                     UnsupportedAudioFileException ex ) {
-                        throw new RuntimeException("Error catch trying to play intro(MainComponent.class): " + e);
+                        throw new RuntimeException("Error catch in MainPage.initComponents() trying to play intro: " + e);
                 }
             }
         });
@@ -146,6 +150,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
                 mute
         );
         
+        // Revalidate and repaint panel
         this.SERVICE.reloadPanel();
     }
 }

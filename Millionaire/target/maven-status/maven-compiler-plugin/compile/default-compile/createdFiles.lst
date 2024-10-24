@@ -51,7 +51,6 @@ com/mycompany/millionaire/model/component/builder/ListBuilder.class
 com/mycompany/millionaire/model/component/builder/ButtonBuilderImpl$3.class
 com/mycompany/millionaire/view/GameView$1.class
 com/mycompany/millionaire/data/Question.class
-com/mycompany/millionaire/data/CurrentQuestion.class
 com/mycompany/millionaire/model/component/builder/LabelBuilder.class
 com/mycompany/millionaire/controller/Game$3.class
 com/mycompany/millionaire/model/component/builder/TableBuilderImpl.class

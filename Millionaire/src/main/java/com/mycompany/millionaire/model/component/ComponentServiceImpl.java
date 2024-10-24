@@ -5,7 +5,6 @@ import com.mycompany.millionaire.controller.MainPage;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.view.GameView;
 import java.awt.Dimension;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
@@ -17,12 +16,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import lombok.NoArgsConstructor;
 
 /**
- *
+ * Component Service implementation class
  * @author pavel
  */
 @NoArgsConstructor
 public class ComponentServiceImpl implements ComponentService {
     
+    // Get current JPanel and assign to local PANEL variable to work with
     private final JPanel PANEL = GameView.getPanel();
 
     @Override
@@ -49,14 +49,6 @@ public class ComponentServiceImpl implements ComponentService {
     public void addOnPanel(JComponent... component) {
         for (JComponent item : component) {
             PANEL.add(item);
-        }
-    }
-    
-    @Override
-    public void removeListeners(JComponent component) {
-        MouseListener[] list = component.getMouseListeners();
-        for(var listener : list) {
-            component.removeMouseListener(listener);
         }
     }
     

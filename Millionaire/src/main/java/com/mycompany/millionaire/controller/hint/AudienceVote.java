@@ -3,7 +3,7 @@ package com.mycompany.millionaire.controller.hint;
 
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ProgressBarBuilderImpl;
-import com.mycompany.millionaire.data.CurrentQuestion;
+import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,7 +19,7 @@ import javax.swing.JProgressBar;
 public class AudienceVote {
     
     // Service instances
-    protected final CurrentQuestion CURRENT_QUESTION;
+    protected final Question CURRENT_QUESTION;
     protected final ComponentServiceImpl service;
     
     // region Components instances
@@ -44,7 +44,7 @@ public class AudienceVote {
      * Constructor
      * @param currentQuestion initialize current question to get options values
      */
-    public AudienceVote(CurrentQuestion currentQuestion) {
+    public AudienceVote(Question currentQuestion) {
         this.CURRENT_QUESTION = currentQuestion;
         this.service = new ComponentServiceImpl();
         this.optionA = CURRENT_QUESTION.getOptionA();

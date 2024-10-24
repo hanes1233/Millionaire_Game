@@ -5,7 +5,6 @@ import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
-import com.mycompany.millionaire.data.CurrentQuestion;
 import com.mycompany.millionaire.data.ProgressList;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.model.media.ImageManager;
@@ -25,8 +24,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JLabel;
@@ -35,7 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
-import lombok.Getter;
+import lombok.Getter; 
 import lombok.Setter;
 
 
@@ -60,13 +57,13 @@ public class Game {
     // Model variables
     private final ComponentServiceImpl COMPONENT_SERVICE;
     private final QuizService QUIZ_SERVICE;
-    private CurrentQuestion currentQuestion;
+    private Question currentQuestion;
     private GameConfiguration gameConfig;
     private final JPanel PANEL;
     private ProgressList progressList;
     private ListModel progressBar;
     private Hint hints;
-    private Question question;
+    //private Question question;
     
     // region game settings
     private String language;
@@ -125,14 +122,14 @@ public class Game {
         } 
         
         // Define current options
-        this.options = question.getOptions();
+        this.options = currentQuestion.getOptions();
         
         // Shuffle options
         Collections.shuffle(Arrays.asList(this.options));
         
         questionText = new TextAreaBuilderImpl()
                 .formatText()
-                .setText(question.getQuestion())
+                .setText(currentQuestion.getQuestion())
                 .setFont(new Font("Serif", Font.ITALIC, 16))
                 .setBackground(new Color(0, 38, 75))
                 .setForeground(Color.WHITE)
@@ -151,7 +148,7 @@ public class Game {
                 .get();
         
         optionA.addActionListener((ActionEvent e) -> {  
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[0], question.getAnswer());
+                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[0], currentQuestion.getAnswer());
                 startQuiz();
         });
         
@@ -163,7 +160,7 @@ public class Game {
                 .get();
         
         optionB.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[1], question.getAnswer());
+                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[1], currentQuestion.getAnswer());
                 startQuiz();
         });
         
@@ -175,7 +172,7 @@ public class Game {
                 .get();
         
         optionC.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[2], question.getAnswer());
+                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[2], currentQuestion.getAnswer());
                 startQuiz();
         }); 
         
@@ -187,7 +184,7 @@ public class Game {
                 .get();
         
         optionD.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[3], question.getAnswer());
+                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[3], currentQuestion.getAnswer());
                 startQuiz();
           
         });
@@ -261,14 +258,11 @@ public class Game {
         // Check is question queue in GameConfiguration is not empty
         if(!gameConfig.getQuestions().isEmpty()) {
             
-            // Poll next question from GameConfiguration's queue of questions and assign to 'question' variable
-            this.question = gameConfig.pollQuestion();
-            
             // Check does panel contains any components
             if(PANEL.getComponents().length > 0) {
                 
                 // Handle user's choice view, sound and thinking simulation
-                this.QUIZ_SERVICE.handleUserChoice(question.getDifficulty(), correctAnswer, currentQuestion);
+                this.QUIZ_SERVICE.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
                 
                 // Add new motion listener to panel
                 PANEL.addMouseMotionListener(new MouseAdapter() {
@@ -287,11 +281,11 @@ public class Game {
                            gameConfig.setProgressIndex(progressIndex);
                            gameConfig.setQuestionIndex(questionIndex);
                            
-                           // Create new current question to work with during rest of programm
-                           currentQuestion = new CurrentQuestion(question, gameConfig.getLanguage());
-                           
                            // Handle user's score
                            QUIZ_SERVICE.handleScore(gameConfig, questionIndex);
+                           
+                           // Poll next question from GameConfiguration's queue of questions and assign to 'currentQuestion' variable
+                           currentQuestion = gameConfig.pollQuestion();
                            
                            // Re-draw components with new question
                            initComponents();
@@ -302,15 +296,15 @@ public class Game {
                     }
                 });
             }else {
-                // Create new current question to work with during rest of programm
-                currentQuestion = new CurrentQuestion(question, gameConfig.getLanguage());
+                // Poll next question from GameConfiguration's queue of questions and assign to 'currentQuestion' variable
+                this.currentQuestion = gameConfig.pollQuestion();
                 
                 // Re-draw components with new question
                 initComponents();
             }
         }else {
             // Handle user's choice view, sound and thinking simulation
-            this.QUIZ_SERVICE.handleUserChoice(question.getDifficulty(), correctAnswer, currentQuestion);
+            this.QUIZ_SERVICE.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
             
             // Add new motion listener to panel
             PANEL.addMouseMotionListener(new MouseAdapter() {

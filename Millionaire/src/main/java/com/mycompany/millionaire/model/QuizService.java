@@ -4,7 +4,7 @@ package com.mycompany.millionaire.model;
 import com.mycompany.millionaire.controller.Game;
 import com.mycompany.millionaire.controller.GameOver;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import com.mycompany.millionaire.data.CurrentQuestion;
+import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.data.GameConfiguration;
 import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.model.media.AudioManager;
@@ -60,7 +60,7 @@ public class QuizService {
         }
     }
     
-    private void changeColorToGreen(CurrentQuestion currentQuestion) {
+    private void changeColorToGreen(Question currentQuestion) {
         String answer = currentQuestion.getAnswer();
         if(currentQuestion.getOptionA().getText().contains(answer)) {
             currentQuestion.getOptionA().setBackground(new Color(51,255,51));
@@ -88,7 +88,7 @@ public class QuizService {
         return 0;
     }
     
-    public void handleUserChoice(String difficulty, boolean correctAnswer, CurrentQuestion currentQuestion) {
+    public void handleUserChoice(String difficulty, boolean correctAnswer, Question currentQuestion) {
         try {
              this.thinkingEffect(difficulty);
              AudioManager.soundReaction(correctAnswer);

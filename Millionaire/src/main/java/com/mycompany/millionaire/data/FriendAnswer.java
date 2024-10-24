@@ -24,7 +24,7 @@ public class FriendAnswer {
     }
     
     /**
-     * Method creates friends and pushes them to corresponding lists
+     * Method creates virtual friends and pushes them to corresponding lists
      */
     private void pushFriendsToList() {
          this.ENG_FRIENDS.addElement("Elon Musk");
@@ -39,7 +39,7 @@ public class FriendAnswer {
     }
     
     /**
-     * Get random answer for english version game
+     * Get random answer for english version of game
      * @return string with random answer
      */
     public String getRandomEngAnswer() {
@@ -65,7 +65,7 @@ public class FriendAnswer {
     }
     
     /**
-     * Get random answer for czech version game
+     * Get random answer for czech version of game
      * @return string with random answer
      */
     public String getRandomCzAnswer() {
