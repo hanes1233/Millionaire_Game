@@ -4,7 +4,6 @@ package com.mycompany.millionaire.model;
 import com.mycompany.millionaire.controller.Game;
 import com.mycompany.millionaire.controller.GameOver;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.data.GameConfiguration;
 import com.mycompany.millionaire.data.Question;
 import com.mycompany.millionaire.model.media.AudioManager;
@@ -19,7 +18,7 @@ import javax.swing.JPanel;
 import lombok.Data;
 
 /**
- *
+ * Class provides service methods to quiz
  * @author pavel
  */
 @Data
@@ -29,21 +28,36 @@ public class QuizService {
     private final ComponentServiceImpl COMPONENT_SERVICE;
     private final JPanel PANEL;
     
+    // Constructor
     public QuizService() {
         this.PANEL = GameView.getPanel();
         this.COMPONENT_SERVICE = new ComponentServiceImpl();
     }
     
+    /**
+     * Method checks is userChoice equals to answer
+     * @param userChoice
+     * @param answer
+     * @return true or false
+     */
     public boolean isAnswerCorrect(String userChoice, String answer) {
         return userChoice.equals(answer);
     } 
     
-    // Make private
+    /**
+     * Method to arrange thinking effect
+     * @param difficulty parameter specified 'thinking' duration
+     * @throws InterruptedException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException 
+     */
     private void thinkingEffect(String difficulty) throws 
             InterruptedException, 
             UnsupportedAudioFileException, 
             IOException, 
             LineUnavailableException {
+        // Set duration of 'thinking' based on input's 'difficulty' parameter
         switch (difficulty) {
             case "Easy" -> Thread.sleep(1000);
             case "Medium" -> Thread.sleep(3000);
@@ -60,6 +74,10 @@ public class QuizService {
         }
     }
     
+    /**
+     * Change correct answer button's color to green
+     * @param currentQuestion - to get needed information, such as options and answer
+     */
     private void changeColorToGreen(Question currentQuestion) {
         String answer = currentQuestion.getAnswer();
         if(currentQuestion.getOptionA().getText().contains(answer)) {
@@ -71,10 +89,16 @@ public class QuizService {
         }else if(currentQuestion.getOptionD().getText().contains(answer)) {
             currentQuestion.getOptionD().setBackground(new Color(51,255,51));
         }
+        
+        // Revalidate and repaint panel
         this.COMPONENT_SERVICE.reloadPanel();
     } 
     
-    // Get current score during the play mode
+    /**
+     * Get current score based on provided question index
+     * @param questionIndex
+     * @return score we want to add to total score
+     */
     public int getCurrentScore(int questionIndex) {
         if(questionIndex > 0 && questionIndex <= 5) {
             return 3;
@@ -88,6 +112,12 @@ public class QuizService {
         return 0;
     }
     
+    /**
+     * Helper method to perform multiple functions
+     * @param difficulty - needed to run thinkingEffect() method
+     * @param correctAnswer - needed to perform 'soundReaction()'
+     * @param currentQuestion  - needed to 'changeColorToGreen()'
+     */
     public void handleUserChoice(String difficulty, boolean correctAnswer, Question currentQuestion) {
         try {
              this.thinkingEffect(difficulty);
@@ -101,9 +131,14 @@ public class QuizService {
                  }
     }
     
-    public void finishGame(int score, boolean winner, String language) {
+    /**
+     * Finish game method creates GameOver instance with provided parameters
+     * @param score - needed to save user
+     * @param winner - needed to save user
+     */
+    public void finishGame(int score, boolean winner) {
         try {
-             new GameOver(score, winner, language).run();
+             new GameOver(score, winner).run();
         } catch (IOException |
                  LineUnavailableException |
                  UnsupportedAudioFileException ex) {
@@ -111,6 +146,11 @@ public class QuizService {
                  }
     }
     
+    /**
+     * Method to handle current score
+     * @param gameConfig - needed to get 'score'
+     * @param questionIndex  - needed to calculate current score
+     */
     public void handleScore(GameConfiguration gameConfig, int questionIndex) {
         PANEL.removeAll();
         COMPONENT_SERVICE.reloadPanel();

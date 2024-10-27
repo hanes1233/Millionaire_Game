@@ -31,7 +31,12 @@ public class GameView {
     @Getter
     private static JPanel panel;
     
-    
+    /**
+     * Method to init components and run JFrame
+     * @throws IOException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException 
+     */
     public static void run() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         MainPage game = new MainPage();
         game.initComponents();

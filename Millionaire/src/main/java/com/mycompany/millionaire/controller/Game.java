@@ -291,7 +291,7 @@ public class Game {
                            initComponents();
                        }else {
                            // Finish game
-                           QUIZ_SERVICE.finishGame(gameConfig.getScore(), false, language);
+                           QUIZ_SERVICE.finishGame(gameConfig.getScore(), false);
                        }
                     }
                 });
@@ -320,10 +320,10 @@ public class Game {
                         QUIZ_SERVICE.handleScore(gameConfig, gameConfig.getQuestionIndex());
                         
                         // Finish game
-                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),true, language);
+                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),true);
                     }else {
                         // Finish game
-                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),false, language);
+                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),false);
                     }
                 }
             });
