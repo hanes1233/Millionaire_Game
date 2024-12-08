@@ -3,26 +3,33 @@ package com.mycompany.millionaire.controller.hint;
 
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.data.FriendAnswer;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.view.GameView;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 
+import static com.mycompany.millionaire.data.constant.CustomColor.INDIGO;
+import static com.mycompany.millionaire.data.constant.Language.ENGLISH;
+import static java.awt.Color.WHITE;
+
 /**
- *
+ * FriendCall controller provides design architecture
+ * for 'friend call' simulation
  * @author pavel
  */
 public class FriendCall {
     
     // Declare service instances
-    protected final Question CURRENT_QUESTION;
+    protected final Question currentQuestion;
     protected final ComponentServiceImpl service;
     
     // Declare friend's answer instance 
@@ -41,7 +48,7 @@ public class FriendCall {
      * @param currentQuestion to set up current language
      */
     public FriendCall(Question currentQuestion) {
-        this.CURRENT_QUESTION = currentQuestion;
+        this.currentQuestion = currentQuestion;
         this.language = currentQuestion.getLanguage();
         this.service = new ComponentServiceImpl();
         this.friendAnswer = new FriendAnswer();
@@ -49,21 +56,21 @@ public class FriendCall {
     }
     
      /**
-      * Set up components and add to the panel
+      * Set up components and add on the panel
       */
      private void defineFriendList() {
          this.timer = new JLabel();
          timer = new LabelBuilderImpl()
-                 .setText("30")
-                 .setFont(new Font("Serif", Font.BOLD, 22))
-                 .setForeground(Color.ORANGE)
-                 .setPreferredSize(new Dimension(100, 30))
-                 .setBounds(300, 45)
-                 .get();
+                 .text("30")
+                 .font(new Font(Font.SERIF, Font.BOLD, 22))
+                 .foreground(Color.ORANGE)
+                 .preferredSize(new Dimension(100, 30))
+                 .bounds(300, 45)
+                 .build();
          
          GameView.getPanel().add(timer);
          
-         // Thread to simulate 30 second's timer
+         // Thread to simulate 30 seconds timer
          new Thread(() -> {
              int i = 30;
              try {
@@ -78,23 +85,23 @@ public class FriendCall {
                  
                  // Revalidate and repaint panel
                  this.service.reloadPanel();
-             }catch(InterruptedException e) {
-                 System.out.println("Error catched in timer Thread : " + e);
+             }catch (InterruptedException e) {
+                 Logger.getLogger(FriendCall.class.getName()).log(Level.SEVERE, "Error catched in timer Thread", e);
+                 Thread.currentThread().interrupt();
              }
          }).start();
          
          // Define friends list based on provided language
          DefaultListModel<String> friends = 
-                 (this.language.equals("English")) ? this.friendAnswer.getENG_FRIENDS() : this.friendAnswer.getCZ_FRIENDS();
-         
-         this.friendList = new JList();
+                 (this.language.equals(ENGLISH.getName())) ? this.friendAnswer.getENG_FRIENDS() : this.friendAnswer.getCZ_FRIENDS();
+
          this.friendList = new ListBuilderImpl()
-                 .setBackground(new Color(51,0,102))
-                 .setForeground(Color.WHITE)
-                 .setPreferredSize(new Dimension(250, 85))
-                 .setBounds(30, 90)
-                 .setModel(friends)
-                 .get();
+                 .background(INDIGO)
+                 .foreground(WHITE)
+                 .preferredSize(new Dimension(250, 85))
+                 .bounds(30, 90)
+                 .model(friends)
+                 .build();
          this.service.addOnPanel(friendList);
     }
 }

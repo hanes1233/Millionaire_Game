@@ -1,7 +1,9 @@
 
 package com.mycompany.millionaire.data.constant;
 
+import lombok.Getter;
 
+@Getter
 public enum Difficulty {
     
     EASY("Easy"),
@@ -10,14 +12,14 @@ public enum Difficulty {
     
     HARD("Hard");
     
-    private final String NAME;
+    private final String name;
     
     private Difficulty(String name) {
-        this.NAME = name;
+        this.name = name;
     }
     
     @Override
     public String toString() {
-        return this.NAME;
+        return this.name;
     }
 }

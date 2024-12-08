@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 /**
  * Component Service implementation class
@@ -55,24 +56,17 @@ public class ComponentServiceImpl implements ComponentService {
     @Override
     public void removeMotionListeners() {
         MouseMotionListener[] list = PANEL.getMouseMotionListeners();
-        for(var listener : list) {
+        for (var listener : list) {
             PANEL.removeMouseMotionListener(listener);
         }
     }
 
     @Override
     public void runMainPage() {
-        try {
-                AudioManager.stopAllSounds();
-                AudioManager.muteIntro();
-                new MainPage().initComponents();
-                AudioManager.loopSound("intro");
-            } catch (IOException |
-                    NullPointerException |
-                    LineUnavailableException |
-                    UnsupportedAudioFileException ex ) {
-                throw new RuntimeException("Error catch trying to play intro(MainComponent.class): " + ex);
-            }
+        AudioManager.stopAllSounds();
+        AudioManager.muteIntro();
+        new MainPage().initComponents();
+        AudioManager.loopSound("intro");
     }
 
     @Override

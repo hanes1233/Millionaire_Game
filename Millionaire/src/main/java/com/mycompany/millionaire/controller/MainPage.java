@@ -27,19 +27,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
  public class MainPage {
     
-    private final ComponentServiceImpl SERVICE;
-    private final JPanel PANEL;
-    
-    // Declare components
-    private JButton startGame;
-    private JButton scores;
-    private JButton exit;
-    private JButton aboutAuthor;
+    private final ComponentServiceImpl componentService;
+    private final JPanel panel;
 
     // Constructor
-    public MainPage() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-        this.PANEL = GameView.getPanel();
-        this.SERVICE = new ComponentServiceImpl();
+    public MainPage() {
+        this.panel = GameView.getPanel();
+        this.componentService = new ComponentServiceImpl();
     }
     
     /**
@@ -47,19 +41,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
      * and add it on panel
      * @throws IOException
      */
-    public void initComponents() throws IOException {
+    public void initComponents() {
         
         // Set look
-        this.SERVICE.setDefaultLook();
+        this.componentService.setDefaultLook();
         
         // Clear panel of components if exist
-        this.PANEL.removeAll();
-        
-        startGame = new ButtonBuilderImpl()
+        this.panel.removeAll();
+
+        JButton startGame = new ButtonBuilderImpl()
                 .defaultConfig()
-                .setText("New Game")
-                .setBounds(30, 150)
-                .get();
+                .text("New Game")
+                .bounds(30, 150)
+                .build();
         
         startGame.addActionListener((ActionEvent e) -> {
             try {
@@ -68,35 +62,31 @@ import javax.sound.sampled.UnsupportedAudioFileException;
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-        
-        scores = new ButtonBuilderImpl()
+
+
+        JButton scores = new ButtonBuilderImpl()
                 .defaultConfig()
-                .setText("Scores")
-                .setBounds(30, 200)
-                .get();
+                .text("Scores")
+                .bounds(30, 200)
+                .build();
         
-        scores.addActionListener((ActionEvent e) -> {
-           new Score().drawScoreComponents();   
-        });
-        
-        
-        exit = new ButtonBuilderImpl()
+        scores.addActionListener((ActionEvent e) -> new Score().drawScoreComponents());
+
+
+        JButton exit = new ButtonBuilderImpl()
                 .defaultConfig()
-                .setText("Exit")
-                .setBounds(30, 300)
-                .get();
+                .text("Exit")
+                .bounds(30, 300)
+                .build();
         
-        exit.addActionListener((ActionEvent e) -> {
-            this.SERVICE.dispose();
-        });
-        
-        
-        aboutAuthor = new ButtonBuilderImpl()
+        exit.addActionListener((ActionEvent e) -> this.componentService.dispose());
+
+
+        JButton aboutAuthor = new ButtonBuilderImpl()
                 .defaultConfig()
-                .setText("About")
-                .setBounds(30, 250)
-                .get();
+                .text("About")
+                .bounds(30, 250)
+                .build();
         
         aboutAuthor.addActionListener((ActionEvent e) -> {
             try {
@@ -107,40 +97,34 @@ import javax.sound.sampled.UnsupportedAudioFileException;
         });
         
         JLabel introLabel = new LabelBuilderImpl()
-                .setText("Welcome to Millionaire Game")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 22))
-                .setBounds(100, 25)
-                .get();
+                .text("Welcome to Millionaire Game")
+                .foreground(Color.WHITE)
+                .font(new Font("Serif", Font.BOLD, 22))
+                .bounds(100, 25)
+                .build();
         
         JLabel mainLogo = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("label"))
-                .setBounds(250, 100)
-                .get();
+                .image(ImageManager.getImageIcon("label"))
+                .bounds(250, 100)
+                .build();
         
         JLabel mute = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("mute"))
-                .setBounds(580, 25)
-                .get();
+                .image(ImageManager.getImageIcon("mute"))
+                .bounds(580, 25)
+                .build();
         
         mute.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(AudioManager.isIntroActive()) {
+                if (AudioManager.isIntroActive()) {
                     AudioManager.muteIntro();
                 return;
                 }
-                try {
-                    AudioManager.loopSound("intro");
-                } catch (IOException |
-                    LineUnavailableException |
-                    UnsupportedAudioFileException ex ) {
-                        throw new RuntimeException("Error catch in MainPage.initComponents() trying to play intro: " + e);
-                }
+                AudioManager.loopSound("intro");
             }
         });
         
-        this.SERVICE.addOnPanel(
+        this.componentService.addOnPanel(
                 startGame, 
                 scores, 
                 exit, 
@@ -151,6 +135,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
         );
         
         // Revalidate and repaint panel
-        this.SERVICE.reloadPanel();
+        this.componentService.reloadPanel();
     }
 }

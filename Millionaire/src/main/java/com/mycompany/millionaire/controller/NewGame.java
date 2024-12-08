@@ -15,12 +15,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import static com.mycompany.millionaire.data.constant.FontType.*;
 
 /**
  * New Game controller
@@ -29,91 +26,87 @@ import javax.swing.JPanel;
 public class NewGame {
     
     // Declare service and JPanel instances
-    private final ComponentServiceImpl SERVICE;
-    private final JPanel PANEL;
+    private final ComponentServiceImpl componentService;
+    private final JPanel panel;
     
     // Declare components
-    private JButton backButton;
-    private JButton start;
     private JComboBox<String> languagesList;
     private JComboBox<String> subjectsList;
     private JComboBox<String> difficultiesList;
     
     // Constructor
     public NewGame() throws IOException {
-        this.PANEL = GameView.getPanel();
-        this.SERVICE = new ComponentServiceImpl();
+        this.panel = GameView.getPanel();
+        this.componentService = new ComponentServiceImpl();
     }
     
     // Init components and add on panel
     public void drawNewGameComponents() {
-        this.PANEL.removeAll();
-        
+        this.panel.removeAll();
+
         languagesList = new JComboBox(Language.values());
         subjectsList = new JComboBox(Subject.values());
         difficultiesList = new JComboBox(Difficulty.values());
         
         JLabel welcomeLabel = new LabelBuilderImpl()
-                .setText("Choose your destiny!")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 26))
-                .setBounds(165, 50)
-                .get();
+                .text("Choose your destiny!")
+                .foreground(Color.WHITE)
+                .font(new Font(SERIF, Font.BOLD, 26))
+                .bounds(165, 50)
+                .build();
         
         JLabel language = new LabelBuilderImpl()
-                .setText("Language")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 18))
-                .setBounds(180, 150)
-                .get();
+                .text("Language")
+                .foreground(Color.WHITE)
+                .font(new Font(SERIF, Font.BOLD, 18))
+                .bounds(180, 150)
+                .build();
         
         JLabel subject = new LabelBuilderImpl()
-                .setText("Subject")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif",Font.BOLD, 18))
-                .setBounds(180, 200)
-                .get();
+                .text("Subject")
+                .foreground(Color.WHITE)
+                .font(new Font(SERIF,Font.BOLD, 18))
+                .bounds(180, 200)
+                .build();
         
         JLabel difficulty = new LabelBuilderImpl()
-                .setText("Difficulty")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif",Font.BOLD, 18))
-                .setBounds(180, 250)
-                .get();
+                .text("Difficulty")
+                .foreground(Color.WHITE)
+                .font(new Font(SERIF,Font.BOLD, 18))
+                .bounds(180, 250)
+                .build();
         
         languagesList = new ComboBoxBuilderImpl(languagesList)
-                .setForeground(Color.WHITE)
-                .setPreferredSize(new Dimension(100,30))
-                .setBounds(300, 150)
+                .foreground(Color.WHITE)
+                .preferredSize(new Dimension(100,30))
+                .bounds(300, 150)
                 .onHover()
-                .get();
+                .build();
         
         
         subjectsList = new ComboBoxBuilderImpl(subjectsList)
-                .setForeground(Color.WHITE)
-                .setPreferredSize(new Dimension(120,30))
-                .setBounds(300, 200)
+                .foreground(Color.WHITE)
+                .preferredSize(new Dimension(120,30))
+                .bounds(300, 200)
                 .onHover()
-                .get();
+                .build();
         
         difficultiesList = new ComboBoxBuilderImpl(difficultiesList)
-                .setForeground(Color.WHITE)
-                .setPreferredSize(new Dimension(100,30))
-                .setBounds(300, 250)
+                .foreground(Color.WHITE)
+                .preferredSize(new Dimension(100,30))
+                .bounds(300, 250)
                 .onHover()
-                .get();
-        
-        start = new ButtonBuilderImpl()
-                .setText("Start")
-                .setForeground(Color.WHITE)
-                .setBackground(new Color(0, 38, 75))
-                .setPreferredSize(new Dimension(150, 35))
-                .setBounds(240, 320)
+                .build();
+
+        JButton start = new ButtonBuilderImpl()
+                .text("Start")
+                .foreground(Color.WHITE)
+                .background(new Color(0, 38, 75))
+                .preferredSize(new Dimension(150, 35))
+                .bounds(240, 320)
                 .onHover()
-                .get();
-        
-        
-        
+                .build();
+
         start.addActionListener((ActionEvent e) -> {
             
                 // Get selected enum values
@@ -122,34 +115,28 @@ public class NewGame {
                 String selectedDifficulty = difficultiesList.getSelectedItem().toString();
                 
                 // Clear panel of components if exist
-                this.PANEL.removeAll();
+                this.panel.removeAll();
                 
                 // Create new game configuration
                 GameConfiguration config = new GameConfiguration(selectedDifficulty, selectedLanguage, selectedSubject);
-            try {
-                
+
                 // Run new game with configuration
                 new Game(config);
-            } catch (IOException ex) {
-                Logger.getLogger(NewGame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         });
-        
-        this.backButton = new ButtonBuilderImpl()
-                .setText("<")
-                .setFont(new Font("Serif", Font.BOLD, 16))
-                .setForeground(Color.WHITE)
-                .setBackground(new Color(0, 38, 75))
-                .setSize(50,25)
-                .setBounds(15,15)
+
+        JButton backButton = new ButtonBuilderImpl()
+                .text("<")
+                .font(new Font(SERIF, Font.BOLD, 16))
+                .foreground(Color.WHITE)
+                .background(new Color(0, 38, 75))
+                .minSize(50,25)
+                .bounds(15,15)
                 .onHover()
-                .get();
+                .build();
         
-        backButton.addActionListener((ActionListener) -> {
-            SERVICE.runMainPage();
-        });
+        backButton.addActionListener(e -> componentService.runMainPage());
         
-        this.SERVICE.addOnPanel(
+        this.componentService.addOnPanel(
                 backButton, 
                 welcomeLabel, 
                 language, 
@@ -162,6 +149,6 @@ public class NewGame {
         );
         
         // Repaint and revalidate panel
-        this.SERVICE.reloadPanel();
+        this.componentService.reloadPanel();
     }
 }

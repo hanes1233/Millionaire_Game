@@ -21,7 +21,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setBounds(int x, int y);
+    ListBuilder bounds(int x, int y);
     
     /**
      * Set background color on JList
@@ -29,7 +29,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setBackground(Color color);
+    ListBuilder background(Color color);
     
     /**
      * Set foreground color on JList
@@ -37,7 +37,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setForeground(Color color);
+    ListBuilder foreground(Color color);
     
     /**
      * Set font on text of JList
@@ -45,7 +45,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setFont(Font font);
+    ListBuilder font(Font font);
     
     /**
      * Set size of JList
@@ -53,7 +53,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setPreferredSize(Dimension d);
+    ListBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JList
@@ -62,7 +62,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setSize(int width, int height);
+    ListBuilder minSize(int width, int height);
     
     /**
      * Set borders of JList
@@ -70,7 +70,7 @@ public interface ListBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ListBuilder setBorder(Border border);
+    ListBuilder border(Border border);
     
     /**
      * Overriden unsupported method
@@ -78,26 +78,26 @@ public interface ListBuilder extends Builder {
      * @return 
      */
     @Override
-    Object setText(String text);
+    Object text(String text);
     
     /**
      * Get JList after being set up 
      * @return JList
      */
     @Override
-    JList get();
+    JList build();
     
     /**
      * Set model of JList
      * @param model - get model from parameter
      * @return this object, allowing method chaining
      */
-    ListBuilder setModel(ListModel model);
+    ListBuilder model(ListModel model);
     
     /**
      * Set selected index of JList
      * @param index - get selected index from parameter
      * @return this object, allowing method chaining
      */
-    ListBuilder setSelectedIndex(int index);
+    ListBuilder selectedIndex(int index);
 }

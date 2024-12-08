@@ -2,7 +2,7 @@
 package com.mycompany.millionaire.model.hint;
 
 import com.mycompany.millionaire.controller.hint.AudienceVote;
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.entity.Question;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -23,8 +23,8 @@ public class AudienceVoteService extends AudienceVote {
      * Method displays voting process
      */
     public void performAudienceVoting() {
-        String currentDifficulty = CURRENT_QUESTION.getQuestionDifficulty();
-        String answer = CURRENT_QUESTION.getAnswer();
+        String currentDifficulty = currentQuestion.getQuestionDifficulty();
+        String answer = currentQuestion.getAnswer();
         
         // Depending on difficulty create sorted array of 4 random values 
         int[] percentageValues = switch (currentDifficulty) {

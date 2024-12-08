@@ -1,99 +1,103 @@
 
 package com.mycompany.millionaire.controller;
 
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
+import com.mycompany.millionaire.model.Redirect;
+import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
+import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.model.media.ImageManager;
-import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import com.mycompany.millionaire.model.Redirect;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
+import static com.mycompany.millionaire.data.constant.CustomColor.NAVY_BLUE;
+import static com.mycompany.millionaire.data.constant.FontType.SERIF;
+import static java.awt.Color.MAGENTA;
+import static java.awt.Color.WHITE;
 
 /**
- * AboutAuthor controller 
+ * AboutAuthor controller provides design architecture for 'About' section
  * @author pavel
  */
-public class AboutAuthor extends JFrame {
+public class AboutAuthor {
 
-    private final ComponentServiceImpl SERVICE;
-    private final JPanel PANEL;
+    private final ComponentServiceImpl componentService;
+    private final JPanel panel;
     
     private JLabel flaticon;
     private JLabel stackoverflow;
-    private JLabel github;
-    private JLabel linkedin;
-    private JLabel mail;
-    private JButton backButton;
-    
+    private JLabel githubLabel;
+    private JLabel linkedinLabel;
+    private JLabel mailLabel;
+
+    private static final String GITHUB = "github";
+    private static final String LINKEDIN = "linkedin";
+    private static final String MAIL = "mail";
+
     // Constructor
     public AboutAuthor() throws IOException {
-        this.PANEL = GameView.getPanel();
+        this.panel = GameView.getPanel();
         // Draw rectangle
-        BorderLayout rectange = new BorderLayout() {
+        BorderLayout rectangle = new BorderLayout() {
             public void paintComponent(Graphics g) {
                 g.fillRect(0,250,320,205);
                 g.drawRect(320,250,320,205);
             }
-        }; 
+        };
         // Add rectangle on panel
-        this.PANEL.setLayout(rectange);
-        this.SERVICE = new ComponentServiceImpl();
+        this.panel.setLayout(rectangle);
+        this.componentService = new ComponentServiceImpl();
     }
     
     // Create components for JPanel
     public void drawComponents() {
         
         // Clear panel
-        PANEL.removeAll();
-        
+        panel.removeAll();
+
         // Initialize components
         JLabel authorName = new LabelBuilderImpl()
-                .setText("AUTHOR : Pavel Herasymov")
-                .setForeground(Color.yellow)
-                .setFont(new Font("Serif", Font.BOLD, 24))
-                .setBounds(120, 45)
-                .get();
+                .text("AUTHOR : Pavel Herasymov")
+                .foreground(Color.yellow)
+                .font(new Font(SERIF, Font.BOLD, 24))
+                .bounds(120, 45)
+                .build();
         
         JLabel contactLabel = new LabelBuilderImpl()
-                .setText("CONTACTS")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 26))
-                .setBounds(220, 110)
-                .get();
+                .text("CONTACTS")
+                .foreground(WHITE)
+                .font(new Font(SERIF, Font.BOLD, 26))
+                .bounds(220, 110)
+                .build();
         
-        github = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("github"))
-                .setBackground(Color.WHITE)
-                .setBounds(100, 170)
-                .get();
+        githubLabel = new LabelBuilderImpl()
+                .image(ImageManager.getImageIcon(GITHUB))
+                .background(WHITE)
+                .bounds(100, 170)
+                .build();
         
-        github.addMouseListener(new MouseAdapter() {
+        githubLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                github = new LabelBuilderImpl(github)
-                        .setImage(new ImageIcon(ImageManager.scaleImage("github")))
-                        .setBounds(100,165)
-                        .get();
+                githubLabel = new LabelBuilderImpl(githubLabel)
+                        .image(new ImageIcon(ImageManager.scaleImage(GITHUB)))
+                        .bounds(100,165)
+                        .build();
             }
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                github.setIcon(ImageManager.getImageIcon("github"));
+                githubLabel.setIcon(ImageManager.getImageIcon(GITHUB));
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Redirect to following web page
@@ -101,26 +105,27 @@ public class AboutAuthor extends JFrame {
             }
         });
         
+        linkedinLabel = new LabelBuilderImpl()
+                .image(ImageManager.getImageIcon(LINKEDIN))
+                .background(WHITE)
+                .bounds(300, 170)
+                .build();
         
-        linkedin = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("linkedin"))
-                .setBackground(Color.WHITE)
-                .setBounds(300, 170)
-                .get(); 
-        
-        linkedin.addMouseListener(new MouseAdapter() {
+        linkedinLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                linkedin = new LabelBuilderImpl(linkedin)
-                        .setImage(new ImageIcon(ImageManager.scaleImage("linkedin")))
-                        .setBounds(300,165)
-                        .get();
+                linkedinLabel = new LabelBuilderImpl(linkedinLabel)
+                        .image(new ImageIcon(ImageManager.scaleImage(LINKEDIN)))
+                        .bounds(300,165)
+                        .build();
             }
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                linkedin.setIcon(ImageManager.getImageIcon("linkedin"));
+                linkedinLabel.setIcon(ImageManager.getImageIcon(LINKEDIN));
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Redirect to following web page
@@ -128,24 +133,24 @@ public class AboutAuthor extends JFrame {
             }
         });
         
-        mail = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("mail"))
-                .setBackground(Color.WHITE)
-                .setBounds(500, 170)
-                .get(); 
+        mailLabel = new LabelBuilderImpl()
+                .image(ImageManager.getImageIcon("mail"))
+                .background(WHITE)
+                .bounds(500, 170)
+                .build();
         
-        mail.addMouseListener(new MouseAdapter() {
+        mailLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                mail = new LabelBuilderImpl(mail)
-                        .setImage(new ImageIcon(ImageManager.scaleImage("mail")))
-                        .setBounds(500,165)
-                        .get();
+                mailLabel = new LabelBuilderImpl(mailLabel)
+                        .image(new ImageIcon(ImageManager.scaleImage(MAIL)))
+                        .bounds(500,165)
+                        .build();
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                mail.setIcon(ImageManager.getImageIcon("mail"));
+                mailLabel.setIcon(ImageManager.getImageIcon(MAIL));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -155,49 +160,52 @@ public class AboutAuthor extends JFrame {
         });
         
         JLabel technologiesUsed = new LabelBuilderImpl()
-                .setText("TECHNOLOGIES USED: ")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 18))
-                .setBounds(340, 260)
-                .get();
-        
-        JLabel java = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("java"))
-                .setText("Java")
-                .setForeground(Color.WHITE)
-                .setBounds(340, 300)
-                .get();
-        
-        JLabel mongodb = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("mongodb"))
-                .setText("MongoDB")
-                .setForeground(Color.WHITE)
-                .setBounds(440, 300)
-                .get();
-        
+                .text("TECHNOLOGIES USED: ")
+                .foreground(WHITE)
+                .font(new Font(SERIF, Font.BOLD, 18))
+                .bounds(340, 260)
+                .build();
+
+        // Prepare data for 'Java' and 'MongoDB' JLabels
+        String[] technologies = { "Java", "MongoDB" };
+        AtomicInteger technologieWidth = new AtomicInteger(340);
+        final int technologieHeight = 300;
+
+        // Create JLabels and add on panel
+        IntStream.range(0, 2).forEach(i -> {
+            var label = new LabelBuilderImpl()
+                    .image(ImageManager.getImageIcon(technologies[i].toLowerCase()))
+                    .text(technologies[i])
+                    .foreground(WHITE)
+                    .bounds(technologieWidth.get(), technologieHeight)
+                    .build();
+            this.componentService.addOnPanel(label);
+            technologieWidth.addAndGet(100);
+        });
+
         JLabel thanksTo = new LabelBuilderImpl()
-                .setText("THANKS TO:")
-                .setForeground(Color.WHITE)
-                .setFont(new Font("Serif", Font.BOLD, 18))
-                .setBounds(340, 360)
-                .get();
+                .text("THANKS TO:")
+                .foreground(WHITE)
+                .font(new Font(SERIF, Font.BOLD, 18))
+                .bounds(340, 360)
+                .build();
         
         flaticon = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("flaticon"))
-                .setText("Flaticon")
-                .setForeground(Color.WHITE)
-                .setBounds(340, 400)
-                .get();
+                .image(ImageManager.getImageIcon("flaticon"))
+                .text("Flaticon")
+                .foreground(WHITE)
+                .bounds(340, 400)
+                .build();
         
         flaticon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Change foreground color on hover
-                flaticon.setForeground(new Color(255, 0, 255));
+                flaticon.setForeground(MAGENTA);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                flaticon.setForeground(Color.WHITE);
+                flaticon.setForeground(WHITE);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -205,24 +213,23 @@ public class AboutAuthor extends JFrame {
                 Redirect.redirectOnWeb("https://www.flaticon.com/");
             }
         });
-       
         
         stackoverflow = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("stackoverflow"))
-                .setText("StackOverFlow")
-                .setForeground(Color.WHITE)
-                .setBounds(460, 400)
-                .get();
+                .image(ImageManager.getImageIcon("stackoverflow"))
+                .text("StackOverFlow")
+                .foreground(WHITE)
+                .bounds(460, 400)
+                .build();
         
         stackoverflow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Change foreground color on hover
-                stackoverflow.setForeground(new Color(255, 0, 255));
+                stackoverflow.setForeground(MAGENTA);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                stackoverflow.setForeground(Color.WHITE);
+                stackoverflow.setForeground(WHITE);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -232,63 +239,65 @@ public class AboutAuthor extends JFrame {
         });
         
         JTextArea gameDescription = new TextAreaBuilderImpl()
-                .setText("Millionaire Game ® \n \nA quiz competition with"
-                + " player attempting to win \na top prize of $1,000,000"
-                + " by answering a series \nof multiple-choice questions. \n"
-                + "Game starts in easy mode for first 5 questions,"
-                + "\nthen difficulty increases to meadium level until \n10th question,"
-                + "after contestant have to answer \n3 HARD questions, and finish "
-                + " game with \n2 EXTREMELY HARD questions."
-                + "There are 3 hints \navailible during the game : 50/50, \nphone-a-friend and "
-                + "ask the audience.")
-                .setForeground(Color.WHITE)
-                .setBackground(Color.BLACK)
-                .setBorder(null)
-                .setSize(300, 205)
-                .setBounds(15, 260)
-                .setReadOnly()
-                .get();
+                .text("""
+                        Millionaire Game ®
+                 A quiz competition with player attempting to win
+                 a top prize of $1,000,000 by answering a series
+                 of multiple-choice questions.
+                 Game starts in easy mode for first 5 questions,
+                 then difficulty increases to meadium level until
+                 10th question,after contestant have to answer
+                 3 HARD questions, and finish
+                 game with 2 EXTREMELY HARD questions.
+                 There are 3 hints availible during the game :
+                 50/50, phone-a-friend and ask the audience.
+                """)
+                .foreground(WHITE)
+                .background(Color.BLACK)
+                .border(null)
+                .minSize(300, 205)
+                .bounds(15, 260)
+                .readOnly()
+                .build();
         
         // Setting up 'return' button
-        this.backButton = new ButtonBuilderImpl()
-                .setText("<")
-                .setFont(new Font("Serif", Font.BOLD, 16))
-                .setForeground(Color.WHITE)
-                .setBackground(new Color(0, 38, 75))
-                .setSize(50,25)
-                .setBounds(15,15)
+        JButton backButton = new ButtonBuilderImpl()
+                .text("<")
+                .font(new Font(SERIF, Font.BOLD, 16))
+                .foreground(WHITE)
+                .background(NAVY_BLUE)
+                .minSize(50,25)
+                .bounds(15,15)
                 .onHover()
-                .get();
+                .build();
         
         JLabel label = new JLabel();
         
-        backButton.addActionListener((ActionListener) -> {
+        backButton.addActionListener(e -> {
             // Remove rectangle from panel
-            PANEL.setLayout(null);
+            panel.setLayout(null);
             // Return to main page
-            SERVICE.runMainPage();
+            componentService.runMainPage();
         });
         
         // Add multiple elements on panel
-        this.SERVICE.addOnPanel(
+        this.componentService.addOnPanel(
                 flaticon,
                 stackoverflow,
                 thanksTo,
-                mongodb,
-                java,
                 technologiesUsed,
                 gameDescription,
-                mail,
-                linkedin,
-                github,
+                mailLabel,
+                linkedinLabel,
+                githubLabel,
                 contactLabel,
                 authorName,
                 backButton,
                 label
         );
         
-        // Revalidate and repaint panel;
-        this.SERVICE.reloadPanel();
+        // Revalidate and repaint panel
+        this.componentService.reloadPanel();
     }
     
     

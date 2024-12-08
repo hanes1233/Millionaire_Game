@@ -1,39 +1,35 @@
 
 package com.mycompany.millionaire.controller;
 
+import com.mycompany.millionaire.controller.hint.Hint;
+import com.mycompany.millionaire.data.GameConfiguration;
+import com.mycompany.millionaire.data.ProgressList;
+import com.mycompany.millionaire.data.entity.Question;
+import com.mycompany.millionaire.model.QuizService;
+import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
-import com.mycompany.millionaire.data.ProgressList;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.model.media.ImageManager;
-import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import com.mycompany.millionaire.controller.hint.Hint;
-import com.mycompany.millionaire.data.GameConfiguration;
-import com.mycompany.millionaire.data.Question;
-import com.mycompany.millionaire.model.QuizService;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.ListModel;
-import javax.swing.SwingConstants;
-import lombok.Getter; 
-import lombok.Setter;
+
+import static com.mycompany.millionaire.data.constant.CustomColor.*;
+import static com.mycompany.millionaire.data.constant.Difficulty.*;
+import static com.mycompany.millionaire.data.constant.FontType.SERIF;
+import static com.mycompany.millionaire.data.constant.Tag.*;
 
 
 /**
@@ -50,20 +46,19 @@ public class Game {
     private JButton optionB;
     private JButton optionC;
     private JButton optionD;
-    private JList<String> gameProgress;
+    private JList gameProgress;
     private JLabel exit;
     // endregion
     
     // Model variables
-    private final ComponentServiceImpl COMPONENT_SERVICE;
-    private final QuizService QUIZ_SERVICE;
+    private final ComponentServiceImpl componentService;
+    private final QuizService quizService;
     private Question currentQuestion;
     private GameConfiguration gameConfig;
-    private final JPanel PANEL;
+    private final JPanel panel;
     private ProgressList progressList;
-    private ListModel progressBar;
+    private ListModel<String> progressBar;
     private Hint hints;
-    //private Question question;
     
     // region game settings
     private String language;
@@ -74,22 +69,20 @@ public class Game {
     private boolean gameOver;
     private boolean correctAnswer;
     // endregion
-    
 
     /**
      * Constructor
      * @param config - game configuration instance
-     * @throws IOException
      */
-    public Game(GameConfiguration config) throws  IOException {
+    public Game(GameConfiguration config) {
         
         // Init panel and service variables
-        this.PANEL = GameView.getPanel();
-        this.COMPONENT_SERVICE = new ComponentServiceImpl();
-        this.QUIZ_SERVICE = new QuizService();
+        this.panel = GameView.getPanel();
+        this.componentService = new ComponentServiceImpl();
+        this.quizService = new QuizService();
         
         // Set look
-        this.COMPONENT_SERVICE.setAluminiumLook();
+        this.componentService.setAluminiumLook();
         this.hints = new Hint();
         this.hints.initHints();
         this.progressList = new ProgressList();
@@ -109,17 +102,10 @@ public class Game {
     public void initComponents() {
         
         // Clear panel from components if exist
-        this.PANEL.removeAll();
+        this.panel.removeAll();
         
-        // Handle sound theme
-        try {
-            AudioManager.handleMainTheme(gameConfig.getQuestionIndex());
-        } catch (LineUnavailableException |
-                UnsupportedAudioFileException | 
-                NullPointerException | 
-                IOException ex) {
-            System.out.println("Exception catched trying play handleMainTheme() in initComponents : " + ex);
-        } 
+        // Play main theme
+        AudioManager.handleMainTheme(gameConfig.getQuestionIndex());
         
         // Define current options
         this.options = currentQuestion.getOptions();
@@ -129,62 +115,62 @@ public class Game {
         
         questionText = new TextAreaBuilderImpl()
                 .formatText()
-                .setText(currentQuestion.getQuestion())
-                .setFont(new Font("Serif", Font.ITALIC, 16))
-                .setBackground(new Color(0, 38, 75))
-                .setForeground(Color.WHITE)
-                .setPreferredSize(new Dimension(450, 90))
-                .setBounds(30, 180)
-                .setReadOnly()
-                .get();
+                .text(currentQuestion.getQuestion())
+                .font(new Font(SERIF, Font.ITALIC, 16))
+                .background(PRUSSIAN_BLUE)
+                .foreground(Color.WHITE)
+                .preferredSize(new Dimension(450, 90))
+                .bounds(30, 180)
+                .readOnly()
+                .build();
         
         
         optionA = new ButtonBuilderImpl()
                 .gameStyleConfig()
-                .setText("<html><font color=rgb(213,156,0)>A:</font>" + options[0] + "</html>")
-                .setTextHorizontalAlign(SwingConstants.LEFT)
-                .setSize(220, 35)
-                .setBounds(30, 300)
-                .get();
+                .text(HTML_OPEN + FONT_OPEN + "A:" + FONT_CLOSE + options[0] + HTML_CLOSE)
+                .textHorizontalAlign(SwingConstants.LEFT)
+                .minSize(220, 35)
+                .bounds(30, 300)
+                .build();
         
         optionA.addActionListener((ActionEvent e) -> {  
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[0], currentQuestion.getAnswer());
+                correctAnswer = quizService.isAnswerCorrect(options[0], currentQuestion.getAnswer());
                 startQuiz();
         });
         
         optionB = new ButtonBuilderImpl()
                 .gameStyleConfig()
-                .setText("<html><font color=rgb(213,156,0)>B:</font>" + options[1] + "</html>")
-                .setTextHorizontalAlign(SwingConstants.LEFT)
-                .setBounds(260, 300)
-                .get();
+                .text(HTML_OPEN + FONT_OPEN + "B:" + FONT_CLOSE + options[1] + HTML_CLOSE)
+                .textHorizontalAlign(SwingConstants.LEFT)
+                .bounds(260, 300)
+                .build();
         
         optionB.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[1], currentQuestion.getAnswer());
+                correctAnswer = quizService.isAnswerCorrect(options[1], currentQuestion.getAnswer());
                 startQuiz();
         });
         
         optionC = new ButtonBuilderImpl()
                 .gameStyleConfig()
-                .setText("<html><font color=rgb(213,156,0)>C:</font>" + options[2] + "</html>")
-                .setTextHorizontalAlign(SwingConstants.LEFT)
-                .setBounds(30, 350)
-                .get();
+                .text(HTML_OPEN + FONT_OPEN + "C:" + FONT_CLOSE + options[2] + HTML_CLOSE)
+                .textHorizontalAlign(SwingConstants.LEFT)
+                .bounds(30, 350)
+                .build();
         
         optionC.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[2], currentQuestion.getAnswer());
+                correctAnswer = quizService.isAnswerCorrect(options[2], currentQuestion.getAnswer());
                 startQuiz();
         }); 
         
         optionD = new ButtonBuilderImpl()
                 .gameStyleConfig()
-                .setText("<html><font color=rgb(213,156,0)>D:</font>" + options[3] + "</html>")
-                .setTextHorizontalAlign(SwingConstants.LEFT)
-                .setBounds(260, 350)
-                .get();
+                .text(HTML_OPEN + FONT_OPEN + "D:" + FONT_CLOSE + options[3] + HTML_CLOSE)
+                .textHorizontalAlign(SwingConstants.LEFT)
+                .bounds(260, 350)
+                .build();
         
         optionD.addActionListener((ActionEvent e) -> {
-                correctAnswer = QUIZ_SERVICE.isAnswerCorrect(options[3], currentQuestion.getAnswer());
+                correctAnswer = quizService.isAnswerCorrect(options[3], currentQuestion.getAnswer());
                 startQuiz();
           
         });
@@ -197,46 +183,44 @@ public class Game {
           
         hints.setCurrentQuestion(currentQuestion);
         
-        // For "Hard" difficulty we are not gonna add hints at all
-        if(!this.difficulty.equals("Hard")) {
-            
+        // For "Hard" difficulty we are not going to add hints at all
+        if (!this.difficulty.equals(HARD.getName())) {
+
             // For "Easy" difficulty, we are going to add all hints
-            if(this.difficulty.equals("Easy")) {
+            if (this.difficulty.equals(EASY.getName())) {
                 for(JLabel hint : hints.getHints())
-                    this.PANEL.add(hint);
+                    this.panel.add(hint);
             
             // For "Medium" difficulty we are going to add one hint only
-            }else if(this.difficulty.equals("Medium")) {
-                this.PANEL.add(hints.getFiftyToFiftyHint());
+            }else if(this.difficulty.equals(MEDIUM.getName())) {
+                this.panel.add(hints.getFiftyToFiftyHint());
             }
-        } 
-        
+        }
         
         exit = new LabelBuilderImpl()
-                .setImage(ImageManager.getImageIcon("exit"))
-                .setBounds(580, 20)
-                .get();
+                .image(ImageManager.getImageIcon("exit"))
+                .bounds(580, 20)
+                .build();
         
         exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Kill game
-                COMPONENT_SERVICE.dispose();
+                componentService.dispose();
             }
         });
-        
-        gameProgress = new JList();
-        gameProgress = new ListBuilderImpl(gameProgress)
-                .setModel(progressBar)
-                .setPreferredSize(new Dimension(200, 280))
-                .setBounds(500, 80)
-                .setBackground(new Color(12, 4, 77))
-                .setForeground(new Color(242, 177, 0))
-                .setSelectedIndex(gameConfig.getProgressIndex())
-                .get();
+
+        gameProgress = new ListBuilderImpl()
+                .model(progressBar)
+                .preferredSize(new Dimension(200, 280))
+                .bounds(500, 80)
+                .background(DEEP_VIOLET)
+                .foreground(AMBER)
+                .selectedIndex(gameConfig.getProgressIndex())
+                .build();
         
         // Add components on JPanel
-        this.COMPONENT_SERVICE.addOnPanel(
+        this.componentService.addOnPanel(
                 exit, 
                 questionText, 
                 optionA, 
@@ -247,7 +231,7 @@ public class Game {
         );
         
        // Revalidate and repaint panel
-       this.COMPONENT_SERVICE.reloadPanel();
+       this.componentService.reloadPanel();
     }
     
     /**
@@ -256,23 +240,23 @@ public class Game {
      */
     private void startQuiz() {
         // Check is question queue in GameConfiguration is not empty
-        if(!gameConfig.getQuestions().isEmpty()) {
+        if (!gameConfig.getQuestions().isEmpty()) {
             
             // Check does panel contains any components
-            if(PANEL.getComponents().length > 0) {
+            if (panel.getComponents().length > 0) {
                 
                 // Handle user's choice view, sound and thinking simulation
-                this.QUIZ_SERVICE.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
+                this.quizService.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
                 
                 // Add new motion listener to panel
-                PANEL.addMouseMotionListener(new MouseAdapter() {
+                panel.addMouseMotionListener(new MouseAdapter() {
                     @Override
                     public void mouseMoved(MouseEvent e) {
                        // Remove all motion listeners from panel
-                       COMPONENT_SERVICE.removeMotionListeners();
+                       componentService.removeMotionListeners();
                        
                        // Check is answer correct
-                       if(correctAnswer) {
+                       if (correctAnswer) {
                            // Update progress bar and question indexes
                            int progressIndex = gameConfig.getProgressIndex() - 1;
                            int questionIndex = gameConfig.getQuestionIndex() + 1;
@@ -282,7 +266,7 @@ public class Game {
                            gameConfig.setQuestionIndex(questionIndex);
                            
                            // Handle user's score
-                           QUIZ_SERVICE.handleScore(gameConfig, questionIndex);
+                           quizService.handleScore(gameConfig, questionIndex);
                            
                            // Poll next question from GameConfiguration's queue of questions and assign to 'currentQuestion' variable
                            currentQuestion = gameConfig.pollQuestion();
@@ -291,7 +275,7 @@ public class Game {
                            initComponents();
                        }else {
                            // Finish game
-                           QUIZ_SERVICE.finishGame(gameConfig.getScore(), false);
+                           quizService.finishGame(gameConfig.getScore(), false);
                        }
                     }
                 });
@@ -304,26 +288,26 @@ public class Game {
             }
         }else {
             // Handle user's choice view, sound and thinking simulation
-            this.QUIZ_SERVICE.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
+            this.quizService.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
             
             // Add new motion listener to panel
-            PANEL.addMouseMotionListener(new MouseAdapter() {
+            panel.addMouseMotionListener(new MouseAdapter() {
                 @Override
                 public void mouseMoved(MouseEvent e) {
                     // Remove all motion listeners from panel
-                    COMPONENT_SERVICE.removeMotionListeners();
+                    componentService.removeMotionListeners();
                     
                     // Check is answer correct
-                    if(correctAnswer) {
+                    if (correctAnswer) {
                         
                         // Handle user's score
-                        QUIZ_SERVICE.handleScore(gameConfig, gameConfig.getQuestionIndex());
+                        quizService.handleScore(gameConfig, gameConfig.getQuestionIndex());
                         
                         // Finish game
-                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),true);
+                        quizService.finishGame(gameConfig.getScore(),true);
                     }else {
                         // Finish game
-                        QUIZ_SERVICE.finishGame(gameConfig.getScore(),false);
+                        quizService.finishGame(gameConfig.getScore(),false);
                     }
                 }
             });

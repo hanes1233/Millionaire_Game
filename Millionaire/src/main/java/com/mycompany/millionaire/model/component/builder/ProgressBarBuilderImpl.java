@@ -5,7 +5,7 @@ import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.JProgressBar;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 /**
@@ -23,62 +23,61 @@ public class ProgressBarBuilderImpl implements ProgressBarBuilder {
     }
 
     @Override
-    public ProgressBarBuilderImpl setText(String text) {
+    public ProgressBarBuilderImpl text(String text) {
         this.PROGRESS_BAR.setString(text);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setBackground(Color color) {
+    public ProgressBarBuilderImpl background(Color color) {
         this.PROGRESS_BAR.setBackground(color);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setForeground(Color color) {
+    public ProgressBarBuilderImpl foreground(Color color) {
         this.PROGRESS_BAR.setForeground(color);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setBounds(int x, int y) {
+    public ProgressBarBuilderImpl bounds(int x, int y) {
         this.PROGRESS_BAR.setBounds(x, y, SERVICE.getWidth(PROGRESS_BAR), SERVICE.getHeight(PROGRESS_BAR));
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setFont(Font font) {
+    public ProgressBarBuilderImpl font(Font font) {
         this.PROGRESS_BAR.setFont(font);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setPreferredSize(Dimension d) {
+    public ProgressBarBuilderImpl preferredSize(Dimension d) {
         this.PROGRESS_BAR.setPreferredSize(d);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setSize(int width, int height) {
+    public ProgressBarBuilderImpl minSize(int width, int height) {
         this.PROGRESS_BAR.setSize(width,height);
         return this;
     }
 
     @Override
-    public ProgressBarBuilderImpl setBorder(Border border) {
+    public ProgressBarBuilderImpl border(Border border) {
         this.PROGRESS_BAR.setBorder(border);
         return this;
     }
     
     @Override
-    public ProgressBarBuilderImpl setValue(int value) {
+    public ProgressBarBuilderImpl value(int value) {
         this.PROGRESS_BAR.setValue(value);
         return this;
     }
 
     @Override
-    public JProgressBar get() {
+    public JProgressBar build() {
         return this.PROGRESS_BAR;
     }
-    
 }

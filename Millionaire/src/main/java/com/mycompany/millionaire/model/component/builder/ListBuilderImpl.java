@@ -15,11 +15,11 @@ import javax.swing.border.Border;
  */
 public class ListBuilderImpl implements ListBuilder{
     
-    private final JList LIST;
+    private final JList<String> LIST;
     private final ComponentServiceImpl SERVICE;
     
     public ListBuilderImpl() {
-        this.LIST = new JList();
+        this.LIST = new JList<>();
         this.SERVICE = new ComponentServiceImpl();
     }
     
@@ -29,66 +29,66 @@ public class ListBuilderImpl implements ListBuilder{
     }
 
     @Override
-    public ListBuilder setBounds(int x, int y) {
+    public ListBuilder bounds(int x, int y) {
         this.LIST.setBounds(x, y, SERVICE.getWidth(LIST), SERVICE.getHeight(LIST));
         return this;
     }
 
     @Override
-    public ListBuilder setBackground(Color color) {
+    public ListBuilder background(Color color) {
          this.LIST.setBackground(color);
          return this;
     }
 
     @Override
-    public ListBuilder setForeground(Color color) {
+    public ListBuilder foreground(Color color) {
          this.LIST.setForeground(color);
          return this;
     }
 
     @Override
-    public ListBuilder setModel(ListModel model) {
+    public ListBuilder model(ListModel model) {
         this.LIST.setModel(model);
         return this;
     }
 
     @Override
-    public ListBuilder setSelectedIndex(int index) {
+    public ListBuilder selectedIndex(int index) {
         this.LIST.setSelectedIndex(index);
         return this;
     }
 
     @Override
-    public ListBuilder setFont(Font font) {
+    public ListBuilder font(Font font) {
         this.LIST.setFont(font);
         return this;
     }
 
     @Override
-    public ListBuilder setPreferredSize(Dimension d) {
+    public ListBuilder preferredSize(Dimension d) {
          this.LIST.setPreferredSize(d);
          return this;
     }
 
     @Override
-    public ListBuilder setSize(int width, int height) {
+    public ListBuilder minSize(int width, int height) {
          this.LIST.setSize(width, height);
          return this;
     }
 
     @Override
-    public ListBuilder setBorder(Border border) {
+    public ListBuilder border(Border border) {
         this.LIST.setBorder(border);
         return this;
     }
 
     @Override
-    public JList get() {
+    public JList build() {
         return this.LIST;
     }
 
     @Override
-    public Object setText(String text) {
+    public Object text(String text) {
         throw new UnsupportedOperationException("setText() is not supported on JList.");
     }
     

@@ -19,7 +19,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setText(String text);
+    ProgressBarBuilder text(String text);
     
     /**
      * Set background color on JProgressBar
@@ -27,7 +27,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setBackground(Color color);
+    ProgressBarBuilder background(Color color);
     
     /**
      * Set foreground color on JProgressBar
@@ -35,7 +35,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setForeground(Color color);
+    ProgressBarBuilder foreground(Color color);
     
     /**
      * Set bounds of JProgressBar
@@ -44,7 +44,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setBounds(int x, int y);
+    ProgressBarBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JProgressBar
@@ -52,7 +52,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setFont(Font font);
+    ProgressBarBuilder font(Font font);
     
     /**
      * Set size of JProgressBar
@@ -60,7 +60,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setPreferredSize(Dimension d);
+    ProgressBarBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JProgressBar
@@ -69,7 +69,7 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setSize(int width, int height);
+    ProgressBarBuilder minSize(int width, int height);
     
     /**
      * Set borders of JProgressBar
@@ -77,20 +77,20 @@ public interface ProgressBarBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ProgressBarBuilder setBorder(Border border);
+    ProgressBarBuilder border(Border border);
     
     /**
      * Set value of JProgressBar
      * @param value - get value from parameter
      * @return this object, allowing method chaining
      */
-    ProgressBarBuilder setValue(int value);
+    ProgressBarBuilder value(int value);
     
     /**
      * Get JProgressBar after being set up
      * @return JProgressBar
      */
     @Override
-    JProgressBar get(); 
+    JProgressBar build();
     
 }

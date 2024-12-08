@@ -1,7 +1,7 @@
 
 package com.mycompany.millionaire.model.hint;
 
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.view.GameView;
 import java.awt.event.MouseListener;
 import java.util.Arrays;

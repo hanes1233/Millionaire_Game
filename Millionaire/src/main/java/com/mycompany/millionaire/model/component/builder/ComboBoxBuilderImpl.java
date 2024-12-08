@@ -36,54 +36,54 @@ public class ComboBoxBuilderImpl implements ComboBoxBuilder{
     }
 
     @Override
-    public ComboBoxBuilderImpl setText(String text) {
+    public ComboBoxBuilderImpl text(String text) {
         throw new UnsupportedOperationException("Method setText unsupported by ComboBox");
     }
 
     @Override
-    public ComboBoxBuilderImpl setBackground(Color color) {
+    public ComboBoxBuilderImpl background(Color color) {
         this.COMBO_BOX.setBackground(color);
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setForeground(Color color) {
+    public ComboBoxBuilderImpl foreground(Color color) {
         this.COMBO_BOX.setForeground(color);
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setBounds(int x, int y) {
+    public ComboBoxBuilderImpl bounds(int x, int y) {
         this.COMBO_BOX.setBounds(x,y,SERVICE.getWidth(COMBO_BOX),SERVICE.getHeight(COMBO_BOX));
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setFont(Font font) {
+    public ComboBoxBuilderImpl font(Font font) {
         this.COMBO_BOX.setFont(font);
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setPreferredSize(Dimension d) {
+    public ComboBoxBuilderImpl preferredSize(Dimension d) {
         this.COMBO_BOX.setPreferredSize(d);
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setSize(int width, int height) {
+    public ComboBoxBuilderImpl minSize(int width, int height) {
         this.COMBO_BOX.setSize(width,height);
         return this;
     }
 
     @Override
-    public ComboBoxBuilderImpl setBorder(Border border) {
+    public ComboBoxBuilderImpl border(Border border) {
         this.COMBO_BOX.setBorder(border);
         return this;
     }
     
     @Override
-    public JComboBox get() {
+    public JComboBox build() {
         return this.COMBO_BOX;
     }
     
@@ -105,14 +105,8 @@ public class ComboBoxBuilderImpl implements ComboBoxBuilder{
     public ComboBoxBuilderImpl onHover() {
         this.COMBO_BOX.addItemListener((ItemEvent event) -> {
             if ((event.getStateChange() == ItemEvent.SELECTED)) {
-                try {
                     // Play sound on hover
                     AudioManager.handleAudioEvent("hover");
-                } catch (UnsupportedAudioFileException |
-                        IOException |
-                        LineUnavailableException ex) {
-                    Logger.getLogger(ComboBoxBuilderImpl.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }   
         });
        

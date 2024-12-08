@@ -20,21 +20,21 @@ public interface Builder<T> {
      * @param text - get text from parameter
      * @return this object, allowing method chaining
      */
-    T setText(String text);
+    T text(String text);
     
     /**
      * Set background color
      * @param color - get color from parameter
      * @return this object, allowing method chaining
      */
-    T setBackground(Color color);
+    T background(Color color);
     
     /**
      * Set foreground color
      * @param color - get color from parameter
      * @return this object, allowing method chaining
      */
-    T setForeground(Color color);
+    T foreground(Color color);
     
     /**
      * Set bounds of JComponent
@@ -42,21 +42,21 @@ public interface Builder<T> {
      * @param y position on panel
      * @return this object, allowing method chaining
      */
-    T setBounds(int x, int y);
+    T bounds(int x, int y);
     
     /**
      * Set font on text
      * @param font - get font from parameter
      * @return this object, allowing method chaining
      */
-    T setFont(Font font);
+    T font(Font font);
     
     /**
      * Set size
      * @param d - get Dimension from parameter
      * @return this object, allowing method chaining
      */
-    T setPreferredSize(Dimension d);
+    T preferredSize(Dimension d);
     
     /**
      * Set size
@@ -64,19 +64,19 @@ public interface Builder<T> {
      * @param height - get height from parameter
      * @return this object, allowing method chaining
      */
-    T setSize(int width, int height);
+    T minSize(int width, int height);
     
     /**
      * Set borders
      * @param border - get border from parameter
      * @return this object, allowing method chaining
      */
-    T setBorder(Border border);
+    T border(Border border);
     
     /**
      * Get JComponent after setting up
      * @return JComponent
      */
-    Object get();
+    Object build();
     
 }

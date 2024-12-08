@@ -18,108 +18,108 @@ import javax.swing.border.Border;
  */
 public class LabelBuilderImpl implements LabelBuilder {
     
-    private final JLabel LABEL;
-    private final ComponentServiceImpl SERVICE;
+    private final JLabel label;
+    private final ComponentServiceImpl componentService;
     
     public LabelBuilderImpl() {
-        this.LABEL = new JLabel();
-        this.SERVICE = new ComponentServiceImpl();
+        this.label = new JLabel();
+        this.componentService = new ComponentServiceImpl();
     }
     
      public LabelBuilderImpl(JLabel label) {
-        this.LABEL = label;
-        this.SERVICE = new ComponentServiceImpl();
+        this.label = label;
+        this.componentService = new ComponentServiceImpl();
     }
     
     @Override
-    public LabelBuilderImpl setImage(ImageIcon image) {
-        this.LABEL.setIcon(image);
+    public LabelBuilderImpl image(ImageIcon image) {
+        this.label.setIcon(image);
         return this;
     }
     
     @Override
-    public LabelBuilderImpl setText(String text) {
-        this.LABEL.setText(text);
+    public LabelBuilderImpl text(String text) {
+        this.label.setText(text);
         return this;
     }
     
     @Override
-    public LabelBuilderImpl setBackground(Color color) {
-        this.LABEL.setBackground(color);
+    public LabelBuilderImpl background(Color color) {
+        this.label.setBackground(color);
         return this;
     }
     
     @Override
-    public LabelBuilderImpl setForeground(Color color) {
-        this.LABEL.setForeground(color);
+    public LabelBuilderImpl foreground(Color color) {
+        this.label.setForeground(color);
         return this;
     }
     
     @Override
-    public LabelBuilderImpl setBounds(int x, int y) {
-        this.LABEL.setBounds(x,y,SERVICE.getWidth(LABEL),SERVICE.getHeight(LABEL));
+    public LabelBuilderImpl bounds(int x, int y) {
+        this.label.setBounds(x,y, componentService.getWidth(label), componentService.getHeight(label));
         return this;
     }
     
     @Override
     public LabelBuilderImpl setY(int y) {
-        this.LABEL.setBounds(this.LABEL.getX(), 
+        this.label.setBounds(this.label.getX(),
                 y, 
-                this.LABEL.getWidth(), 
-                this.LABEL.getHeight()
+                this.label.getWidth(),
+                this.label.getHeight()
         );
         return this;
     }
     
     @Override
-    public LabelBuilderImpl setFont(Font font) {
-        this.LABEL.setFont(font);
+    public LabelBuilderImpl font(Font font) {
+        this.label.setFont(font);
         return this;
     }
     
     @Override
-    public JLabel get() {
-        return this.LABEL;
+    public JLabel build() {
+        return this.label;
     }
 
     @Override
-    public LabelBuilderImpl setPreferredSize(Dimension d) {
-        this.LABEL.setPreferredSize(d);
+    public LabelBuilderImpl preferredSize(Dimension d) {
+        this.label.setPreferredSize(d);
         return this;
     }
 
     @Override
-    public LabelBuilderImpl setSize(int width, int height) {
-        this.LABEL.setSize(width,height);
+    public LabelBuilderImpl minSize(int width, int height) {
+        this.label.setSize(width,height);
         return this;
     }
 
     @Override
-    public LabelBuilderImpl setBorder(Border border) {
-        this.LABEL.setBorder(border);
+    public LabelBuilderImpl border(Border border) {
+        this.label.setBorder(border);
         return this;
     }
     
     // Change image on hover, using image's name from parameter
     @Override
     public LabelBuilderImpl onHover(String path) {
-        Icon currentIcon = this.LABEL.getIcon();
-        int x = LABEL.getX();
-        int y = LABEL.getY();
-        int width = LABEL.getWidth();
-        int height = LABEL.getHeight();
-        setPreferredSize(new Dimension(width, height));
-        this.LABEL.addMouseListener(new java.awt.event.MouseAdapter() {
+        Icon currentIcon = this.label.getIcon();
+        int x = label.getX();
+        int y = label.getY();
+        int width = label.getWidth();
+        int height = label.getHeight();
+        this.preferredSize(new Dimension(width, height));
+        this.label.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setImage(ImageManager.getImageIcon(path));
-                setBounds(x, y - 2);
+                image(ImageManager.getImageIcon(path));
+                LabelBuilderImpl.this.bounds(x, y - 2);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 // Set back previous image
-                LABEL.setIcon(currentIcon);
-                setBounds(x, y);
+                label.setIcon(currentIcon);
+                LabelBuilderImpl.this.bounds(x, y);
             }
         });
         return this;
@@ -128,11 +128,10 @@ public class LabelBuilderImpl implements LabelBuilder {
     // Remove all mouse listeners from JLabel
     @Override
     public LabelBuilderImpl removeMouseListeners() {
-        MouseListener[] listeners = this.LABEL.getMouseListeners();
+        MouseListener[] listeners = this.label.getMouseListeners();
                 for(var listener : listeners) {
-                    this.LABEL.removeMouseListener(listener); 
+                    this.label.removeMouseListener(listener);
                 }
         return this;
     }
-    
 }

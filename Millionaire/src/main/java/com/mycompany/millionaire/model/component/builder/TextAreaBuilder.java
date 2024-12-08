@@ -19,7 +19,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setText(String text);
+    TextAreaBuilder text(String text);
     
     /**
      * Set background color on JTextArea
@@ -27,7 +27,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setBackground(Color color);
+    TextAreaBuilder background(Color color);
     
     /**
      * Set foreground color on JTextArea
@@ -35,7 +35,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setForeground(Color color);
+    TextAreaBuilder foreground(Color color);
     
     /**
      * Set bounds of JTextArea
@@ -44,7 +44,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setBounds(int x, int y);
+    TextAreaBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JTextArea
@@ -52,7 +52,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setFont(Font font);
+    TextAreaBuilder font(Font font);
     
     /**
      * Set size of JTextArea
@@ -60,7 +60,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setPreferredSize(Dimension d);
+    TextAreaBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JTextArea
@@ -69,7 +69,7 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setSize(int width, int height);
+    TextAreaBuilder minSize(int width, int height);
     
     /**
      * Set borders of JTextArea
@@ -77,14 +77,14 @@ public interface TextAreaBuilder extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    TextAreaBuilder setBorder(Border border);
+    TextAreaBuilder border(Border border);
     
     /**
      * Get JTextArea after being set up
      * @return JTextArea
      */
     @Override
-    JTextArea get();
+    JTextArea build();
     
     /**
      * Format text of JTextArea
@@ -96,5 +96,5 @@ public interface TextAreaBuilder extends Builder{
      * Make JTextArea read-only
      * @return this object, allowing method chaining
      */
-    TextAreaBuilder setReadOnly();
+    TextAreaBuilder readOnly();
 }

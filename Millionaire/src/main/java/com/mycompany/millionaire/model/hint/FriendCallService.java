@@ -2,7 +2,7 @@
 package com.mycompany.millionaire.model.hint;
 
 import com.mycompany.millionaire.controller.hint.FriendCall;
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.view.GameView;
@@ -62,15 +62,15 @@ public class FriendCallService extends FriendCall {
                     
                     // Answers do not contain chars A - D, so if difficulty 'easy' or 'medium'
                     // concat corresponding letter to answer
-                    if(CURRENT_QUESTION.getQuestionDifficulty().equals("Easy") || CURRENT_QUESTION.getQuestionDifficulty().equals("Medium")) {
-                        String currentAnswer = CURRENT_QUESTION.getAnswer();
-                        if(CURRENT_QUESTION.getOptionA().getText().contains(currentAnswer)) {
+                    if(currentQuestion.getQuestionDifficulty().equals("Easy") || currentQuestion.getQuestionDifficulty().equals("Medium")) {
+                        String currentAnswer = currentQuestion.getAnswer();
+                        if(currentQuestion.getOptionA().getText().contains(currentAnswer)) {
                             randomAnswer += 'A';
-                        }else if(CURRENT_QUESTION.getOptionB().getText().contains(currentAnswer)) {
+                        }else if(currentQuestion.getOptionB().getText().contains(currentAnswer)) {
                             randomAnswer += 'B';
-                        }else if(CURRENT_QUESTION.getOptionC().getText().contains(currentAnswer)) {
+                        }else if(currentQuestion.getOptionC().getText().contains(currentAnswer)) {
                             randomAnswer += 'C';
-                        }else if(CURRENT_QUESTION.getOptionD().getText().contains(currentAnswer)) {
+                        }else if(currentQuestion.getOptionD().getText().contains(currentAnswer)) {
                             randomAnswer += 'D';
                         }
                         // Otherwise, concat random letter
@@ -83,59 +83,53 @@ public class FriendCallService extends FriendCall {
                     calling = new JTextArea();
                     calling = new TextAreaBuilderImpl()
                         .formatText()
-                        .setText("Calling...")
-                        .setFont(new Font("Serif", Font.ITALIC, 20))
-                        .setBackground(new Color(0, 38, 75))
-                        .setForeground(Color.WHITE)
-                        .setPreferredSize(new Dimension(250, 45))
-                        .setBounds(30, 90)
-                        .setReadOnly()
-                        .get();
+                        .text("Calling...")
+                        .font(new Font("Serif", Font.ITALIC, 20))
+                        .background(new Color(0, 38, 75))
+                        .foreground(Color.WHITE)
+                        .preferredSize(new Dimension(250, 45))
+                        .bounds(30, 90)
+                        .readOnly()
+                        .build();
                     
                     GameView.getPanel().remove(friendList);
                     GameView.getPanel().add(calling);
                     service.reloadPanel();
-                    try {
-                        AudioManager.handleAudioEvent("calling");
-                        new Thread(() -> {
+                    AudioManager.handleAudioEvent("calling");
+                    new Thread(() -> {
                            
-                            // Define random calling time in seconds
-                           int randomCallingTime = new Random().nextInt((25 - 0) + 3) + 3;
-                            try { 
+                        // Define random calling time in seconds
+                        int randomCallingTime = new Random().nextInt((25 - 0) + 3) + 3;
+                        try {
                                 
-                                // Sleep for random amount of seconds just displaying
-                                // 'calling' and playing 'ringing sound'
-                                Thread.sleep(randomCallingTime * 1000);
+                            // Sleep for random amount of seconds just displaying
+                            // 'calling' and playing 'ringing sound'
+                            Thread.sleep(randomCallingTime * 1000);
                                 
-                                // Turn off all sounds
-                                AudioManager.muteMouseEvent();
+                            // Turn off all sounds
+                            AudioManager.muteMouseEvent();
                                 
-                                // If timer already has '0' value, just remove 
-                                // calling label with no displaying answer
-                                if(timer.getText().equals("0")) {
-                                    GameView.getPanel().remove(calling);
-                                    service.reloadPanel();
+                            // If timer already has '0' value, just remove
+                            // calling label with no displaying answer
+                            if(timer.getText().equals("0")) {
+                                GameView.getPanel().remove(calling);
+                                service.reloadPanel();
                                     
-                                    // Otherwise, display friend's answer
-                                }else {
-                                    calling = new TextAreaBuilderImpl(calling)
-                                        .setText(randomAnswer)
-                                        .setFont(new Font("Serif", Font.ITALIC, 16))
-                                        .setPreferredSize(new Dimension(250, 75))
-                                        .setBounds(30, 90)
-                                        .setForeground(Color.ORANGE)
-                                        .get();
+                                // Otherwise, display friend's answer
+                            }else {
+                                calling = new TextAreaBuilderImpl(calling)
+                                        .text(randomAnswer)
+                                        .font(new Font("Serif", Font.ITALIC, 16))
+                                        .preferredSize(new Dimension(250, 75))
+                                        .bounds(30, 90)
+                                        .foreground(Color.ORANGE)
+                                        .build();
                                 GameView.getPanel().repaint();
                                 }
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(FriendCall.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }).start();
-                    } catch (UnsupportedAudioFileException |
-                             IOException |
-                             LineUnavailableException ex) {
-                        Logger.getLogger(FriendCall.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(FriendCall.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }).start();
                 } 
             }
          });

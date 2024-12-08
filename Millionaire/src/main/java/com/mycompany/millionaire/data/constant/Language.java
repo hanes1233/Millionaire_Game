@@ -1,21 +1,24 @@
 
 package com.mycompany.millionaire.data.constant;
 
+import lombok.Getter;
 
+@Getter
 public enum Language {
     
     ENGLISH("English"),
     
     CZECH("Český");
     
-    private final String NAME;
+    private final String name;
     
-    private Language(String name) {
-        this.NAME = name;
+    Language(String name) {
+        this.name = name;
     }
-    
+
     @Override
     public String toString() {
-       return this.NAME;
+        return name;
     }
+
 }

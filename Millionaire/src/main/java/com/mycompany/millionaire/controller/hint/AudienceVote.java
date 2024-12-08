@@ -1,28 +1,33 @@
 
 package com.mycompany.millionaire.controller.hint;
 
+import com.mycompany.millionaire.data.entity.Question;
+import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.ProgressBarBuilderImpl;
-import com.mycompany.millionaire.data.Question;
-import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
+
+import static com.mycompany.millionaire.data.constant.CustomColor.LIGHT_PINK;
+import static com.mycompany.millionaire.data.entity.FontObject.serifBold;
 
 /**
- * Audience vote controller
+ * AudienceVote controller provides design architecture
+ * for 'audience vote' action
  * @author pavel
  */
 public class AudienceVote {
-    
-    // Service instances
-    protected final Question CURRENT_QUESTION;
+
+    // Declare instances of service objects (business logic providers)
+    protected final Question currentQuestion;
     protected final ComponentServiceImpl service;
     
-    // region Components instances
+    // region JComponent instances
     protected JProgressBar progressBarA;
     protected JProgressBar progressBarB;
     protected JProgressBar progressBarC;
@@ -38,19 +43,18 @@ public class AudienceVote {
     protected JButton optionC;
     protected JButton optionD;
     // endregion
-    
-    
+
     /**
      * Constructor
      * @param currentQuestion initialize current question to get options values
      */
     public AudienceVote(Question currentQuestion) {
-        this.CURRENT_QUESTION = currentQuestion;
+        this.currentQuestion = currentQuestion;
         this.service = new ComponentServiceImpl();
-        this.optionA = CURRENT_QUESTION.getOptionA();
-        this.optionB = CURRENT_QUESTION.getOptionB();
-        this.optionC = CURRENT_QUESTION.getOptionC();
-        this.optionD = CURRENT_QUESTION.getOptionD();
+        this.optionA = this.currentQuestion.getOptionA();
+        this.optionB = this.currentQuestion.getOptionB();
+        this.optionC = this.currentQuestion.getOptionC();
+        this.optionD = this.currentQuestion.getOptionD();
         this.defineProgressBars();
     }
     
@@ -58,102 +62,73 @@ public class AudienceVote {
      * Set up components and add to the panel
      */
     private void defineProgressBars() {
-         
-         JLabel labelA = new LabelBuilderImpl()
-                 .setText("A")
-                 .setForeground(Color.WHITE)
-                 .setBounds(309, 155)
-                 .get();
-         
-         JLabel labelB = new LabelBuilderImpl()
-                 .setText("B")
-                 .setForeground(Color.WHITE)
-                 .setBounds(349, 155)
-                 .get();
-         
-         JLabel labelC = new LabelBuilderImpl()
-                 .setText("C")
-                 .setForeground(Color.WHITE)
-                 .setBounds(389, 155)
-                 .get();
-         
-         JLabel labelD = new LabelBuilderImpl()
-                 .setText("D")
-                 .setForeground(Color.WHITE)
-                 .setBounds(429, 155)
-                 .get();
-         
-         percentageA = new LabelBuilderImpl()
-                 .setText("0 %")
-                 .setPreferredSize(new Dimension(30,15))
-                 .setFont(new Font("Serif", Font.BOLD, 11))
-                 .setForeground(Color.WHITE)
-                 .setBounds(305, 55)
-                 .get();
-         
-         percentageB = new LabelBuilderImpl()
-                 .setText("0 %")
-                 .setPreferredSize(new Dimension(30,15))
-                 .setFont(new Font("Serif", Font.BOLD, 11))
-                 .setForeground(Color.WHITE)
-                 .setBounds(345, 55)
-                 .get();
-         
-         percentageC = new LabelBuilderImpl()
-                 .setText("0 %")
-                 .setPreferredSize(new Dimension(30,15))
-                 .setFont(new Font("Serif", Font.BOLD, 11))
-                 .setForeground(Color.WHITE)
-                 .setBounds(385, 55)
-                 .get();
-         
-         percentageD = new LabelBuilderImpl()
-                 .setText("0 %")
-                 .setPreferredSize(new Dimension(30,15))
-                 .setFont(new Font("Serif", Font.BOLD, 11))
-                 .setForeground(Color.WHITE)
-                 .setBounds(425, 55)
-                 .get();
-         
-         
-         progressBarA = new JProgressBar(JProgressBar.VERTICAL,0,100);
-         progressBarB = new JProgressBar(JProgressBar.VERTICAL,0,100);
-         progressBarC = new JProgressBar(JProgressBar.VERTICAL,0,100);
-         progressBarD = new JProgressBar(JProgressBar.VERTICAL,0,100);
-         
-         progressBarA = new ProgressBarBuilderImpl(this.progressBarA)
-                 .setPreferredSize(new Dimension(30, 80))
-                 .setBounds(300, 70)
-                 .setBackground(Color.BLACK)
-                 .setForeground(new Color(255,204,255))
-                 .get();
-         
-         progressBarB = new ProgressBarBuilderImpl(this.progressBarB)
-                 .setPreferredSize(new Dimension(30, 80))
-                 .setBounds(340, 70)
-                 .setBackground(Color.BLACK)
-                 .setForeground(new Color(255,204,255))
-                 .get();
-         
-         progressBarC = new ProgressBarBuilderImpl(this.progressBarC)
-                 .setPreferredSize(new Dimension(30, 80))
-                 .setBounds(380, 70)
-                 .setBackground(Color.BLACK)
-                 .setForeground(new Color(255,204,255))
-                 .get();
-         
-         progressBarD = new ProgressBarBuilderImpl(this.progressBarD)
-                 .setPreferredSize(new Dimension(30, 80))
-                 .setBounds(420, 70)
-                 .setBackground(Color.BLACK)
-                 .setForeground(new Color(255,204,255))
-                 .get();
-         
+
+        // Prepare data for JLabels displaying symbols A, B, C, D
+        final Font SERIF = serifBold(11);
+        char[] symbols = {'A', 'B', 'C', 'D'};
+        AtomicInteger labelSymbolWidth = new AtomicInteger(269);
+        final int height = 155;
+
+        // Prepare data for JLabel with percentage text
+        final Dimension dimensionSize = new Dimension(30, 15);
+        final int percentageHeight = 55;
+        AtomicInteger percentageWidth = new AtomicInteger(305);
+
+        // Prepare data for JProgressBar
+        final Dimension progressPreferredSize = new Dimension(30, 80);
+        final int progressBarHeight = 70;
+        AtomicInteger progressBarWidth = new AtomicInteger(300);
+
+        // Prepare lists for JComponents storing
+        List<JLabel> percentageLabelList = new ArrayList<>();
+        List<JProgressBar> progressBarList = new ArrayList<>();
+
+        IntStream.range(0, symbols.length)
+                .forEach(i -> {
+                    // Create JLabel with symbol and add on panel
+                    labelSymbolWidth.addAndGet(40);
+                    JLabel labelSymbol = new LabelBuilderImpl()
+                            .text(String.valueOf(symbols[i]))
+                            .foreground(Color.WHITE)
+                            .bounds(labelSymbolWidth.get(), height)
+                            .build();
+                    this.service.addOnPanel(labelSymbol);
+
+                    // Create JLabel with percentage text
+                    JLabel percentageLabel = new LabelBuilderImpl()
+                            .text("0 %")
+                            .preferredSize(dimensionSize)
+                            .font(SERIF)
+                            .foreground(Color.WHITE)
+                            .bounds(percentageWidth.get(), percentageHeight)
+                            .build();
+                    percentageWidth.addAndGet(40);
+                    percentageLabelList.add(percentageLabel);
+
+                    // Create JProgress Bars
+                    JProgressBar progressBar = new JProgressBar(SwingConstants.VERTICAL,0,100);
+                    progressBar = new ProgressBarBuilderImpl(progressBar)
+                            .preferredSize(progressPreferredSize)
+                            .bounds(progressBarWidth.get(), progressBarHeight)
+                            .background(Color.BLACK)
+                            .foreground(LIGHT_PINK)
+                            .build();
+                    progressBarWidth.addAndGet(40);
+                    progressBarList.add(progressBar);
+                });
+
+        // Assign variables
+        this.percentageA = percentageLabelList.get(0);
+        this.percentageB = percentageLabelList.get(1);
+        this.percentageC = percentageLabelList.get(2);
+        this.percentageD = percentageLabelList.get(3);
+
+        this.progressBarA = progressBarList.get(0);
+        this.progressBarB = progressBarList.get(1);
+        this.progressBarC = progressBarList.get(2);
+        this.progressBarD = progressBarList.get(3);
+
          this.service.addOnPanel(
-                 labelA,
-                 labelB,
-                 labelC,
-                 labelD,
                  percentageA,
                  percentageB,
                  percentageC,

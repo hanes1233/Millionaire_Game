@@ -3,19 +3,17 @@ package com.mycompany.millionaire.model;
 
 import com.mycompany.millionaire.controller.Game;
 import com.mycompany.millionaire.controller.GameOver;
-import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.data.GameConfiguration;
-import com.mycompany.millionaire.data.Question;
+import com.mycompany.millionaire.data.entity.Question;
+import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Color;
-import java.io.IOException;
+import lombok.Data;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JPanel;
-import lombok.Data;
 
 /**
  * Class provides service methods to quiz
@@ -47,16 +45,8 @@ public class QuizService {
     /**
      * Method to arrange thinking effect
      * @param difficulty parameter specified 'thinking' duration
-     * @throws InterruptedException
-     * @throws UnsupportedAudioFileException
-     * @throws IOException
-     * @throws LineUnavailableException 
      */
-    private void thinkingEffect(String difficulty) throws 
-            InterruptedException, 
-            UnsupportedAudioFileException, 
-            IOException, 
-            LineUnavailableException {
+    private void thinkingEffect(String difficulty) throws InterruptedException {
         // Set duration of 'thinking' based on input's 'difficulty' parameter
         switch (difficulty) {
             case "Easy" -> Thread.sleep(1000);
@@ -80,13 +70,13 @@ public class QuizService {
      */
     private void changeColorToGreen(Question currentQuestion) {
         String answer = currentQuestion.getAnswer();
-        if(currentQuestion.getOptionA().getText().contains(answer)) {
+        if (currentQuestion.getOptionA().getText().contains(answer)) {
             currentQuestion.getOptionA().setBackground(new Color(51,255,51));
-        }else if(currentQuestion.getOptionB().getText().contains(answer)) {
+        }else if (currentQuestion.getOptionB().getText().contains(answer)) {
             currentQuestion.getOptionB().setBackground(new Color(51,255,51));
-        }else if(currentQuestion.getOptionC().getText().contains(answer)) {
+        }else if (currentQuestion.getOptionC().getText().contains(answer)) {
             currentQuestion.getOptionC().setBackground(new Color(51,255,51));
-        }else if(currentQuestion.getOptionD().getText().contains(answer)) {
+        }else if (currentQuestion.getOptionD().getText().contains(answer)) {
             currentQuestion.getOptionD().setBackground(new Color(51,255,51));
         }
         
@@ -100,13 +90,13 @@ public class QuizService {
      * @return score we want to add to total score
      */
     public int getCurrentScore(int questionIndex) {
-        if(questionIndex > 0 && questionIndex <= 5) {
+        if (questionIndex > 0 && questionIndex <= 5) {
             return 3;
-        }else if(questionIndex > 5 && questionIndex <= 10) {
+        }else if (questionIndex > 5 && questionIndex <= 10) {
             return 5;
-        }else if(questionIndex > 10 && questionIndex <= 13) {
+        }else if (questionIndex > 10 && questionIndex <= 13) {
             return 7;
-        }else if(questionIndex > 13) {
+        }else if (questionIndex > 13) {
             return 10;
         }
         return 0;
@@ -123,10 +113,7 @@ public class QuizService {
              this.thinkingEffect(difficulty);
              AudioManager.soundReaction(correctAnswer);
              this.changeColorToGreen(currentQuestion);
-        } catch (InterruptedException | 
-                 UnsupportedAudioFileException | 
-                 IOException | 
-                 LineUnavailableException ex) {
+        } catch (InterruptedException ex) {
                      Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                  }
     }
@@ -137,13 +124,7 @@ public class QuizService {
      * @param winner - needed to save user
      */
     public void finishGame(int score, boolean winner) {
-        try {
-             new GameOver(score, winner).run();
-        } catch (IOException |
-                 LineUnavailableException |
-                 UnsupportedAudioFileException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+        new GameOver(score, winner).run();
     }
     
     /**

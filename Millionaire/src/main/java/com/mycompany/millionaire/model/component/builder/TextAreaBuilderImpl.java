@@ -28,54 +28,54 @@ public class TextAreaBuilderImpl implements TextAreaBuilder {
     }
     
     @Override
-    public TextAreaBuilderImpl setText(String text) {
+    public TextAreaBuilderImpl text(String text) {
         this.TEXT_AREA.setText(text);
         return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setBackground(Color color) {
+    public TextAreaBuilderImpl background(Color color) {
        this.TEXT_AREA.setBackground(color);
        return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setForeground(Color color) {
+    public TextAreaBuilderImpl foreground(Color color) {
         this.TEXT_AREA.setForeground(color);
         return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setBounds(int x, int y) {
+    public TextAreaBuilderImpl bounds(int x, int y) {
          this.TEXT_AREA.setBounds(x, y, SERVICE.getWidth(TEXT_AREA), SERVICE.getHeight(TEXT_AREA));
          return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setFont(Font font) {
+    public TextAreaBuilderImpl font(Font font) {
         this.TEXT_AREA.setFont(font);
         return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setPreferredSize(Dimension d) {
+    public TextAreaBuilderImpl preferredSize(Dimension d) {
          this.TEXT_AREA.setPreferredSize(d);
          return this;
     }
 
     @Override
-    public TextAreaBuilderImpl setSize(int width, int height) {
+    public TextAreaBuilderImpl minSize(int width, int height) {
          this.TEXT_AREA.setSize(width,height);
          return this;
     }
     
     @Override
-    public JTextArea get() {
+    public JTextArea build() {
         return this.TEXT_AREA;
     }
 
     @Override
-    public TextAreaBuilderImpl setBorder(Border border) {
+    public TextAreaBuilderImpl border(Border border) {
         this.TEXT_AREA.setBorder(border);
         return this;
     }
@@ -88,7 +88,7 @@ public class TextAreaBuilderImpl implements TextAreaBuilder {
     }
     
     @Override
-    public TextAreaBuilderImpl setReadOnly() {
+    public TextAreaBuilderImpl readOnly() {
         this.TEXT_AREA.setEditable(false);
         return this;
     }

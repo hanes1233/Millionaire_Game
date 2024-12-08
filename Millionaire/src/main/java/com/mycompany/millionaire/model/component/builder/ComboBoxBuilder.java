@@ -19,7 +19,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setText(String text);
+    ComboBoxBuilder text(String text);
     
      /**
      * Set background color on JComboBox
@@ -27,7 +27,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setBackground(Color color);
+    ComboBoxBuilder background(Color color);
     
     /**
      * Set foreground color on JComboBox
@@ -35,7 +35,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setForeground(Color color);
+    ComboBoxBuilder foreground(Color color);
     
     /**
      * Set bounds of JComboBox
@@ -44,7 +44,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setBounds(int x, int y);
+    ComboBoxBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JComboBox
@@ -52,7 +52,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setFont(Font font);
+    ComboBoxBuilder font(Font font);
     
     /**
      * Set size of JComboBox
@@ -60,7 +60,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setPreferredSize(Dimension d);
+    ComboBoxBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JComboBox
@@ -69,7 +69,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setSize(int width, int height);
+    ComboBoxBuilder minSize(int width, int height);
     
     /**
      * Set borders of JComboBox
@@ -77,7 +77,7 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return this object, allowing method chaining
      */
     @Override
-    ComboBoxBuilder setBorder(Border border);
+    ComboBoxBuilder border(Border border);
     
     /**
      * Add multiple items to JComboBox
@@ -104,6 +104,6 @@ public interface ComboBoxBuilder <E> extends Builder{
      * @return JComboBox
      */
     @Override
-    JComboBox get();
+    JComboBox build();
     
 }

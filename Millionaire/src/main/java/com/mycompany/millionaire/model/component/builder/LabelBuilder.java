@@ -19,7 +19,7 @@ public interface LabelBuilder extends Builder {
      * @param image - get image from parameter
      * @return this object, allowing method chaining
      */
-    LabelBuilder setImage(ImageIcon image);
+    LabelBuilder image(ImageIcon image);
     
     /**
      * Set text on JLabel
@@ -27,7 +27,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setText(String text);
+    LabelBuilder text(String text);
     
     /**
      * Set background color on JLabel
@@ -35,7 +35,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setBackground(Color color);
+    LabelBuilder background(Color color);
     
      /**
      * Set foreground color on JLabel
@@ -43,7 +43,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setForeground(Color color);
+    LabelBuilder foreground(Color color);
     
     /**
      * Set bounds of JLabel
@@ -52,7 +52,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setBounds(int x, int y);
+    LabelBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JLabel
@@ -60,7 +60,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setFont(Font font);
+    LabelBuilder font(Font font);
     
     /**
      * Set size of JLabel
@@ -68,7 +68,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setPreferredSize(Dimension d);
+    LabelBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JLabel
@@ -77,7 +77,7 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setSize(int width, int height);
+    LabelBuilder minSize(int width, int height);
     
     /**
      * Set borders of JLabel
@@ -85,14 +85,14 @@ public interface LabelBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    LabelBuilder setBorder(Border border);
+    LabelBuilder border(Border border);
     
     /**
      * Get JLabel
      * @return JLabel after being set up
      */
     @Override
-    JLabel get();
+    JLabel build();
     
     /**
      * Change image on hover

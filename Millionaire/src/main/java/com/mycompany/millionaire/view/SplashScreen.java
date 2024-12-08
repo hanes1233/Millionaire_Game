@@ -17,7 +17,7 @@ public class SplashScreen extends javax.swing.JDialog {
      * @param modal
      */
     public SplashScreen(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super (parent, modal);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -46,9 +46,7 @@ public class SplashScreen extends javax.swing.JDialog {
     private void loadingProgress(int progress) throws Exception {
         JProgressBar.setValue(progress);
         JProgressBar.setString(progress + "%");
-        //JProgressBar.setBackground(new Color(204,0,204));
         Thread.sleep(30);
-       
     }
 
     /**

@@ -19,7 +19,7 @@ public interface ButtonBuilder extends Builder {
      * @param image - get image from parameter
      * @return this object, allowing method chaining
      */
-    ButtonBuilder setImage(ImageIcon image);
+    ButtonBuilder image(ImageIcon image);
     
     /**
      * Set text on JButton
@@ -27,7 +27,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setText(String text);
+    ButtonBuilder text(String text);
     
     /**
      * Set background color on JButton
@@ -35,7 +35,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setBackground(Color color);
+    ButtonBuilder background(Color color);
     
     /**
      * Set foreground color on JButton
@@ -43,7 +43,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setForeground(Color color);
+    ButtonBuilder foreground(Color color);
     
     /**
      * Set bounds of JButton
@@ -52,7 +52,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setBounds(int x, int y);
+    ButtonBuilder bounds(int x, int y);
     
     /**
      * Set font on text of JButton
@@ -60,7 +60,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setFont(Font font);
+    ButtonBuilder font(Font font);
     
     /**
      * Set preferred size of JButton
@@ -68,7 +68,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setPreferredSize(Dimension d);
+    ButtonBuilder preferredSize(Dimension d);
     
     /**
      * Set size of JButton
@@ -77,7 +77,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setSize(int width, int height);
+    ButtonBuilder minSize(int width, int height);
     
     /**
      * Set borders of JButton
@@ -85,7 +85,7 @@ public interface ButtonBuilder extends Builder {
      * @return this object, allowing method chaining
      */
     @Override
-    ButtonBuilder setBorder(Border border);
+    ButtonBuilder border(Border border);
     
     /**
      * Configure JButton behavior on hover
@@ -104,7 +104,7 @@ public interface ButtonBuilder extends Builder {
      * @param position to locate text
      * @return this object, allowing method chaining
      */
-    ButtonBuilder setTextHorizontalAlign(int position);
+    ButtonBuilder textHorizontalAlign(int position);
     
     /**
      * Method for complex JButton's configuration to avoid boilerplate code
@@ -124,6 +124,6 @@ public interface ButtonBuilder extends Builder {
      * @return JButton after being set up
      */
     @Override
-    JButton get();
+    JButton build();
     
 }

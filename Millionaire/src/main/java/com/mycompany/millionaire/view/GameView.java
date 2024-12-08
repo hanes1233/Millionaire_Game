@@ -33,21 +33,12 @@ public class GameView {
     
     /**
      * Method to init components and run JFrame
-     * @throws IOException
-     * @throws LineUnavailableException
-     * @throws UnsupportedAudioFileException 
      */
     public static void run() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         MainPage game = new MainPage();
         game.initComponents();
-        try {
-                AudioManager.loopSound("intro");
-                frame.setVisible(true);
-            } catch (IOException |
-                    LineUnavailableException |
-                    UnsupportedAudioFileException e ) {
-                throw new RuntimeException("Error catch at GameView run() method: " + e);
-            }
+        AudioManager.loopSound("intro");
+        frame.setVisible(true);
     }
     
     /**
