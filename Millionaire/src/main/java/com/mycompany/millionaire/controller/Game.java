@@ -8,7 +8,7 @@ import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.model.QuizService;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
+import com.mycompany.millionaire.model.component.builder.LabelBuilder;
 import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.model.media.AudioManager;
@@ -22,7 +22,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -192,14 +191,14 @@ public class Game {
                     this.panel.add(hint);
             
             // For "Medium" difficulty we are going to add one hint only
-            }else if(this.difficulty.equals(MEDIUM.getName())) {
+            }else if (this.difficulty.equals(MEDIUM.getName())) {
                 this.panel.add(hints.getFiftyToFiftyHint());
             }
         }
         
-        exit = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("exit"))
-                .bounds(580, 20)
+        exit = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("exit"))
+                .setBounds(580, 20)
                 .build();
         
         exit.addMouseListener(new MouseAdapter() {
@@ -236,7 +235,6 @@ public class Game {
     
     /**
      * Start game
-     * @throws IOException 
      */
     private void startQuiz() {
         // Check is question queue in GameConfiguration is not empty
@@ -273,20 +271,20 @@ public class Game {
                            
                            // Re-draw components with new question
                            initComponents();
-                       }else {
+                       } else {
                            // Finish game
                            quizService.finishGame(gameConfig.getScore(), false);
                        }
                     }
                 });
-            }else {
+            } else {
                 // Poll next question from GameConfiguration's queue of questions and assign to 'currentQuestion' variable
                 this.currentQuestion = gameConfig.pollQuestion();
                 
                 // Re-draw components with new question
                 initComponents();
             }
-        }else {
+        } else {
             // Handle user's choice view, sound and thinking simulation
             this.quizService.handleUserChoice(currentQuestion.getQuestionDifficulty(), correctAnswer, currentQuestion);
             
@@ -305,7 +303,7 @@ public class Game {
                         
                         // Finish game
                         quizService.finishGame(gameConfig.getScore(),true);
-                    }else {
+                    } else {
                         // Finish game
                         quizService.finishGame(gameConfig.getScore(),false);
                     }

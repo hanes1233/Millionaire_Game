@@ -1,21 +1,17 @@
 
 package com.mycompany.millionaire.controller.hint;
 
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
-import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.data.FriendAnswer;
+import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
+import com.mycompany.millionaire.model.component.builder.LabelBuilder;
+import com.mycompany.millionaire.model.component.builder.ListBuilderImpl;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTextArea;
 
 import static com.mycompany.millionaire.data.constant.CustomColor.INDIGO;
 import static com.mycompany.millionaire.data.constant.Language.ENGLISH;
@@ -60,12 +56,12 @@ public class FriendCall {
       */
      private void defineFriendList() {
          this.timer = new JLabel();
-         timer = new LabelBuilderImpl()
-                 .text("30")
-                 .font(new Font(Font.SERIF, Font.BOLD, 22))
-                 .foreground(Color.ORANGE)
-                 .preferredSize(new Dimension(100, 30))
-                 .bounds(300, 45)
+         timer = new LabelBuilder()
+                 .setText("30")
+                 .setFont(new Font(Font.SERIF, Font.BOLD, 22))
+                 .setForeground(Color.ORANGE)
+                 .setPreferredSize(new Dimension(100, 30))
+                 .setBounds(300, 45)
                  .build();
          
          GameView.getPanel().add(timer);

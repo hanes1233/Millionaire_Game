@@ -73,15 +73,15 @@ public class AudioManager {
      * Stop playing all sound streams
      */
     public static void stopAllSounds() {
-        for(int i = 0; i < SOUND_EVENTS.size(); i++) {
-            if(SOUND_EVENTS.get(i).isActive()) {
-                SOUND_EVENTS.get(i).stop();
+        for (Clip soundEvent : SOUND_EVENTS) {
+            if (soundEvent.isActive()) {
+                soundEvent.stop();
                 soundToLoop.addLineListener(e -> {
                     if (e.getType().equals(LineEvent.Type.STOP)) {
                         soundToLoop.close();
                     }
                 });
-        
+
                 mouseEvent.addLineListener(e -> {
                     if (e.getType().equals(LineEvent.Type.STOP)) {
                         mouseEvent.close();

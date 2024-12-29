@@ -3,7 +3,7 @@ package com.mycompany.millionaire.controller.hint;
 
 import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
+import com.mycompany.millionaire.model.component.builder.LabelBuilder;
 import com.mycompany.millionaire.model.component.builder.ProgressBarBuilderImpl;
 
 import javax.swing.*;
@@ -87,20 +87,20 @@ public class AudienceVote {
                 .forEach(i -> {
                     // Create JLabel with symbol and add on panel
                     labelSymbolWidth.addAndGet(40);
-                    JLabel labelSymbol = new LabelBuilderImpl()
-                            .text(String.valueOf(symbols[i]))
-                            .foreground(Color.WHITE)
-                            .bounds(labelSymbolWidth.get(), height)
+                    JLabel labelSymbol = new LabelBuilder()
+                            .setText(String.valueOf(symbols[i]))
+                            .setForeground(Color.WHITE)
+                            .setBounds(labelSymbolWidth.get(), height)
                             .build();
                     this.service.addOnPanel(labelSymbol);
 
                     // Create JLabel with percentage text
-                    JLabel percentageLabel = new LabelBuilderImpl()
-                            .text("0 %")
-                            .preferredSize(dimensionSize)
-                            .font(SERIF)
-                            .foreground(Color.WHITE)
-                            .bounds(percentageWidth.get(), percentageHeight)
+                    JLabel percentageLabel = new LabelBuilder()
+                            .setText("0 %")
+                            .setPreferredSize(dimensionSize)
+                            .setFont(SERIF)
+                            .setForeground(Color.WHITE)
+                            .setBounds(percentageWidth.get(), percentageHeight)
                             .build();
                     percentageWidth.addAndGet(40);
                     percentageLabelList.add(percentageLabel);

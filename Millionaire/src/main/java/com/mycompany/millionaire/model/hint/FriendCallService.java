@@ -6,18 +6,14 @@ import com.mycompany.millionaire.data.entity.Question;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JTextArea;
 
 /**
  * Service for Friend Call controller

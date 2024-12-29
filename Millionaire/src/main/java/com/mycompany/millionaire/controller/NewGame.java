@@ -1,23 +1,20 @@
 
 package com.mycompany.millionaire.controller;
 
-import com.mycompany.millionaire.model.component.builder.ComboBoxBuilderImpl;
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
-import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
 import com.mycompany.millionaire.data.GameConfiguration;
 import com.mycompany.millionaire.data.constant.Difficulty;
 import com.mycompany.millionaire.data.constant.Language;
 import com.mycompany.millionaire.data.constant.Subject;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
+import com.mycompany.millionaire.model.component.builder.*;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import javax.swing.*;
 
-import static com.mycompany.millionaire.data.constant.FontType.*;
+import static com.mycompany.millionaire.data.constant.FontType.SERIF;
 
 /**
  * New Game controller
@@ -30,9 +27,9 @@ public class NewGame {
     private final JPanel panel;
     
     // Declare components
-    private JComboBox<String> languagesList;
-    private JComboBox<String> subjectsList;
-    private JComboBox<String> difficultiesList;
+    private JComboBox<Language> languagesList;
+    private JComboBox<Subject> subjectsList;
+    private JComboBox<Difficulty> difficultiesList;
     
     // Constructor
     public NewGame() throws IOException {
@@ -44,57 +41,57 @@ public class NewGame {
     public void drawNewGameComponents() {
         this.panel.removeAll();
 
-        languagesList = new JComboBox(Language.values());
-        subjectsList = new JComboBox(Subject.values());
-        difficultiesList = new JComboBox(Difficulty.values());
+        languagesList = new JComboBox<>(Language.values());
+        subjectsList = new JComboBox<>(Subject.values());
+        difficultiesList = new JComboBox<>(Difficulty.values());
         
-        JLabel welcomeLabel = new LabelBuilderImpl()
-                .text("Choose your destiny!")
-                .foreground(Color.WHITE)
-                .font(new Font(SERIF, Font.BOLD, 26))
-                .bounds(165, 50)
+        JLabel welcomeLabel = new LabelBuilder()
+                .setText("Choose your destiny!")
+                .setForeground(Color.WHITE)
+                .setFont(new Font(SERIF, Font.BOLD, 26))
+                .setBounds(165, 50)
                 .build();
         
-        JLabel language = new LabelBuilderImpl()
-                .text("Language")
-                .foreground(Color.WHITE)
-                .font(new Font(SERIF, Font.BOLD, 18))
-                .bounds(180, 150)
+        JLabel language = new LabelBuilder()
+                .setText("Language")
+                .setForeground(Color.WHITE)
+                .setFont(new Font(SERIF, Font.BOLD, 18))
+                .setBounds(180, 150)
                 .build();
         
-        JLabel subject = new LabelBuilderImpl()
-                .text("Subject")
-                .foreground(Color.WHITE)
-                .font(new Font(SERIF,Font.BOLD, 18))
-                .bounds(180, 200)
+        JLabel subject = new LabelBuilder()
+                .setText("Subject")
+                .setForeground(Color.WHITE)
+                .setFont(new Font(SERIF,Font.BOLD, 18))
+                .setBounds(180, 200)
                 .build();
         
-        JLabel difficulty = new LabelBuilderImpl()
-                .text("Difficulty")
-                .foreground(Color.WHITE)
-                .font(new Font(SERIF,Font.BOLD, 18))
-                .bounds(180, 250)
+        JLabel difficulty = new LabelBuilder()
+                .setText("Difficulty")
+                .setForeground(Color.WHITE)
+                .setFont(new Font(SERIF,Font.BOLD, 18))
+                .setBounds(180, 250)
                 .build();
-        
-        languagesList = new ComboBoxBuilderImpl(languagesList)
-                .foreground(Color.WHITE)
-                .preferredSize(new Dimension(100,30))
-                .bounds(300, 150)
+
+        languagesList = new ComboBoxBuilder<>(languagesList)
+                .setForeground(Color.WHITE)
+                .setPreferredSize(new Dimension(100,30))
+                .setBounds(300,150)
                 .onHover()
                 .build();
         
         
-        subjectsList = new ComboBoxBuilderImpl(subjectsList)
-                .foreground(Color.WHITE)
-                .preferredSize(new Dimension(120,30))
-                .bounds(300, 200)
+        subjectsList = new ComboBoxBuilder<>(subjectsList)
+                .setForeground(Color.WHITE)
+                .setPreferredSize(new Dimension(120,30))
+                .setBounds(300, 200)
                 .onHover()
                 .build();
         
-        difficultiesList = new ComboBoxBuilderImpl(difficultiesList)
-                .foreground(Color.WHITE)
-                .preferredSize(new Dimension(100,30))
-                .bounds(300, 250)
+        difficultiesList = new ComboBoxBuilder<>(difficultiesList)
+                .setForeground(Color.WHITE)
+                .setPreferredSize(new Dimension(100,30))
+                .setBounds(300, 250)
                 .onHover()
                 .build();
 

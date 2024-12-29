@@ -4,17 +4,11 @@ package com.mycompany.millionaire.model.component;
 import com.mycompany.millionaire.controller.MainPage;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.view.GameView;
-import java.awt.Dimension;
-import java.awt.event.MouseMotionListener;
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import lombok.NoArgsConstructor;
-import lombok.experimental.UtilityClass;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseMotionListener;
 
 /**
  * Component Service implementation class

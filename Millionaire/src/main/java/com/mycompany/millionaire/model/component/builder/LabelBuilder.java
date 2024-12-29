@@ -1,117 +1,72 @@
-
 package com.mycompany.millionaire.model.component.builder;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
+import java.util.stream.Stream;
 
 /**
- * Builder for JLabel component, inherits methods from Builder Interface
- * @author pavel
+ * Class for simplifying JLabel objects creation
+ * using method chaining
+ * @author Pavel H.
  */
-public interface LabelBuilder extends Builder {
-    
-    /**
-     * Set image on JLabel
-     * @param image - get image from parameter
-     * @return this object, allowing method chaining
-     */
-    LabelBuilder image(ImageIcon image);
-    
-    /**
-     * Set text on JLabel
-     * @param text - get text from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder text(String text);
-    
-    /**
-     * Set background color on JLabel
-     * @param color - get color from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder background(Color color);
-    
-     /**
-     * Set foreground color on JLabel
-     * @param color - get color from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder foreground(Color color);
-    
-    /**
-     * Set bounds of JLabel
-     * @param x position on panel
-     * @param y position on panel
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder bounds(int x, int y);
-    
-    /**
-     * Set font on text of JLabel
-     * @param font - get font from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder font(Font font);
-    
-    /**
-     * Set size of JLabel
-     * @param d - get Dimension from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder preferredSize(Dimension d);
-    
-    /**
-     * Set size of JLabel
-     * @param width - get width from parameter
-     * @param height - get height from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder minSize(int width, int height);
-    
-    /**
-     * Set borders of JLabel
-     * @param border - get border from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    LabelBuilder border(Border border);
-    
-    /**
-     * Get JLabel
-     * @return JLabel after being set up
-     */
-    @Override
-    JLabel build();
-    
-    /**
-     * Change image on hover
-     * @param path used to fetch image
-     * @return this object, allowing method chaining
-     */
-    LabelBuilder onHover(String path);
-    
-    /**
-     * Remove mouse listeners
-     * @return this object, allowing method chaining
-     */
-    LabelBuilder removeMouseListeners();
-    
-    /**
-     * Set Y position
-     * @param y to get position on panel
-     * @return this object, allowing method chaining
-     */
-    LabelBuilder setY(int y);
-    
+
+@Data
+@Accessors(chain = true)
+public class LabelBuilder {
+
+    private String text;
+    private ImageIcon image;
+    private Color background;
+    private Color foreground;
+    private Font font;
+    private Dimension preferredSize;
+    private Dimension minimumSize;
+    private Dimension maximumSize;
+    private Border border;
+    @Setter(AccessLevel.NONE)
+    protected Integer x, y;
+
+    private JLabel label;
+
+    public LabelBuilder() {
+        this.label = new JLabel();
+    }
+
+    public LabelBuilder(JLabel label) {
+        this.label = label;
+    }
+
+    public LabelBuilder setBounds(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    // Remove all mouse listeners from JLabel
+    public LabelBuilder removeMouseListeners() {
+        Stream.of(this.label.getMouseListeners())
+                .forEach(listener -> this.label.removeMouseListener(listener));
+        return this;
+    }
+
+    public JLabel build() {
+        if (text != null) this.label.setText(text);
+        if (image != null) this.label.setIcon(image);
+        if (background != null) this.label.setBackground(background);
+        if (foreground != null) this.label.setForeground(foreground);
+        if (font != null) this.label.setFont(font);
+        if (preferredSize != null) this.label.setPreferredSize(preferredSize);
+        if (minimumSize != null) this.label.setMinimumSize(minimumSize);
+        if (maximumSize != null) this.label.setMaximumSize(maximumSize);
+        if (border != null) this.label.setBorder(border);
+        if (x != null && y != null) this.label.setBounds(x, y, label.getPreferredSize().width, label.getPreferredSize().height);
+        return this.label;
+    }
+
 }

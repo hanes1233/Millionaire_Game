@@ -1,109 +1,62 @@
-
 package com.mycompany.millionaire.model.component.builder;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.border.Border;
+import com.mycompany.millionaire.model.media.AudioManager;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
-/**
- * Builder for JComboBox component, inherits methods from Builder Interface
- * @author pavel
- */
-public interface ComboBoxBuilder <E> extends Builder{
-    
-    /**
-     * Set text on JComboBox
-     * @param text - get text from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder text(String text);
-    
-     /**
-     * Set background color on JComboBox
-     * @param color - get color from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder background(Color color);
-    
-    /**
-     * Set foreground color on JComboBox
-     * @param color - get color from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder foreground(Color color);
-    
-    /**
-     * Set bounds of JComboBox
-     * @param x position on panel
-     * @param y position on panel
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder bounds(int x, int y);
-    
-    /**
-     * Set font on text of JComboBox
-     * @param font - get font from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder font(Font font);
-    
-    /**
-     * Set size of JComboBox
-     * @param d - get Dimension from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder preferredSize(Dimension d);
-    
-    /**
-     * Set size of JComboBox
-     * @param width - get width from parameter
-     * @param height - get height from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder minSize(int width, int height);
-    
-    /**
-     * Set borders of JComboBox
-     * @param border - get border from parameter
-     * @return this object, allowing method chaining
-     */
-    @Override
-    ComboBoxBuilder border(Border border);
-    
-    /**
-     * Add multiple items to JComboBox
-     * @param type - array of items
-     * @return this object, allowing method chaining
-     */
-    ComboBoxBuilderImpl addItems(E... type);
-    
-    /**
-     * Add one item to JComboBox
-     * @param item to add
-     * @return this object, allowing method chaining
-     */
-    ComboBoxBuilderImpl addItem(E item);
-    
-    /**
-     * Configure JComboBox behavior on hover
-     * @return this object, allowing method chaining
-     */
-    ComboBoxBuilderImpl onHover();
-    
-    /**
-     * Get JComboBox
-     * @return JComboBox
-     */
-    @Override
-    JComboBox build();
-    
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+
+@Data
+@Accessors(chain = true)
+public class ComboBoxBuilder<T> {
+
+    private Color background;
+    private Color foreground;
+    private Font font;
+    private Dimension preferredSize;
+    private Dimension minimumSize;
+    private Dimension maximumSize;
+    private Border border;
+    @Setter(AccessLevel.NONE)
+    protected Integer x, y;
+
+    private JComboBox<T> comboBox;
+
+    public ComboBoxBuilder(JComboBox<T> comboBox) {
+        this.comboBox = comboBox;
+    }
+
+    public ComboBoxBuilder<T> setBounds(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public ComboBoxBuilder<T> onHover() {
+        this.comboBox.addItemListener((ItemEvent event) -> {
+            if ((event.getStateChange() == ItemEvent.SELECTED)) {
+                // Play sound on hover
+                AudioManager.handleAudioEvent("hover");
+            }
+        });
+
+        return this;
+    }
+
+    public JComboBox<T> build() {
+        if (background != null) this.comboBox.setBackground(background);
+        if (foreground != null) this.comboBox.setForeground(foreground);
+        if (font != null) this.comboBox.setFont(font);
+        if (preferredSize != null) this.comboBox.setPreferredSize(preferredSize);
+        if (minimumSize != null) this.comboBox.setMinimumSize(minimumSize);
+        if (maximumSize != null) this.comboBox.setMaximumSize(maximumSize);
+        if (border != null) this.comboBox.setBorder(border);
+        if (x != null && y != null) this.comboBox.setBounds(x, y, comboBox.getPreferredSize().width, comboBox.getPreferredSize().height);
+        return comboBox;
+    }
 }

@@ -4,7 +4,7 @@ package com.mycompany.millionaire.controller;
 import com.mycompany.millionaire.model.Redirect;
 import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
+import com.mycompany.millionaire.model.component.builder.LabelBuilder;
 import com.mycompany.millionaire.model.component.builder.TextAreaBuilderImpl;
 import com.mycompany.millionaire.model.media.ImageManager;
 import com.mycompany.millionaire.view.GameView;
@@ -58,38 +58,38 @@ public class AboutAuthor {
     
     // Create components for JPanel
     public void drawComponents() {
-        
         // Clear panel
         panel.removeAll();
 
         // Initialize components
-        JLabel authorName = new LabelBuilderImpl()
-                .text("AUTHOR : Pavel Herasymov")
-                .foreground(Color.yellow)
-                .font(new Font(SERIF, Font.BOLD, 24))
-                .bounds(120, 45)
+
+        JLabel authorName = new LabelBuilder()
+                .setText("AUTHOR : Pavel Herasymov")
+                .setForeground(Color.yellow)
+                .setFont(new Font(SERIF, Font.BOLD, 24))
+                .setBounds(120, 45)
                 .build();
         
-        JLabel contactLabel = new LabelBuilderImpl()
-                .text("CONTACTS")
-                .foreground(WHITE)
-                .font(new Font(SERIF, Font.BOLD, 26))
-                .bounds(220, 110)
+        JLabel contactLabel = new LabelBuilder()
+                .setText("CONTACTS")
+                .setForeground(WHITE)
+                .setFont(new Font(SERIF, Font.BOLD, 26))
+                .setBounds(220, 110)
                 .build();
         
-        githubLabel = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon(GITHUB))
-                .background(WHITE)
-                .bounds(100, 170)
+        githubLabel = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon(GITHUB))
+                .setBackground(WHITE)
+                .setBounds(100, 170)
                 .build();
         
         githubLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                githubLabel = new LabelBuilderImpl(githubLabel)
-                        .image(new ImageIcon(ImageManager.scaleImage(GITHUB)))
-                        .bounds(100,165)
+                githubLabel = new LabelBuilder(githubLabel)
+                        .setImage(new ImageIcon(ImageManager.scaleImage(GITHUB)))
+                        .setBounds(100,165)
                         .build();
             }
 
@@ -105,19 +105,19 @@ public class AboutAuthor {
             }
         });
         
-        linkedinLabel = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon(LINKEDIN))
-                .background(WHITE)
-                .bounds(300, 170)
+        linkedinLabel = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon(LINKEDIN))
+                .setBackground(WHITE)
+                .setBounds(300, 170)
                 .build();
         
         linkedinLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                linkedinLabel = new LabelBuilderImpl(linkedinLabel)
-                        .image(new ImageIcon(ImageManager.scaleImage(LINKEDIN)))
-                        .bounds(300,165)
+                linkedinLabel = new LabelBuilder(linkedinLabel)
+                        .setImage(new ImageIcon(ImageManager.scaleImage(LINKEDIN)))
+                        .setBounds(300,165)
                         .build();
             }
 
@@ -133,19 +133,19 @@ public class AboutAuthor {
             }
         });
         
-        mailLabel = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("mail"))
-                .background(WHITE)
-                .bounds(500, 170)
+        mailLabel = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("mail"))
+                .setBackground(WHITE)
+                .setBounds(500, 170)
                 .build();
         
         mailLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 // Scale image on hover
-                mailLabel = new LabelBuilderImpl(mailLabel)
-                        .image(new ImageIcon(ImageManager.scaleImage(MAIL)))
-                        .bounds(500,165)
+                mailLabel = new LabelBuilder(mailLabel)
+                        .setImage(new ImageIcon(ImageManager.scaleImage(MAIL)))
+                        .setBounds(500,165)
                         .build();
             }
             @Override
@@ -159,11 +159,11 @@ public class AboutAuthor {
             }
         });
         
-        JLabel technologiesUsed = new LabelBuilderImpl()
-                .text("TECHNOLOGIES USED: ")
-                .foreground(WHITE)
-                .font(new Font(SERIF, Font.BOLD, 18))
-                .bounds(340, 260)
+        JLabel technologiesUsed = new LabelBuilder()
+                .setText("TECHNOLOGIES USED: ")
+                .setForeground(WHITE)
+                .setFont(new Font(SERIF, Font.BOLD, 18))
+                .setBounds(340, 260)
                 .build();
 
         // Prepare data for 'Java' and 'MongoDB' JLabels
@@ -173,28 +173,28 @@ public class AboutAuthor {
 
         // Create JLabels and add on panel
         IntStream.range(0, 2).forEach(i -> {
-            var label = new LabelBuilderImpl()
-                    .image(ImageManager.getImageIcon(technologies[i].toLowerCase()))
-                    .text(technologies[i])
-                    .foreground(WHITE)
-                    .bounds(technologieWidth.get(), technologieHeight)
+            var label = new LabelBuilder()
+                    .setImage(ImageManager.getImageIcon(technologies[i].toLowerCase()))
+                    .setText(technologies[i])
+                    .setForeground(WHITE)
+                    .setBounds(technologieWidth.get(), technologieHeight)
                     .build();
             this.componentService.addOnPanel(label);
             technologieWidth.addAndGet(100);
         });
 
-        JLabel thanksTo = new LabelBuilderImpl()
-                .text("THANKS TO:")
-                .foreground(WHITE)
-                .font(new Font(SERIF, Font.BOLD, 18))
-                .bounds(340, 360)
+        JLabel thanksTo = new LabelBuilder()
+                .setText("THANKS TO:")
+                .setForeground(WHITE)
+                .setFont(new Font(SERIF, Font.BOLD, 18))
+                .setBounds(340, 360)
                 .build();
         
-        flaticon = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("flaticon"))
-                .text("Flaticon")
-                .foreground(WHITE)
-                .bounds(340, 400)
+        flaticon = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("flaticon"))
+                .setText("Flaticon")
+                .setForeground(WHITE)
+                .setBounds(340, 400)
                 .build();
         
         flaticon.addMouseListener(new MouseAdapter() {
@@ -214,11 +214,11 @@ public class AboutAuthor {
             }
         });
         
-        stackoverflow = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("stackoverflow"))
-                .text("StackOverFlow")
-                .foreground(WHITE)
-                .bounds(460, 400)
+        stackoverflow = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("stackoverflow"))
+                .setText("StackOverFlow")
+                .setForeground(WHITE)
+                .setBounds(460, 400)
                 .build();
         
         stackoverflow.addMouseListener(new MouseAdapter() {

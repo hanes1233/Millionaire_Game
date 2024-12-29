@@ -1,25 +1,21 @@
 
 package com.mycompany.millionaire.controller;
 
-import com.mycompany.millionaire.model.component.builder.LabelBuilderImpl;
+import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.model.component.builder.ButtonBuilderImpl;
-import java.awt.Color;
-import java.awt.Font;
-import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.mycompany.millionaire.model.component.builder.LabelBuilder;
 import com.mycompany.millionaire.model.media.AudioManager;
 import com.mycompany.millionaire.model.media.ImageManager;
-import com.mycompany.millionaire.model.component.ComponentServiceImpl;
 import com.mycompany.millionaire.view.GameView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main page controller
@@ -96,21 +92,21 @@ import javax.sound.sampled.UnsupportedAudioFileException;
             }
         });
         
-        JLabel introLabel = new LabelBuilderImpl()
-                .text("Welcome to Millionaire Game")
-                .foreground(Color.WHITE)
-                .font(new Font("Serif", Font.BOLD, 22))
-                .bounds(100, 25)
+        JLabel introLabel = new LabelBuilder()
+                .setText("Welcome to Millionaire Game")
+                .setForeground(Color.WHITE)
+                .setFont(new Font("Serif", Font.BOLD, 22))
+                .setBounds(100, 25)
                 .build();
         
-        JLabel mainLogo = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("label"))
-                .bounds(250, 100)
+        JLabel mainLogo = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("label"))
+                .setBounds(250, 100)
                 .build();
         
-        JLabel mute = new LabelBuilderImpl()
-                .image(ImageManager.getImageIcon("mute"))
-                .bounds(580, 25)
+        JLabel mute = new LabelBuilder()
+                .setImage(ImageManager.getImageIcon("mute"))
+                .setBounds(580, 25)
                 .build();
         
         mute.addMouseListener(new MouseAdapter() {
